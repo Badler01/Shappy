@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layo1"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:elevation="1dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:background="#0f8590">
+
+
+            <ImageButton
+                android:id="@+id/buttongeri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:background="#00000000"
+                android:src="@drawable/kgeri_bas"
+                android:layout_centerVertical="true" />
+
+
+            <TextView
+                android:id="@+id/textViewisim"
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Abdurrahman"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textIsSelectable="false"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="80dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp">>
+
+                <ImageButton
+                    android:id="@+id/imaj1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:src="@mipmap/begenganall"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/kanaldancikbutton" />
+
+                <ImageButton
+                    android:id="@+id/kanaldancikbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/kexit"
+                    android:background="#00000000"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="13dp" />
+
+                <ImageButton
+                    android:id="@+id/imaj2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:background="#00000000"
+                    android:src="@drawable/kunlem"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="13dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layo1"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:background="@mipmap/maybehi"
+            android:layout_alignParentBottom="true">
+
+            <ListView
+                android:id="@+id/listViewmesaj"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="4dp"
+                android:divider="#00000000"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/bisiler_yaz_altplan">
+
+            <EditText
+                android:id="@+id/editTextyazi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bisiler_yaz"
+                android:hint="Bir mesaj yaz..."
+                android:imeOptions="actionNone"
+                android:inputType="textCapSentences"
+                android:layout_alignParentTop="false"
+                android:layout_toStartOf="@+id/button4"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:maxWidth="280dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp" />
+
+            <ImageButton
+                android:id="@+id/buttongonder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gonder"
+                android:layout_gravity="bottom"
+                android:background="#00000000"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/kgonder"
+                android:layout_marginBottom="10dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

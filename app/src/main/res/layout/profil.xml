@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#188d93">
+
+            <FrameLayout
+                android:id="@+id/frameLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/laba">
+                    <ImageView
+                        android:id="@+id/imageviewkapak"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:layout_gravity="center" />
+
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/imageviewprofil"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="200dp"
+                    android:minHeight="200dp"
+                    android:minWidth="200dp"
+                    android:layout_marginTop="83dp" />
+
+                <ImageView
+                    android:id="@+id/imageView42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/armor_turk_iki"
+                    android:layout_marginTop="165dp" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="500dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textView23"
+                android:layout_marginTop="700dp"
+                android:layout_centerHorizontal="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frameLayout3"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/profil_bilgileri"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView22"
+                    android:src="@mipmap/profil_bilgileri_iki" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView40"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView23"
+                        android:src="@mipmap/isim" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Abdurrahman , 24"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#767676"
+                        android:textSize="18dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp" />
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView36"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView24"
+                        android:src="@mipmap/nickname" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aphoman"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#767676"
+                        android:textSize="18dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageButton7"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/kduzenle"
+                        android:background="#00000000"
+                        android:layout_marginRight="15dp" />
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView37"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView30"
+                        android:src="@mipmap/egitim_yeri" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Middle East Technical University"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#767676"
+                        android:textSize="18dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp" />
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView38"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView34"
+                        android:src="@mipmap/cinsiyet_iki" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Erkek"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#767676"
+                        android:textSize="18dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/burc"
+                        android:layout_gravity="center|right"
+                        android:src="@mipmap/tleo"
+                        android:layout_marginRight="10dp"
+                        android:background="#00000000"/>
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView39"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView35"
+                        android:src="@mipmap/aciklama" />
+
+                    <TextView
+                        android:id="@+id/textviewaciklama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="kendinizi anlatan bir yazı yazın"
+                        android:textColor="#767676"
+                        android:textSize="14dp"
+                        android:maxLength="90"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="left|top"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="20dp"
+                        android:background="#00000000" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageButton8"
+                        android:layout_gravity="right|top"
+                        android:layout_marginRight="15dp"
+                        android:background="#00000000"
+                        android:src="@drawable/kduzenle"
+                        android:layout_marginTop="15dp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton2"
+                android:layout_marginTop="970dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/khesabi_sil"
+                android:background="#00000000"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="678dp"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView100"
+                    android:src="@mipmap/program_ayarlari_iki" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView101"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/imageView102"
+                        android:src="@mipmap/bildirimler" />
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:track="@drawable/switch1"
+                        android:thumb="@drawable/tumb"
+                        android:id="@+id/switch1"
+                        android:textOn=""
+                        android:textOff=""
+                        android:switchMinWidth="56dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="5dp"/>
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView103"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView104"
+                        android:src="@drawable/kcredit"
+                        android:background="#00000000"/>
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView105"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView106"
+                        android:src="@drawable/kgizlilik"
+                        android:background="#00000000"/>
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView107"
+                    android:background="#cacaca" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="false"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/kayrilmam_senden_asla"
+                        android:background="#00000000"/>
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:id="@+id/imageView110"
+                    android:background="#cacaca" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

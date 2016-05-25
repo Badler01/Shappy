@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Shappy</string>
+    <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">1724847674425472</string>
+    <string name="contentdesc">contentdesc</string>
+
+
+
+    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
+    <string name="crash_dialog_title">CrashTest has crashed</string>
+<string name="crash_dialog_text">An unexpected error occurred forcing the
+    application to stop. Please help us fix this by sending us error data,
+    all you have to do is click OK.</string>
+    <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="crash_dialog_ok_toast">Thank you !</string>
+
+</resources>

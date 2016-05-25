@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="5dp"
+            android:divider="#efe7de"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/quickReturnBottomTarget"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="35.5dp"
+            android:text="New Button"
+            android:id="@+id/button"
+            android:src="@mipmap/cevrende_gruplar_iki"
+            android:background="@mipmap/cevrende_gruplar_iki"
+            android:layout_alignParentBottom="true"
+            />
+
+        <ImageButton
+            android:layout_width="550dp"
+            android:layout_height="35.5dp"
+            android:text="New Button"
+            android:id="@+id/button2"
+            android:background="@mipmap/katil_gruplar"
+            android:src="@mipmap/katil_gruplar"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/button" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/button53"
+            android:layout_gravity="right|bottom"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/plus_uc"
+            android:background="@drawable/kgrup_ekle" />
+
+    </RelativeLayout>
+</FrameLayout>

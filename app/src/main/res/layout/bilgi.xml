@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:minWidth="500dp" android:minHeight="700dp"
+    android:background="@mipmap/giris">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView15"
+        android:src="@mipmap/nick_isteme_iki"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="280dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Nickname yazın"
+                android:ems="10"
+                android:id="@+id/editText5"
+                android:layout_gravity="left|center_vertical"
+                android:background="@mipmap/nickname_iki"
+                android:textSize="14dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textStyle="bold"
+                android:textColorHint="#c8c8c8"
+                android:textColor="#b5000000" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Okul isminizi yazın"
+                android:ems="10"
+                android:id="@+id/editText6"
+                android:layout_gravity="left|center_vertical"
+                android:background="@mipmap/okul_iki"
+                android:textSize="14dp"
+                android:autoText="false"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textStyle="bold"
+                android:textColorHint="#c8c8c8"
+                android:textColor="#b5000000" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Doğum tarihinizi girin"
+                android:ems="10"
+                android:id="@+id/editText7"
+                android:background="@mipmap/tarih"
+                android:layout_gravity="left|center_vertical"
+                android:textSize="14dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textStyle="bold"
+                android:textColorHint="#c8c8c8"
+                android:textColor="#b5000000" />
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton10"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:src="@mipmap/devam_et"
+        android:background="#00000000" />
+</RelativeLayout>

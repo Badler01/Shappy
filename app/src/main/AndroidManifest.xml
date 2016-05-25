@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="droxoft.armin.com.shappy">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/simge"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:name=".ShappyApp"
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
+
+        <activity android:name="org.acra.CrashReportDialog"
+            android:theme="@style/Theme.Dialog"
+            android:process=":error_report"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".AnaAkim"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Mesajlasma"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:largeHeap="true"/>
+        <activity
+            android:name=".GrupSohbeti"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".KarsiProfil"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NickDegistir"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AciklamaDegistir"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Hata"
+            android:screenOrientation="portrait"/>
+
+        <service
+            android:name=".TakipServisi"
+            android:screenOrientation="portrait" />
+
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <!-- Pushy Declarations -->
+        <receiver
+            android:name=".PushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="pushy.me" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="me.pushy.sdk.receivers.PushyUpdateReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="droxoft.armin.com.shappy" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="me.pushy.sdk.receivers.PushyBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1687083148209539"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+        <service android:name="me.pushy.sdk.services.PushySocketService" />
+
+    </application>
+
+</manifest>

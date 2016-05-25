@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarmesajlasma"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/ColorPrimary"
+            android:elevation="1dp">
+
+            <RelativeLayout
+                android:id="@+id/layoutmesajlasma"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:elevation="1dp">
+
+                <ImageButton
+                    android:id="@+id/button6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_centerVertical="true"
+                    android:background="#00000000"
+                    android:longClickable="false"
+                    android:src="@mipmap/geribas" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="#00000000" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="100dp"
+                    android:text="Abdurrahman"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_centerVertical="true"
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="false"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/listView2"
+                android:layout_width="match_parent"
+                android:layout_height="520dp"
+                android:layout_above="@+id/relativeLayout3"
+                android:layout_marginTop="50dp"
+                android:background="#ffffff"
+                android:divider="#ffffff"
+                android:dividerHeight="4dp" />
+
+            <ImageView
+                android:id="@+id/imageView21"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentStart="false"
+                android:layout_marginBottom="42dp"
+                android:background="#f0f0f0" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/button4"
+                    android:layout_toStartOf="@+id/button4"
+                    android:background="#ffffff"
+                    android:hint="Bir mesaj yaz..."
+                    android:imeOptions="actionNone"
+                    android:inputType="textCapSentences"
+                    android:maxWidth="280dp"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/button4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="20dp"
+                    android:background="#00000000"
+                    android:src="@mipmap/papplane"
+                    android:text="Gonder" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="285dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="80dp">
+
+        <ImageView
+            android:id="@+id/imageView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bar_b" />
+
+        <ImageView
+            android:id="@+id/imageView31"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/clip_source" />
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView6"
+        android:background="@mipmap/gri"
+        android:layout_marginTop="45dp" />
+
+</FrameLayout>

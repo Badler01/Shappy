@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="385dp"
+    android:layout_height="130dp"
+    android:background="#efe7de">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/babo"
+        android:layout_alignParentRight="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentLeft="true"
+        android:background="@mipmap/offkanal_cerceve_son"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <ImageButton
+            android:layout_width="320dip"
+            android:layout_height="85dip"
+            android:id="@+id/imageView5"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:cropToPadding="false"
+            android:layout_gravity="left|center_vertical"
+            android:baselineAlignBottom="false"
+            android:layout_marginLeft="10dp"
+            android:background="#00000000" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/babo"
+        android:background="@mipmap/offkanal_cerceve_alt_deneme"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Normal Kanal Adı"
+            android:id="@+id/textView4"
+            android:layout_gravity="center"
+            android:textSize="15dp"
+            android:textIsSelectable="false"
+            android:visibility="visible"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:textStyle="bold"
+            android:textColor="#767676" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView25"
+                    android:src="@mipmap/dene_uc"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/textView26"
+                    android:layout_marginRight="3dp"
+                    android:layout_gravity="bottom" />
+
+                <TextView
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="99"
+                    android:id="@+id/textView8"
+                    android:layout_marginRight="3dp"
+                    android:layout_gravity="bottom"
+                    android:textSize="12dp"
+                    android:gravity="top|bottom" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView26"
+                    android:src="@mipmap/galp"
+                    android:layout_alignBottom="@+id/textView27"
+                    android:layout_toStartOf="@+id/textView27"
+                    android:layout_marginRight="3dp"
+                    android:layout_gravity="bottom" />
+
+                <TextView
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="99"
+                    android:id="@+id/textView28"
+                    android:layout_alignTop="@+id/textView26"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="bottom"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="315dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:id="@+id/imageView8"
+            android:src="@mipmap/turkuaz_iki"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="12"
+            android:id="@+id/kanaldakikisinormal"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="10dp" />
+
+        />
+    </FrameLayout>
+</RelativeLayout>
