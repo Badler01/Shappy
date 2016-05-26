@@ -33,7 +33,7 @@ import java.net.URL;
 public class KarsiProfil extends Activity {
 
     String karsifaceprofil,isim,durum,okul,cinsiyet,yas,coverfotourl;
-    String a = "a";
+    String a = "asa";
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.altprofil);
