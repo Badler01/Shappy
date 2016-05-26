@@ -257,6 +257,7 @@ public class Mesajlasma extends AppCompatActivity {
         };
         toolbar = (Toolbar) findViewById(R.id.toolbarmesajlasma);
         setSupportActionBar(toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
