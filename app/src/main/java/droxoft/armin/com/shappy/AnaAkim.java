@@ -27,16 +27,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -57,30 +62,30 @@ public class AnaAkim extends AppCompatActivity {
 
 
     private void sharedPrefNickKaydet(String nick) {
-        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
         editor.putString("nick", nick);
         editor.apply();
     }
 
     private void sharedPrefBurcKaydet(String burc) {
-        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
-        editor.putString("burc" , burc );
+        editor.putString("burc", burc);
         editor.apply();
     }
 
-    private void sharedPrefOkulKaydet(String okul){
-        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+    private void sharedPrefOkulKaydet(String okul) {
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
-        editor.putString("okul" , okul);
+        editor.putString("okul", okul);
         editor.apply();
     }
 
-    private void sharedPrefYasKaydet(String yas){
-        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+    private void sharedPrefYasKaydet(String yas) {
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
-        editor.putString("yas" , yas);
+        editor.putString("yas", yas);
         editor.apply();
     }
 
@@ -108,7 +113,7 @@ public class AnaAkim extends AppCompatActivity {
                 konusulanresimler.mkdirs();
             }
             File a = new File(konusulanresimler, "unknown.jpeg");
-            Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.soruisareti);
+            Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.bilinmeyen);
             FileOutputStream fOS;
             try {
                 fOS = new FileOutputStream(a);
@@ -123,9 +128,9 @@ public class AnaAkim extends AppCompatActivity {
         }
     }
 
-    private String SharedPrefIdAl(){
+    private String SharedPrefIdAl() {
         SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        return sP.getString("serverid" , "defaultserverid");
+        return sP.getString("serverid", "defaultserverid");
     }
 
     protected void onCreate(Bundle bambam) {
@@ -134,7 +139,7 @@ public class AnaAkim extends AppCompatActivity {
         ilkgiris = i.getBooleanExtra("ilkgiris", true);
         if (ilkgiris) {
             Calendar takvim = Calendar.getInstance();
-            final Dialog dialog = new Dialog(AnaAkim.this,R.style.DialogThemeFull);
+            final Dialog dialog = new Dialog(AnaAkim.this, R.style.DialogThemeFull);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.bilgi);
             dialog.getWindow().setDimAmount(0.7f);
@@ -144,27 +149,38 @@ public class AnaAkim extends AppCompatActivity {
             final EditText edittextnick = (EditText) dialog.findViewById(R.id.editText5);
             final EditText edittextokul = (EditText) dialog.findViewById(R.id.editText6);
             final EditText edittextdogumyili = (EditText) dialog.findViewById(R.id.editText7);
+            edittextnick.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (edittextnick.getText().toString().length() > 2) {
+                            ServerNickKontrol sNK = new ServerNickKontrol(edittextnick.getText().toString());
+                            sNK.execute();
+                        }
+                    }
+                }
+            });
             final String[] day = new String[1];
             final String[] month = new String[1];
             final String[] yearr = new String[1];
             final String[] burc = new String[1];
-            final DatePickerDialog dogumyilialanpicker = new DatePickerDialog(this,android.R.style.Theme_Holo_Dialog_MinWidth,
+            final DatePickerDialog dogumyilialanpicker = new DatePickerDialog(this, android.R.style.Theme_Holo_Dialog_MinWidth,
                     new DatePickerDialog.OnDateSetListener() {
 
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    edittextdogumyili.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
-                    day[0] = String.valueOf(dayOfMonth);
-                    month[0] = String.valueOf(monthOfYear+1);
-                    yearr[0] = String.valueOf(year);
-                    yas[0] = String.valueOf(getAge(year,monthOfYear,dayOfMonth));
-                    burc[0] = getBurc((monthOfYear+1),dayOfMonth);
-                }
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            edittextdogumyili.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            day[0] = String.valueOf(dayOfMonth);
+                            month[0] = String.valueOf(monthOfYear + 1);
+                            yearr[0] = String.valueOf(year);
+                            yas[0] = String.valueOf(getAge(year, monthOfYear, dayOfMonth));
+                            burc[0] = getBurc((monthOfYear + 1), dayOfMonth);
+                        }
 
-            }, takvim.get(Calendar.YEAR), takvim.get(Calendar.MONTH), takvim.get(Calendar.DAY_OF_MONTH));
+                    }, takvim.get(Calendar.YEAR), takvim.get(Calendar.MONTH), takvim.get(Calendar.DAY_OF_MONTH));
             edittextdogumyili.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    if(hasFocus){
+                    if (hasFocus) {
                         dogumyilialanpicker.show();
                     }
                 }
@@ -178,19 +194,23 @@ public class AnaAkim extends AppCompatActivity {
             ImageButton butonhemenbasla = (ImageButton) dialog.findViewById(R.id.imageButton10);
             butonhemenbasla.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if(!edittextnick.getText().toString().equals("")&&!edittextokul.getText().toString().equals("")){
-                        sharedPrefNickKaydet(edittextnick.getText().toString());
-                        sharedPrefOkulKaydet(edittextokul.getText().toString());
-                        sharedPrefYasKaydet(yas[0]);
-                        sharedPrefBurcKaydet(burc[0]);
-                        PageFragment2.SharedPrefNickYerlestir(AnaAkim.this);
-                        PageFragment2.SharedPrefOkulYerlestir(AnaAkim.this);
-                        PageFragment2.SharedPrefYasYerlestir(AnaAkim.this);
-                        PageFragment2.SharedPrefBurcYerlestir(AnaAkim.this);
-                        ServerButunculBilgileriGonder sBBG = new ServerButunculBilgileriGonder(edittextnick.getText().toString(),
-                                edittextokul.getText().toString(),day[0],month[0],yearr[0],burc[0]);
-                        sBBG.execute();
-                        dialog.cancel();
+                    if (!edittextnick.getText().toString().equals("") && !edittextokul.getText().toString().equals("")) {
+                        if (edittextnick.getText().toString().length() < 3) {
+                            Toast.makeText(AnaAkim.this, "En az 3 haneli bir nickname giriniz", Toast.LENGTH_SHORT).show();
+                        } else {
+                            sharedPrefNickKaydet(edittextnick.getText().toString());
+                            sharedPrefOkulKaydet(edittextokul.getText().toString());
+                            sharedPrefYasKaydet(yas[0]);
+                            sharedPrefBurcKaydet(burc[0]);
+                            PageFragment2.SharedPrefNickYerlestir(AnaAkim.this);
+                            PageFragment2.SharedPrefOkulYerlestir(AnaAkim.this);
+                            PageFragment2.SharedPrefYasYerlestir(AnaAkim.this);
+                            PageFragment2.SharedPrefBurcYerlestir(AnaAkim.this);
+                            ServerButunculBilgileriGonder sBBG = new ServerButunculBilgileriGonder(edittextnick.getText().toString(),
+                                    edittextokul.getText().toString(), day[0], month[0], yearr[0], burc[0]);
+                            sBBG.execute();
+                            dialog.cancel();
+                        }
                     }
                 }
             });
@@ -566,11 +586,10 @@ public class AnaAkim extends AppCompatActivity {
 
         age = currentYear - year;
 
-        if(month > currentMonth){
+        if (month > currentMonth) {
             --age;
-        }
-        else if(month == currentMonth){
-            if(day > todayDay){
+        } else if (month == currentMonth) {
+            if (day > todayDay) {
                 --age;
             }
         }
@@ -578,77 +597,77 @@ public class AnaAkim extends AppCompatActivity {
 
     }
 
-    private String getBurc(int month, int day){
+    private String getBurc(int month, int day) {
         if (month == 1) {
-            if (day < 21){
+            if (day < 21) {
                 return "oglak";
-            }else {
+            } else {
                 return "kova";
             }
-        }else if ( month == 2){
-            if (day < 20){
+        } else if (month == 2) {
+            if (day < 20) {
                 return "kova";
-            }else {
+            } else {
                 return "balik";
             }
-        }else if ( month == 3){
-            if (day < 22){
+        } else if (month == 3) {
+            if (day < 22) {
                 return "balik";
-            }else {
+            } else {
                 return "koc";
             }
-        }else if ( month == 4){
-            if (day < 21){
+        } else if (month == 4) {
+            if (day < 21) {
                 return "koc";
-            }else {
+            } else {
                 return "boga";
             }
-        }else if ( month == 5){
-            if (day < 22){
+        } else if (month == 5) {
+            if (day < 22) {
                 return "boga";
-            }else {
+            } else {
                 return "ikizler";
             }
-        }else if ( month == 6){
-            if (day < 22){
+        } else if (month == 6) {
+            if (day < 22) {
                 return "ikizler";
-            }else {
+            } else {
                 return "yengec";
             }
-        }else if ( month == 7){
-            if (day < 24){
+        } else if (month == 7) {
+            if (day < 24) {
                 return "yengec";
-            }else {
+            } else {
                 return "aslan";
             }
-        }else if ( month == 8){
-            if (day < 23){
+        } else if (month == 8) {
+            if (day < 23) {
                 return "aslan";
-            }else {
+            } else {
                 return "basak";
             }
-        }else if ( month == 9){
-            if (day < 23){
+        } else if (month == 9) {
+            if (day < 23) {
                 return "basak";
-            }else {
+            } else {
                 return "terazi";
             }
-        }else if ( month == 10){
-            if (day < 23){
+        } else if (month == 10) {
+            if (day < 23) {
                 return "terazi";
-            }else {
+            } else {
                 return "akrep";
             }
-        }else if ( month == 11){
-            if (day < 23){
+        } else if (month == 11) {
+            if (day < 23) {
                 return "akrep";
-            }else {
+            } else {
                 return "yay";
             }
-        }else if ( month == 12){
-            if (day < 22){
+        } else if (month == 12) {
+            if (day < 22) {
                 return "yay";
-            }else {
+            } else {
                 return "oglak";
             }
         }
@@ -656,11 +675,12 @@ public class AnaAkim extends AppCompatActivity {
         return "aslan";
     }
 
-    private class ServerButunculBilgileriGonder extends AsyncTask<String,Void,String>{
+    private class ServerButunculBilgileriGonder extends AsyncTask<String, Void, String> {
 
-        String nick,okul,day,month,year,burc;
-        String query , charset;
-        public ServerButunculBilgileriGonder(String nick , String okul , String day, String month, String yearr , String burc){
+        String nick, okul, day, month, year, burc;
+        String query, charset;
+
+        public ServerButunculBilgileriGonder(String nick, String okul, String day, String month, String yearr, String burc) {
             charset = "UTF-8";
             String param1 = "nick";
             String param2 = "okul";
@@ -668,7 +688,7 @@ public class AnaAkim extends AppCompatActivity {
             String param4 = "burc";
             try {
                 query = String.format("param1=%s&param2=%s&param3=%s&param4=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset),
-                        URLEncoder.encode(param3,charset) , URLEncoder.encode(param4,charset));
+                        URLEncoder.encode(param3, charset), URLEncoder.encode(param4, charset));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -679,12 +699,13 @@ public class AnaAkim extends AppCompatActivity {
             this.year = yearr;
             this.burc = burc;
         }
+
         protected String doInBackground(String... params) {
             String serverid = SharedPrefIdAl();
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/update_born.php?id="+serverid+
-                        "&nick="+nick+"&okul="+okul+"&yas="+year+"-"+month+"-"+day+"&burc=" + burc).openConnection();
+                connection = new URL("http://185.22.187.60/shappy/update_born.php?id=" + serverid +
+                        "&nick=" + nick + "&okul=" + okul + "&yas=" + year + "-" + month + "-" + day + "&burc=" + burc).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -697,6 +718,57 @@ public class AnaAkim extends AppCompatActivity {
                 output = new BufferedOutputStream(connection.getOutputStream());
                 output.write(query.getBytes(charset));
                 InputStream inputstream = connection.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "qalaba";
+        }
+    }
+
+    private class ServerNickKontrol extends AsyncTask<String, Void, String> {
+
+        String nickname;
+        String charset, query;
+
+        public ServerNickKontrol(String nickname) {
+            charset = "UTF-8";
+            String param1 = "nickname";
+            try {
+                query = String.format("param1=%s", URLEncoder.encode(param1, charset));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            this.nickname = nickname;
+        }
+
+        protected String doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/nickserbest.php?nick=" + nickname).openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
+            connection.setRequestProperty("Accept", "* /*");
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            OutputStream output;
+            try {
+                output = new BufferedOutputStream(connection.getOutputStream());
+                output.write(query.getBytes(charset));
+                BufferedReader in;
+                if (connection.getResponseCode() == 200) {
+                    in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String inputline = null;
+                    for (int i = 0; i < 3; i++) {
+                        inputline = in.readLine();
+                        Log.i("tago", "" + i + "has focus for inputline= " + inputline);
+                    }
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

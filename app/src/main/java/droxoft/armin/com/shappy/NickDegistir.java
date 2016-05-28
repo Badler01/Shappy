@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -34,23 +35,31 @@ public class NickDegistir extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String nick = et.getText().toString();
-                sharedPrefNickKaydet(nick);
-                String id = sharedPrefIdAl();
-                ServerNickKaydet sNK = new ServerNickKaydet(nick);
-                sNK.execute(id);
-                finish();
+                if(nick.length()>2){
+                    sharedPrefNickKaydet(nick);
+                    String id = sharedPrefIdAl();
+                    ServerNickKaydet sNK = new ServerNickKaydet(nick);
+                    sNK.execute(id);
+                    finish();
+                }else{
+                    Toast.makeText(NickDegistir.this,"En az 3 haneli bir nick giriniz" , Toast.LENGTH_SHORT).show();
+                }
             }
         });
         et.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String nick = et.getText().toString();
-                    sharedPrefNickKaydet(nick);
-                    String id = sharedPrefIdAl();
-                    ServerNickKaydet sNK = new ServerNickKaydet(nick);
-                    sNK.execute(id);
-                    finish();
-                    return true;
+                    if(nick.length()>2){
+                        sharedPrefNickKaydet(nick);
+                        String id = sharedPrefIdAl();
+                        ServerNickKaydet sNK = new ServerNickKaydet(nick);
+                        sNK.execute(id);
+                        finish();
+                        return true;
+                    }else{
+                        Toast.makeText(NickDegistir.this,"En az 3 haneli bir nick giriniz" , Toast.LENGTH_SHORT).show();
+                    }
                 }
                 return false;
             }
@@ -61,7 +70,7 @@ public class NickDegistir extends Activity {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tv1.setText(String.valueOf(20-count));
+                tv1.setText(String.valueOf(15-count));
             }
 
             public void afterTextChanged(Editable s) {
@@ -101,7 +110,7 @@ public class NickDegistir extends Activity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/update_status.php?id="+params[0]+"&nick="+nick+"&bildir=0&placename=ture")
+                connection = new URL("http://185.22.187.60/shappy/update_status.php?id="+params[0]+"&nick="+nick+"&bildir=0&placename=ture")
                         .openConnection();
             } catch (IOException e) {
                 e.printStackTrace();

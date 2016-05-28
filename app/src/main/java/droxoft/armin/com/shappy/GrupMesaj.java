@@ -7,9 +7,9 @@ public class GrupMesaj {
     public String mesac;
     public String date;
     public String nick;
-    public int renkkatalogu;
+    public char renkkatalogu;
 
-    public GrupMesaj(boolean side, String s, String date, String nick, int renkkatalogu) {
+    public GrupMesaj(boolean side, String s, String date, String nick, char renkkatalogu) {
         this.side = side;
         mesac = s;
         this.date = date;

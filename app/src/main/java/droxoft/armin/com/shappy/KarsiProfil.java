@@ -32,8 +32,8 @@ import java.net.URL;
 
 public class KarsiProfil extends Activity {
 
-    String karsifaceprofil,isim,durum,okul,cinsiyet,yas,coverfotourl;
-    String a = "asa";
+    String karsifaceprofil,isim,durum,okul,cinsiyet,yas,burc,coverfotourl;
+
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.altprofil);
@@ -44,6 +44,7 @@ public class KarsiProfil extends Activity {
         cinsiyet = i.getStringExtra("cinsiyet");
         okul = i.getStringExtra("okul");
         yas = i.getStringExtra("yas");
+        burc = i.getStringExtra("burc");
         coverfotourl = i.getStringExtra("coverfotourl");
         tanimlar();
     }
@@ -59,9 +60,9 @@ public class KarsiProfil extends Activity {
         textviewisim.setText(isim + ", " + yas);
         textviewdurum.setText(durum);
         textviewokul.setText(okul);
-        if(cinsiyet.equals("m")){
+        if(cinsiyet.equals("m") || cinsiyet.equals("M") || cinsiyet.equals("Male") ||cinsiyet.equals("male") ){
             textviewcinsiyet.setText("Erkek");
-        }else if(cinsiyet.equals("f")){
+        }else if(cinsiyet.equals("f")||cinsiyet.equals("F")||cinsiyet.equals("Female")||cinsiyet.equals("female")){
             textviewcinsiyet.setText("Kadın");
         }else{
             textviewcinsiyet.setText("Others");
@@ -149,10 +150,12 @@ public class KarsiProfil extends Activity {
         }
 
         protected void onPostExecute(Bitmap bitmap) {
-            Drawable d = new BitmapDrawable(getResources(),bitmap);
+            Bitmap a = blur(bitmap);
+            Drawable d = new BitmapDrawable(getResources(),a);
             imageview.setBackground(d);
         }
     }
+
     public Bitmap blur(Bitmap image) {
         final float BLUR_RADIUS = 20f;
         if (null == image) return null;

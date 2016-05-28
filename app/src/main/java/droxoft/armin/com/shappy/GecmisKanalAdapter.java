@@ -281,7 +281,7 @@ public class GecmisKanalAdapter extends BaseAdapter implements Filterable {
         private String kanaliekle(String kanaladi) {
             HttpURLConnection sconnection = null;
             try {
-                sconnection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/join_us.php?id=" + veritabani_id + "&name=" + kanaladi).openConnection();
+                sconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/join_us.php?id=" + veritabani_id + "&name=" + kanaladi).openConnection();
                 Log.i("tago", "KanalAdapter kanala ekleme bağı kuruldu");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -326,7 +326,7 @@ public class GecmisKanalAdapter extends BaseAdapter implements Filterable {
             HttpURLConnection connection = null;
             try {
                 Log.i("tago", "kanaladapter " + params[0]);
-                connection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/population.php?placename=" + params[0])
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/population.php?placename=" + params[0])
                         .openConnection();
                 Log.i("tago", "KanalAdapter kisi sayisini cek bagı kuruldu");
             } catch (IOException e) {

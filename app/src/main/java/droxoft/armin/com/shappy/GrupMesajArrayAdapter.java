@@ -58,12 +58,28 @@ public class GrupMesajArrayAdapter extends ArrayAdapter<GrupMesaj> {
         tv2.setText(mesajobj.date);
         tv3.setTextColor(mesajobj.side ? Color.BLACK : Color.WHITE);
         tv3.setText(mesajobj.nick);
-        if(mesajobj.renkkatalogu<5){
+        if(mesajobj.renkkatalogu=='a' || mesajobj.renkkatalogu=='b'){
+            tv3.setTextColor(Color.BLUE);
+        }else if(mesajobj.renkkatalogu=='c' || mesajobj.renkkatalogu=='d'){
+            tv3.setTextColor(Color.CYAN);
+        }else if(mesajobj.renkkatalogu =='e' || mesajobj.renkkatalogu =='f'){
             tv3.setTextColor(Color.RED);
-        }else if(4<mesajobj.renkkatalogu&&mesajobj.renkkatalogu<10){
-            tv3.setTextColor(Color.YELLOW);
-        }else{
+        }else if(mesajobj.renkkatalogu == 'g' || mesajobj.renkkatalogu == 'h'){
             tv3.setTextColor(Color.GREEN);
+        }else if(mesajobj.renkkatalogu == 'k' || mesajobj.renkkatalogu == 'l'){
+            tv3.setTextColor(Color.YELLOW);
+        }else if(mesajobj.renkkatalogu == 'i' || mesajobj.renkkatalogu =='ı'){
+            tv3.setTextColor(Color.GRAY);
+        }else if(mesajobj.renkkatalogu == 'm' || mesajobj.renkkatalogu == 'n'){
+            tv3.setTextColor(Color.MAGENTA);
+        }else if(mesajobj.renkkatalogu == 'o' || mesajobj.renkkatalogu == 'ö'){
+            tv3.setTextColor(Color.GRAY);
+        }else if(mesajobj.renkkatalogu == 'p' || mesajobj.renkkatalogu == 'r'){
+            tv3.setTextColor(Color.YELLOW);
+        }else if(mesajobj.renkkatalogu == 's' || mesajobj.renkkatalogu == 'ş'){
+            tv3.setTextColor(Color.RED);
+        }else{
+            tv3.setTextColor(Color.CYAN);
         }
         layout1.setBackgroundResource(mesajobj.side ? R.drawable.yenibeyazbalon : R.drawable.turkuaz);
         tasiyicilay.setGravity(mesajobj.side ? Gravity.LEFT : Gravity.RIGHT);

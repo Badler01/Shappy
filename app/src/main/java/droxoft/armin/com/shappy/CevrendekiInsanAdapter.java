@@ -140,6 +140,7 @@ public class CevrendekiInsanAdapter extends ArrayAdapter implements Filterable {
                 String okul = cevrendekiInsanListesi.get(pozisyon).getOkul();
                 String durum = cevrendekiInsanListesi.get(pozisyon).getDurum();
                 String yas = cevrendekiInsanListesi.get(pozisyon).getYas();
+                String burc = cevrendekiInsanListesi.get(pozisyon).getBurc();
                 String coverfotourl = cevrendekiInsanListesi.get(pozisyon).getCoverphotourl();
                 Intent i = new Intent(context, KarsiProfil.class);
                 i.putExtra("karsifaceprofilurl", faceprofilurl);
@@ -148,6 +149,7 @@ public class CevrendekiInsanAdapter extends ArrayAdapter implements Filterable {
                 i.putExtra("okul", okul);
                 i.putExtra("durum", durum);
                 i.putExtra("yas", yas);
+                i.putExtra("burc" , burc);
                 i.putExtra("coverfotourl", coverfotourl);
                 context.startActivity(i);
             }

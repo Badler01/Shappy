@@ -1,5 +1,6 @@
 package droxoft.armin.com.shappy;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -111,6 +112,7 @@ public class PushReceiver extends BroadcastReceiver {
                     notification.setAutoCancel(true);
                     notification.setContentText(nottiname + " konuşmadan ayrıldı");
                     notification.setContentTitle(notificationTitle);
+                    notification.setPriority(Notification.PRIORITY_MAX);
                     Bitmap ww = BitmapFactory.decodeResource(context.getResources(),R.mipmap.left);
                     notification.setLargeIcon(ww);
                     notification.setSmallIcon(R.mipmap.galin_shappy);
@@ -222,6 +224,7 @@ public class PushReceiver extends BroadcastReceiver {
                     notification.setAutoCancel(true);
                     notification.setContentText(notaname + " seni banladı");
                     notification.setContentTitle(notificationTitle);
+                    notification.setPriority(Notification.PRIORITY_MAX);
                     Bitmap ee = BitmapFactory.decodeResource(context.getResources(),R.mipmap.circle);
                     notification.setLargeIcon(ee);
                     notification.setSmallIcon(R.mipmap.fire_tr);
@@ -380,6 +383,7 @@ public class PushReceiver extends BroadcastReceiver {
                             notification.setAutoCancel(true);
                             notification.setContentText(notificationDesc);
                             notification.setContentTitle(notiname);
+                            notification.setPriority(Notification.PRIORITY_MAX);
                             Bitmap b = BitmapFactory.decodeFile(a.getAbsolutePath());
                             Bitmap l = getCircleBitmap(b);
                             notification.setLargeIcon(l);
@@ -414,6 +418,7 @@ public class PushReceiver extends BroadcastReceiver {
                             notification.setAutoCancel(true);
                             notification.setContentText(notificationDesc);
                             notification.setContentTitle(notiname);
+                            notification.setPriority(Notification.PRIORITY_MAX);
                             Bitmap b = BitmapFactory.decodeFile(a.getAbsolutePath());
                             Bitmap l = getCircleBitmap(b);
                             notification.setLargeIcon(l);
@@ -450,6 +455,7 @@ public class PushReceiver extends BroadcastReceiver {
                             notification.setAutoCancel(true);
                             notification.setContentText(notificationDesc);
                             notification.setContentTitle(notiname);
+                            notification.setPriority(Notification.PRIORITY_MAX);
                             Bitmap r = BitmapFactory.decodeFile(SharedPrefBosResimPathAl(context));
                             Bitmap p = getCircleBitmap(r);
                             notification.setLargeIcon(p);
@@ -510,6 +516,7 @@ public class PushReceiver extends BroadcastReceiver {
                             notification.setAutoCancel(true);
                             notification.setContentText(notificationDesc);
                             notification.setContentTitle(notificationTitle);
+                            notification.setPriority(Notification.PRIORITY_MAX);
                             Bitmap b = BitmapFactory.decodeFile(a.getAbsolutePath());
                             Bitmap l = getCircleBitmap(b);
                             notification.setLargeIcon(l);
@@ -558,6 +565,7 @@ public class PushReceiver extends BroadcastReceiver {
                             notification.setAutoCancel(true);
                             notification.setContentText(notificationDesc);
                             notification.setContentTitle(notificationTitle);
+                            notification.setPriority(Notification.PRIORITY_MAX);
                             Bitmap r = BitmapFactory.decodeFile(SharedPrefBosResimPathAl(context));
                             Bitmap p = getCircleBitmap(r);
                             notification.setLargeIcon(p);
@@ -582,6 +590,7 @@ public class PushReceiver extends BroadcastReceiver {
                             notification.setAutoCancel(true);
                             notification.setContentText(notificationDesc);
                             notification.setContentTitle(notificationTitle);
+                            notification.setPriority(Notification.PRIORITY_MAX);
                             Bitmap b = BitmapFactory.decodeFile(a.getAbsolutePath());
                             Bitmap l = getCircleBitmap(b);
                             notification.setLargeIcon(l);
@@ -603,6 +612,7 @@ public class PushReceiver extends BroadcastReceiver {
                             notification.setAutoCancel(true);
                             notification.setContentText(notificationDesc);
                             notification.setContentTitle(notificationTitle);
+                            notification.setPriority(Notification.PRIORITY_MAX);
                             Bitmap r = BitmapFactory.decodeFile(SharedPrefBosResimPathAl(context));
                             Bitmap p = getCircleBitmap(r);
                             notification.setLargeIcon(p);
@@ -690,6 +700,7 @@ public class PushReceiver extends BroadcastReceiver {
                         notification.setAutoCancel(true);
                         notification.setContentText(grupNotificationDesc);
                         notification.setContentTitle(grupNotificationTitle);
+                        notification.setPriority(Notification.PRIORITY_MAX);
                         Bitmap z = BitmapFactory.decodeResource(context.getResources(),R.mipmap.genelsoh_kr);
                         notification.setLargeIcon(z);
                         notification.setSmallIcon(R.mipmap.galin_shappy);
@@ -709,6 +720,7 @@ public class PushReceiver extends BroadcastReceiver {
                         notification.setAutoCancel(true);
                         notification.setContentText(grupNotificationDesc);
                         notification.setContentTitle(grupNotificationTitle);
+                        notification.setPriority(Notification.PRIORITY_MAX);
                         Bitmap z = BitmapFactory.decodeResource(context.getResources(),R.mipmap.genelsoh_tr);
                         notification.setLargeIcon(z);
                         notification.setSmallIcon(R.mipmap.galin_shappy);
@@ -724,6 +736,7 @@ public class PushReceiver extends BroadcastReceiver {
             }
         }
     }
+
     private int getAge(int year, int month, int day) {
         int age;
 
@@ -763,4 +776,5 @@ public class PushReceiver extends BroadcastReceiver {
         canvas.drawBitmap(b, rect, rect, paint);
         return output;
     }
+
 }

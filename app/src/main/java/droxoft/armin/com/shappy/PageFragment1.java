@@ -382,6 +382,10 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                     }
                     YeniKanalEkle yenikanalekle = new YeniKanalEkle();
                     yenikanalekle.execute(kurulacakkanaladi);
+                    Intent i = new Intent(getActivity(),GrupSohbeti.class);
+                    i.putExtra("kanaladi" , kurulacakkanaladi);
+                    ////////
+                    startActivity(i);
                     dialog.cancel();
                 }
             }
@@ -474,14 +478,14 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                     }
                     int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
                     Bitmap bit;
-                    switch(orientation) {
+                    switch (orientation) {
                         case ExifInterface.ORIENTATION_ROTATE_90:
-                            bit=rotateImage(fileName, 90);
-                            selectedImageUri = getImageUri(getContext(),bit);
+                            bit = rotateImage(fileName, 90);
+                            selectedImageUri = getImageUri(getContext(), bit);
                             break;
                         case ExifInterface.ORIENTATION_ROTATE_180:
-                            bit=rotateImage(fileName, 180);
-                            selectedImageUri=getImageUri(getContext(),bit);
+                            bit = rotateImage(fileName, 180);
+                            selectedImageUri = getImageUri(getContext(), bit);
                             break;
                     }
                     MyImageActivity(selectedImageUri);
@@ -503,7 +507,8 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
             }
         }
     }
-    private Bitmap rotateImage(String pathToImage,int angle) {
+
+    private Bitmap rotateImage(String pathToImage, int angle) {
 
         int rotation = angle;
         Matrix matrix = new Matrix();
@@ -630,7 +635,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
         private String kanallarigor(String id) {
             HttpURLConnection sconnection = null;
             try {
-                sconnection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/get_official_channels.php?id=" + id).openConnection();
+                sconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/get_official_channels.php?id=" + id).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -697,7 +702,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
 
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/get_channels.php?id=" + id).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/get_channels.php?id=" + id).openConnection();
                 Log.i("tago", "Page Fragment1 kanalları gor bagı kuruldu");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -816,7 +821,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
         private String kanallarigor(String id) {
             HttpURLConnection sconnection = null;
             try {
-                sconnection = (HttpURLConnection) new URL("http://185.22.184.15/shappy//get_official_channels.php?id=" + id).openConnection();
+                sconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy//get_official_channels.php?id=" + id).openConnection();
                 Log.i("tago", "Page Fragment1 official kanalları gor bagı kuruldu");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -882,7 +887,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
 
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/get_channels.php?id=" + id).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/get_channels.php?id=" + id).openConnection();
                 Log.i("tago", "Page Fragment1 kanalları yeniden gor bagı kuruldu");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1003,7 +1008,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
             Log.i("tago", "PageFragment1 kanalvarmiyokmukontrol");
             HttpURLConnection zconnection = null;
             try {
-                zconnection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/kanalserbest.php?id=" + SharedPrefIdAl() + "&name=" + kanaladi)
+                zconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/kanalserbest.php?id=" + SharedPrefIdAl() + "&name=" + kanaladi)
                         .openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1045,7 +1050,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
             if (kanalikur) {
                 HttpURLConnection sconnection = null;
                 try {
-                    sconnection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/add_channel.php?id=" + SharedPrefIdAl()
+                    sconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/add_channel.php?id=" + SharedPrefIdAl()
                             + "&name=" + URLEncoder.encode(kanaladi, charset)).openConnection();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -1080,7 +1085,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
             URL url;
             String response = "";
             try {
-                url = new URL("http://185.22.184.15/shappy/place_photos/place_picture.php");
+                url = new URL("http://185.22.187.60/shappy/place_photos/place_picture.php");
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);

@@ -19,6 +19,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -56,11 +57,13 @@ import com.plattysoft.leonids.ParticleSystem;
 import com.timqi.sectorprogressview.ColorfulRingProgressView;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -75,7 +78,7 @@ import java.util.concurrent.ExecutionException;
 public class Mesajlasma extends AppCompatActivity {
 
     String kendiserverid;
-    String karsiserverid, karsiisim, karsidurum, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl;
+    String karsiserverid, karsiisim, karsidurum, karsifaceprofilurl, cinsiyet, burc, yas, okul, coverfotourl;
     Bitmap karsiresim;
     String resmiacikmi;
     MesajArrayAdapter mesajAdapter;
@@ -124,7 +127,7 @@ public class Mesajlasma extends AppCompatActivity {
             banlanmadurumu = "evet";
             DatabaseClassKiminleKonustun dCKK = new DatabaseClassKiminleKonustun(Mesajlasma.this);
             dCKK.open();
-            dCKK.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, resmiacikmi, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl, "yok", "0");
+            dCKK.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, resmiacikmi, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, yas, okul, coverfotourl, "yok", "0");
             DatabaseClassKimleriActirdin dCKA = new DatabaseClassKimleriActirdin(Mesajlasma.this);
             dCKA.open();
             List<String> varolanlar = dCKA.databasedenidcek();
@@ -186,7 +189,7 @@ public class Mesajlasma extends AppCompatActivity {
             dCKK.close();
             DatabaseClassKiminleKonustun dckk = new DatabaseClassKiminleKonustun(this);
             dckk.open();
-            dckk.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, resmiacikmi, karsibandurumu, karsifaceprofilurl, cinsiyet, burc, yas,okul,coverfotourl,"yok", "0");
+            dckk.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, resmiacikmi, karsibandurumu, karsifaceprofilurl, cinsiyet, burc, yas, okul, coverfotourl, "yok", "0");
             dckk.close();
         } else if (a.getStringExtra("intentname").equals("PushReceiverShappy")) {
             DatabaseClassNotification dCN = new DatabaseClassNotification(this);
@@ -310,7 +313,7 @@ public class Mesajlasma extends AppCompatActivity {
             dCKK.close();
             DatabaseClassKiminleKonustun dckx = new DatabaseClassKiminleKonustun(this);
             dckx.open();
-            dckx.olustur(karsiserverid, karsiisim, resimpath, karsidurum, resmiacikmi, bandur, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl, "yok", "0");
+            dckx.olustur(karsiserverid, karsiisim, resimpath, karsidurum, resmiacikmi, bandur, karsifaceprofilurl, cinsiyet, burc, yas, okul, coverfotourl, "yok", "0");
             dckx.close();
         } else if (i.getStringExtra("intentname").equals("ShappyInsanAdapter")) {
             DatabaseClassNotification dCN = new DatabaseClassNotification(this);
@@ -390,7 +393,7 @@ public class Mesajlasma extends AppCompatActivity {
             dCKK.close();
             DatabaseClassKiminleKonustun dckk = new DatabaseClassKiminleKonustun(this);
             dckk.open();
-            dckk.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, resmiacikmi, karsibandurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl, "yok", "0");
+            dckk.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, resmiacikmi, karsibandurumu, karsifaceprofilurl, cinsiyet, burc, yas, okul, coverfotourl, "yok", "0");
             dckk.close();
         }
         tanimlar();
@@ -416,7 +419,7 @@ public class Mesajlasma extends AppCompatActivity {
             buttonbomba = (ImageButton) findViewById(R.id.imageButton11);
             buttonbomba.setVisibility(View.GONE);
             crpv = (ColorfulRingProgressView) findViewById(R.id.crpv);
-            crpv.setPercent(YukselmeLeveli * (100 / 22));
+            crpv.setPercent(YukselmeLeveli * (100 / 21));
             crpv.setVisibility(View.VISIBLE);
         }
         yurumesistemi();
@@ -795,7 +798,7 @@ public class Mesajlasma extends AppCompatActivity {
         if (YukselmeLeveli < 23) {
             YukselmeLeveli++;
             if (resmiacikmi.equals("acik")) {
-                crpv.setPercent(YukselmeLeveli * (100 / 22));
+                crpv.setPercent(YukselmeLeveli * (100 / 21));
             }
             j = 2445 - (YukselmeLeveli) * 77.25;
             k = (YukselmeLeveli - 20) * 7.667;
@@ -847,7 +850,7 @@ public class Mesajlasma extends AppCompatActivity {
             }
             DatabaseClassKiminleKonustun dB = new DatabaseClassKiminleKonustun(Mesajlasma.this);
             dB.open();
-            dB.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, resmiacikmi, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl, "yok", "0");
+            dB.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, resmiacikmi, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, yas, okul, coverfotourl, "yok", "0");
             dB.close();
             DatabaseClassKimleriActirdin www = new DatabaseClassKimleriActirdin(this);
             www.open();
@@ -874,103 +877,82 @@ public class Mesajlasma extends AppCompatActivity {
     }
 
     private void paravanaciliyor() {
-        resmiacikmi = "acik";
-        final RelativeLayout Lay = (RelativeLayout) findViewById(R.id.layout);
-        final ImageView patlayanprofil = (ImageView) findViewById(R.id.ivPatlayanprofil);
-        ImageButton profilegit = (ImageButton) findViewById(R.id.bProfileGit);
-//        Bitmap a = BitmapFactory.decodeResource(getResources(),R.mipmap.soruisareti);
-//        patlayanprofil.setImageBitmap(getCircleBitmap(a));
-
-//        ObjectAnimator scaleupX = ObjectAnimator.ofFloat(patlayanprofil, "scaleX", 3.5f);
-//        ObjectAnimator scaleupY = ObjectAnimator.ofFloat(patlayanprofil, "scaleY", 3.5f);
-//        ObjectAnimator animaton = ObjectAnimator.ofFloat(patlayanprofil, "rotationY", 0.0f, 360f);
-//        final ObjectAnimator animationacilan = ObjectAnimator.ofFloat(patlayanprofil, "rotationY", 0.0f, 360f);
-//        scaleupX.setDuration(1000);
-//        scaleupX.setInterpolator(new AccelerateInterpolator());
-//        scaleupX.start();
-//        scaleupY.setDuration(1000);
-//        scaleupY.setInterpolator(new AccelerateInterpolator());
-//        scaleupY.start();
-//        animaton.setDuration(300);
-//        animaton.setRepeatCount(5);
-//        animaton.setInterpolator(new AccelerateInterpolator());
-//        animaton.start();
-        Thread ww = new Thread() {
-            public void run() {
-                try {
-                    sleep(1000);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Lay.setVisibility(View.VISIBLE);
-                            Animation arkaplanikarart = AnimationUtils.loadAnimation(Mesajlasma.this, R.anim.patlama_layoutu);
-                            final Animation patlamaprofilibuyut = AnimationUtils.loadAnimation(Mesajlasma.this, R.anim.patlamaprofili_scaling);
-                            Lay.startAnimation(arkaplanikarart);
-                            patlayanprofil.setImageBitmap(getScaledBitmapinDpi(karsiresim, 120, 120));
-                            patlayanprofil.startAnimation(patlamaprofilibuyut);
-//                            animationacilan.setDuration(300);
-//                            animationacilan.setRepeatCount(5);
-//                            animationacilan.setInterpolator(new AccelerateInterpolator());
-//                            animationacilan.start();
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        ww.start();
-//        ParticleSystem ps = new ParticleSystem(Mesajlasma.this, 400, R.drawable.animatedparticle, 5000);
-//        ps.setSpeedRange(0.1f, 0.25f);
-//        ps.setRotationSpeedRange(90, 180);
-//        ps.setInitialRotationRange(0, 360);
-//        ps.oneShot(patlayanprofil, 400);
-        Lay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation arkaplanikarart = AnimationUtils.loadAnimation(Mesajlasma.this, R.anim.dark_background_kaldir);
-                Lay.startAnimation(arkaplanikarart);
-                Thread a = new Thread() {
-                    public void run() {
-                        try {
-                            sleep(500);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Lay.setVisibility(View.GONE);
-                                }
-                            });
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+        if (resmiacikmi.equals("degil")) {
+            final RelativeLayout Lay = (RelativeLayout) findViewById(R.id.layout);
+            TextView textviewpatlayanisim = (TextView) findViewById(R.id.textView11);
+            final ImageView patlayanprofil = (ImageView) findViewById(R.id.ivPatlayanprofil);
+            ImageButton profilegit = (ImageButton) findViewById(R.id.bProfileGit);
+            textviewpatlayanisim.setText(karsiisim);
+            Thread ww = new Thread() {
+                public void run() {
+                    try {
+                        sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Lay.setVisibility(View.VISIBLE);
+                                Animation arkaplanikarart = AnimationUtils.loadAnimation(Mesajlasma.this, R.anim.patlama_layoutu);
+                                final Animation patlamaprofilibuyut = AnimationUtils.loadAnimation(Mesajlasma.this, R.anim.patlamaprofili_scaling);
+                                Lay.startAnimation(arkaplanikarart);
+                                patlayanprofil.setImageBitmap(getScaledBitmapinDpi(karsiresim, 120, 120));
+                                patlayanprofil.startAnimation(patlamaprofilibuyut);
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                };
-                a.start();
-            }
-        });
-        buttonbomba.setVisibility(View.GONE);
-        profilegit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Mesajlasma.this, KarsiProfil.class);
-                intent.putExtra("isim" , karsiisim);
-                intent.putExtra("durum" , karsidurum);
-                intent.putExtra("cinsiyet" , cinsiyet);
-                intent.putExtra("karsifaceprofilurl" , karsifaceprofilurl);
-                intent.putExtra("coverfotourl" , coverfotourl);
-                intent.putExtra("yas" , yas);
-                intent.putExtra("okul" , okul);
-                startActivity(intent);
-            }
-        });
-        Animation ismikarart = AnimationUtils.loadAnimation(this, R.anim.ismikarart);
-        textviewisim.startAnimation(ismikarart);
-        textviewisim.setText(karsiisim);
-        Animation ismigoster = AnimationUtils.loadAnimation(this, R.anim.ismigoster);
-        textviewisim.startAnimation(ismigoster);
-        Bitmap ax = getCircleBitmap(karsiresim);
-        final Bitmap sa = Bitmap.createScaledBitmap(ax, 130, 130, false);
-        imagebuttonkarsiprofil.setImageBitmap(getCircleBitmap(sa));
+                }
+            };
+            ww.start();
+            Lay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation arkaplanikarart = AnimationUtils.loadAnimation(Mesajlasma.this, R.anim.dark_background_kaldir);
+                    Lay.startAnimation(arkaplanikarart);
+                    Thread a = new Thread() {
+                        public void run() {
+                            try {
+                                sleep(500);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Lay.setVisibility(View.GONE);
+                                    }
+                                });
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    a.start();
+                }
+            });
+            buttonbomba.setVisibility(View.GONE);
+            profilegit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Mesajlasma.this, KarsiProfil.class);
+                    intent.putExtra("isim", karsiisim);
+                    intent.putExtra("durum", karsidurum);
+                    intent.putExtra("cinsiyet", cinsiyet);
+                    intent.putExtra("karsifaceprofilurl", karsifaceprofilurl);
+                    intent.putExtra("coverfotourl", coverfotourl);
+                    intent.putExtra("yas", yas);
+                    intent.putExtra("burc", burc);
+                    intent.putExtra("okul", okul);
+                    startActivity(intent);
+                }
+            });
+            Animation ismikarart = AnimationUtils.loadAnimation(this, R.anim.ismikarart);
+            textviewisim.startAnimation(ismikarart);
+            textviewisim.setText(karsiisim);
+            Animation ismigoster = AnimationUtils.loadAnimation(this, R.anim.ismigoster);
+            textviewisim.startAnimation(ismigoster);
+            Bitmap ax = getCircleBitmap(karsiresim);
+            final Bitmap sa = Bitmap.createScaledBitmap(ax, 130, 130, false);
+            imagebuttonkarsiprofil.setImageBitmap(getCircleBitmap(sa));
+        }
+        resmiacikmi = "acik";
         kiminleMesajlasiyorsun();
         patlayanlarKonusunuAyarla();
     }
@@ -988,6 +970,10 @@ public class Mesajlasma extends AppCompatActivity {
     private void patlayanlarKonusunuAyarla() {
         ServerFavla sF = new ServerFavla(karsiserverid);
         sF.execute(kendiserverid);
+        DatabaseClassKiminleKonustun swsw = new DatabaseClassKiminleKonustun(Mesajlasma.this);
+        swsw.open();
+        swsw.kisiyisil(karsiserverid);
+        swsw.close();
         DatabaseClassKimleriActirdin dbA = new DatabaseClassKimleriActirdin(this);
         dbA.open();
         dbA.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
@@ -1013,6 +999,8 @@ public class Mesajlasma extends AppCompatActivity {
     }
 
     private boolean takeChatMessage(String mesaj) {
+        MediaPlayer mP = MediaPlayer.create(this, R.raw.mesajgeldi);
+        mP.start();
         Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR);
         int minute = c.get(Calendar.MINUTE);
@@ -1094,7 +1082,7 @@ public class Mesajlasma extends AppCompatActivity {
         banlanmadurumu = "evet";
         DatabaseClassKiminleKonustun dCKK = new DatabaseClassKiminleKonustun(this);
         dCKK.open();
-        dCKK.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, resmiacikmi, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl, "yok", "0");
+        dCKK.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, resmiacikmi, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, yas, okul, coverfotourl, "yok", "0");
         DatabaseClassKimleriActirdin dCKA = new DatabaseClassKimleriActirdin(this);
         dCKA.open();
         List<String> varolanlar = dCKA.databasedenidcek();
@@ -1206,14 +1194,14 @@ public class Mesajlasma extends AppCompatActivity {
         }
 
         protected String doInBackground(String... params) {
-            URLConnection connection = null;
+            HttpURLConnection connection = null;
             try {
                 Log.i("tago", "mesaj" + URLEncoder.encode(yazanmesaj, charset));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
             try {
-                connection = new URL("http://185.22.184.15/shappy/sendmsg.php?" +
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/sendmsg.php?" +
                         "id=" + yazanid + "&id2=" + karsiid + "&msg=" + URLEncoder.encode(yazanmesaj, charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1221,18 +1209,36 @@ public class Mesajlasma extends AppCompatActivity {
             connection.setDoOutput(true);
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
+            connection.setRequestProperty("Accept", "* /*");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
             try {
                 OutputStream output = new BufferedOutputStream(connection.getOutputStream());
                 output.write(query.getBytes(charset));
-                InputStream response = connection.getInputStream();
-                Log.i("tago", "VeriTabani Arkadan vurdurma yazdım");
+                output.close();
+                BufferedReader in;
+                if (connection.getResponseCode() == 200) {
+                    in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String inputline = null;
+                    for (int i = 0; i < 3; i++) {
+                        inputline = in.readLine();
+                        Log.i("tago", "" + i + "mesaj for inputline= " + inputline);
+                    }
+                    if (inputline.equals("gitmedi")) {
+                        Mesajlasma.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(Mesajlasma.this, "5 km den uzakta artık mesajlarını göremez", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.i("tago", "VeriTabani Arkadan vurdurma yazamadım");
             }
             return "alabama";
         }
-
     }
 
     public class ServerBanla extends AsyncTask<String, Void, String> {
@@ -1257,7 +1263,7 @@ public class Mesajlasma extends AppCompatActivity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/ban.php?id=" + yazaninid +
+                connection = new URL("http://185.22.187.60/shappy/ban.php?id=" + yazaninid +
                         "&id2=" + karsiid).openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Accept-Charset", charset);
@@ -1297,7 +1303,7 @@ public class Mesajlasma extends AppCompatActivity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/leave.php?id=" + yazaninid +
+                connection = new URL("http://185.22.187.60/shappy/leave.php?id=" + yazaninid +
                         "&id2=" + karsiid).openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Accept-Charset", charset);
@@ -1334,7 +1340,7 @@ public class Mesajlasma extends AppCompatActivity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/favs.php?gonderen=" + params[0] + "&alici=" + karsidakiid).openConnection();
+                connection = new URL("http://185.22.187.60/shappy/favs.php?gonderen=" + params[0] + "&alici=" + karsidakiid).openConnection();
                 Log.i("tago", "Mesajlasma Favlama islemi baslatildi");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1352,4 +1358,5 @@ public class Mesajlasma extends AppCompatActivity {
             return "calabama";
         }
     }
+
 }

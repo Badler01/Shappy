@@ -21,6 +21,7 @@
         android:layout_marginLeft="100dp"
         android:layout_alignTop="@+id/textView9"
         android:layout_alignParentEnd="true"
+        android:inputType="textCapWords"
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:background="@mipmap/yazyazz"

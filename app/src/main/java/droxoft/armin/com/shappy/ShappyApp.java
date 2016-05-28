@@ -12,7 +12,7 @@ import org.acra.sender.HttpSender;
 @ReportsCrashes(
         httpMethod = HttpSender.Method.PUT,
         reportType = HttpSender.Type.JSON,
-        formUri = "http://185.22.184.15:5984/acra-shappy/_design/acra-storage/_update/report",
+        formUri = "http://185.22.187.60:5984/acra-shappy/_design/acra-storage/_update/report",
         formUriBasicAuthLogin = "shappy",
         formUriBasicAuthPassword = "caxobaxo88",
         mode = ReportingInteractionMode.TOAST,

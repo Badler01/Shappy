@@ -38,7 +38,7 @@ import java.util.List;
 
 public class GrupSohbeti extends Activity {
 
-    String kanaladi, kanalid, kanalmodu,kanalurl;
+    String kanaladi, kanalid, kanalmodu, kanalurl;
     int kanallikedurumu = 0;
     boolean taraf;
     ListView listviewMesaj;
@@ -83,7 +83,7 @@ public class GrupSohbeti extends Activity {
         } else {
             date = String.valueOf(hour) + ":" + String.valueOf(minute);
         }
-        mesajAdapter.add(new GrupMesaj(!taraf, message, date, yazaninnick, yazaninnick.length()));
+        mesajAdapter.add(new GrupMesaj(!taraf, message, date, yazaninnick, yazaninnick.charAt(1)));
         DatabaseClassGrupChat databaseClass = new DatabaseClassGrupChat(GrupSohbeti.this);
         databaseClass.open();
         databaseClass.olusturx(message, kanaladi, yazaninnick, date);
@@ -104,10 +104,10 @@ public class GrupSohbeti extends Activity {
             bbb.open();
             String likee = bbb.databasedenozellikecek(kanaladi);
             bbb.close();
-            if(likee.equals("no")){
-                kanallikedurumu=0;
-            }else{
-                kanallikedurumu=1;
+            if (likee.equals("no")) {
+                kanallikedurumu = 0;
+            } else {
+                kanallikedurumu = 1;
             }
         } else if (i.getStringExtra("intentname").equals("gecmiskanaladapter")) {
             kanaladi = i.getExtras().getString("kanaladi");
@@ -118,12 +118,12 @@ public class GrupSohbeti extends Activity {
             dwww.open();
             String likee = dwww.databasedenozellikecek(kanaladi);
             dwww.close();
-            if(likee.equals("yes")){
-                kanallikedurumu =1;
-                Log.i("tago" , "likedurumuyes");
-            }else{
-                kanallikedurumu=0;
-                Log.i("tago" , "likedurumuno");
+            if (likee.equals("yes")) {
+                kanallikedurumu = 1;
+                Log.i("tago", "likedurumuyes");
+            } else {
+                kanallikedurumu = 0;
+                Log.i("tago", "likedurumuno");
             }
             DatabaseClassNotificationGrup dcng = new DatabaseClassNotificationGrup(this);
             dcng.open();
@@ -132,7 +132,7 @@ public class GrupSohbeti extends Activity {
             DatabaseClassKonusulanKanallar dckq = new DatabaseClassKonusulanKanallar(this);
             dckq.open();
             String likedurumu = dckq.databasedenozellikecek(kanaladi);
-            dckq.olustur(kanaladi, kanalmodu, likedurumu,kanalurl, "yok", "0");
+            dckq.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckq.close();
         } else if (i.getStringExtra("intentname").equals("PushReceiver")) {
             kanaladi = i.getExtras().getString("kanaladi");
@@ -143,10 +143,10 @@ public class GrupSohbeti extends Activity {
             dfff.open();
             String likee = dfff.databasedenozellikecek(kanaladi);
             dfff.close();
-            if(likee.equals("yes")){
-                kanallikedurumu=1;
-            }else{
-                kanallikedurumu=0;
+            if (likee.equals("yes")) {
+                kanallikedurumu = 1;
+            } else {
+                kanallikedurumu = 0;
             }
             DatabaseClassNotificationGrup dcng = new DatabaseClassNotificationGrup(this);
             dcng.open();
@@ -155,11 +155,10 @@ public class GrupSohbeti extends Activity {
             DatabaseClassKonusulanKanallar dckq = new DatabaseClassKonusulanKanallar(this);
             dckq.open();
             String likedurumu = dckq.databasedenozellikecek(kanaladi);
-            dckq.olustur(kanaladi, kanalmodu, likedurumu,kanalurl, "yok", "0");
+            dckq.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckq.close();
         }
         tanimlar();
-        registerReceiver(receiveralfa, new IntentFilter("broadcastGrup"));
         List<String> kayitlimesajlar = null;
         List<String> kayitlizamanlar = null;
         List<String> kayitlinickler = null;
@@ -173,15 +172,15 @@ public class GrupSohbeti extends Activity {
         dCGC.close();
         for (int k = 0; k < kayitlimesajlar.size(); k++) {
             if (kayitlimesajlar.get(k).substring(0, 10).equals("badbadbado")) {
-                mesajAdapter.add(new GrupMesaj(!taraf, kayitlimesajlar.get(k).substring(34), kayitlizamanlar.get(k), kayitlinickler.get(k), 3));
+                mesajAdapter.add(new GrupMesaj(!taraf, kayitlimesajlar.get(k).substring(34), kayitlizamanlar.get(k), kayitlinickler.get(k), kayitlinickler.get(k).charAt(1)));
             } else {
                 mesajAdapter.add(new GrupMesaj(taraf, kayitlimesajlar.get(k).substring(0,
-                        kayitlimesajlar.get(k).indexOf("rumbararumbarumbarumruru")), kayitlizamanlar.get(k), kayitlinickler.get(k), 5));
+                        kayitlimesajlar.get(k).indexOf("rumbararumbarumbarumruru")), kayitlizamanlar.get(k), kayitlinickler.get(k), kayitlinickler.get(k).charAt(1)));
             }
         }
     }
 
-    protected void onNewIntent(Intent intent){
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (receiveralfa != null) {
             unregisterReceiver(receiveralfa);
@@ -203,17 +202,22 @@ public class GrupSohbeti extends Activity {
             bbb.open();
             String likee = bbb.databasedenozellikecek(kanaladi);
             bbb.close();
-            if(likee.equals("no")){
-                kanallikedurumu=0;
-            }else{
-                kanallikedurumu=1;
+            if (likee.equals("no")) {
+                kanallikedurumu = 0;
+            } else {
+                kanallikedurumu = 1;
             }
             DatabaseClassKonusulanKanallar dckk = new DatabaseClassKonusulanKanallar(this);
             dckk.open();
             String likedurumu = dckk.databasedenozellikecek(kanaladi);
-            dckk.olustur(kanaladi,kanalmodu,likedurumu,kanalurl,"yok","0");
+            dckk.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckk.close();
         }
+    }
+
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(receiveralfa, new IntentFilter("broadcastGrup"));
     }
 
     protected void onResume() {
@@ -228,6 +232,11 @@ public class GrupSohbeti extends Activity {
         grupnotificationbas = true;
         sharedprefkanalnotificationkaydet();
         sharedprefkanalsonidkaydet(kanalid);
+    }
+
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(receiveralfa);
     }
 
     private void tanimlar() {
@@ -267,17 +276,17 @@ public class GrupSohbeti extends Activity {
         ImageButton kanaldancikisbutonu = (ImageButton) findViewById(R.id.kanaldancikbutton);
         ImageButton kanalireportbutonu = (ImageButton) findViewById(R.id.imaj2);
         kanalilikebutonu = (ImageButton) findViewById(R.id.imaj1);
-        if (kanallikedurumu==0) {
+        if (kanallikedurumu == 0) {
             kanalilikebutonu.setImageResource(R.mipmap.begenganal);
-        } else if (kanallikedurumu==1) {
+        } else if (kanallikedurumu == 1) {
             kanalilikebutonu.setImageResource(R.mipmap.begenganal_k);
         }
         kanalilikebutonu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (kanallikedurumu==0) {
+                if (kanallikedurumu == 0) {
                     kanalilikelamaislemi();
                     kanallikedurumu = 1;
-                } else if (kanallikedurumu==1) {
+                } else if (kanallikedurumu == 1) {
                     Toast.makeText(GrupSohbeti.this, "Zaten Like Attın", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -333,7 +342,7 @@ public class GrupSohbeti extends Activity {
         }
         DatabaseClassKonusulanKanallar dCKK = new DatabaseClassKonusulanKanallar(this);
         dCKK.open();
-        dCKK.olustur(kanaladi, kanalmodu, "yes",kanalurl, "yok", "0");
+        dCKK.olustur(kanaladi, kanalmodu, "yes", kanalurl, "yok", "0");
         dCKK.close();
     }
 
@@ -370,7 +379,7 @@ public class GrupSohbeti extends Activity {
             int hour = c.get(Calendar.HOUR);
             int minute = c.get(Calendar.MINUTE);
             String date = String.valueOf(hour) + ":" + String.valueOf(minute);
-            mesajAdapter.add(new GrupMesaj(taraf, yazaninmesaj, date, yazaninnicki, yazaninnicki.length()));
+            mesajAdapter.add(new GrupMesaj(taraf, yazaninmesaj, date, yazaninnicki, yazaninnicki.charAt(1)));
             edittextmesajalani.setText("");
             konusulankanalikaydet();
             mesajiexternalkaydet(yazaninmesaj, yazaninnicki, date);
@@ -391,7 +400,7 @@ public class GrupSohbeti extends Activity {
         DatabaseClassKonusulanKanallar dCKK = new DatabaseClassKonusulanKanallar(this);
         dCKK.open();
         String likedurumu = dCKK.databasedenozellikecek(kanaladi);
-        dCKK.olustur(kanaladi, kanalmodu,likedurumu,kanalurl, "yok", "0");
+        dCKK.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
         dCKK.close();
     }
 
@@ -420,7 +429,7 @@ public class GrupSohbeti extends Activity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/leave_channel.php?id=" + params[0] +
+                connection = new URL("http://185.22.187.60/shappy/leave_channel.php?id=" + params[0] +
                         "&name=" + kanaladi).openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Accept-Charset", charset);
@@ -469,7 +478,7 @@ public class GrupSohbeti extends Activity {
             Log.i("tago", "kanalid= " + string);
             Log.i("tago", "kullaniciid= " + kullaniciid);
             try {
-                vconnection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/like_channel.php?id=" + string + "&userid="
+                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/like_channel.php?id=" + string + "&userid="
                         + kullaniciid + "&type=2").openConnection();
                 Log.i("tago", "KanalAdapter official like etme bağı kuruldu");
             } catch (IOException e) {
@@ -520,7 +529,7 @@ public class GrupSohbeti extends Activity {
             Log.i("tago", "kanalid= " + string);
             Log.i("tago", "kullaniciid= " + kullaniciid);
             try {
-                vconnection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/like_channel.php?id=" + string + "&userid="
+                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/like_channel.php?id=" + string + "&userid="
                         + kullaniciid + "&type=1").openConnection();
                 Log.i("tago", "GrupSohbeti normal like etme bağı kuruldu");
             } catch (IOException e) {
@@ -566,7 +575,7 @@ public class GrupSohbeti extends Activity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/report_channel.php?id=" +
+                connection = new URL("http://185.22.187.60/shappy/report_channel.php?id=" +
                         params[0] + "&kanalid=" + kanalid + "&reason=" + sikayetnedeni).openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Accept-Charset", charset);
@@ -623,11 +632,11 @@ public class GrupSohbeti extends Activity {
         }
 
         private String mesajıgonder() {
-            Log.i("tago" , "kanalidg" + kanalid);
+            Log.i("tago", "kanalidg" + kanalid);
             URLConnection connection = null;
             Log.i("tago", "nick" + yazaninnicki);
             try {
-                connection = new URL("http://185.22.184.15/shappy/group_chat.php?" +
+                connection = new URL("http://185.22.187.60/shappy/group_chat.php?" +
                         "id=" + yazaninid + "&plcid=" + kanalid +
                         "&name=" + yazaninnicki + "&placename=" + kanaladi +
                         "&msg=" + URLEncoder.encode(yazaninmesaj, charset) + "&type=" + kanalmodu).openConnection();

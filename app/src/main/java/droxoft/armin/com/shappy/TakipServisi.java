@@ -180,7 +180,7 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/connection.php?name=" +
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/connection.php?name=" +
                         URLEncoder.encode(isim, charset) + "&url=" + URLEncoder.encode(faceprofilurl, charset) +
                         "&long=" + URLEncoder.encode(longitude, charset) + "&lat=" + URLEncoder.encode(latitude, charset)
                         + "&regid=" + URLEncoder.encode(regid, charset) +
@@ -259,7 +259,7 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/update_location.php?id=" + serverid +
+                connection = new URL("http://185.22.187.60/shappy/update_location.php?id=" + serverid +
                         "&long=" + longitude + "&lat=" + latitude).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();

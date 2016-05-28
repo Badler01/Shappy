@@ -17,7 +17,7 @@
         android:layout_alignParentRight="false"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:background="@mipmap/neyse_bir_mi"
+        android:background="@mipmap/neyse_iki"
         android:layout_alignWithParentIfMissing="false">
 
         <ImageView android:id="@+id/imgIcon"

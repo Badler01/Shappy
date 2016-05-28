@@ -102,7 +102,7 @@ public class AciklamaDegistir extends Activity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/my_status?id="
+                connection = new URL("http://185.22.187.60/shappy/my_status?id="
                         + params[0] + "&status=" + URLEncoder.encode(durum, charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();

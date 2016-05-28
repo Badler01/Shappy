@@ -29,6 +29,7 @@
                 android:inputType="textCapWords"
                 android:hint="Nickname yazın"
                 android:ems="10"
+                android:maxLength="15"
                 android:id="@+id/editText5"
                 android:layout_gravity="left|center_vertical"
                 android:background="@mipmap/nickname_iki"

@@ -25,7 +25,6 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,7 +38,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -230,22 +228,22 @@ public class PageFragment2 extends Fragment {
     private void tanimlar(View view) {
         imageviewburc = (ImageView) view.findViewById(R.id.burc);
         SharedPrefBurcYerlestir(getActivity());
-        imageviewburc.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View layout = inflater.inflate(R.layout.toastburc,
-                        (ViewGroup) getActivity().findViewById(R.id.toastburc));
-                TextView text = (TextView) layout.findViewById(R.id.textburc);
-                text.setText(imageviewburc.getContentDescription());
-                Toast toast = new Toast(getActivity().getApplicationContext());
-                toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.setView(layout);
-                toast.show();
-                return false;
-            }
-        });
+//        imageviewburc.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                LayoutInflater inflater = getActivity().getLayoutInflater();
+//                View layout = inflater.inflate(R.layout.toastburc,
+//                        (ViewGroup) getActivity().findViewById(R.id.toastburc));
+//                TextView text = (TextView) layout.findViewById(R.id.textburc);
+//                text.setText(imageviewburc.getContentDescription());
+//                Toast toast = new Toast(getActivity().getApplicationContext());
+//                toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
+//                toast.setDuration(Toast.LENGTH_SHORT);
+//                toast.setView(layout);
+//                toast.show();
+//                return false;
+//            }
+//        });
         imageviewkapak = (ImageView) view.findViewById(R.id.imageviewkapak);
         final RelativeLayout laba = (RelativeLayout) view.findViewById(R.id.laba);
         final boolean[] pressed = {false};
@@ -321,10 +319,16 @@ public class PageFragment2 extends Fragment {
             }
         });
         TextView textviewcinsiyet = (TextView) view.findViewById(R.id.textView22);
-        textviewcinsiyet.setText(sharedPrefCinsiyetAl());
+        String cinso = sharedPrefCinsiyetAl();
+        if(cinso.equals("female")||cinso.equals("Female")){
+            textviewcinsiyet.setText("Kadın");
+        }else if(cinso.equals("male")||cinso.equals("Male")){
+            textviewcinsiyet.setText("Erkek");
+        }else{
+            textviewcinsiyet.setText("Others");
+        }
         textviewaciklama = (TextView) view.findViewById(R.id.textviewaciklama);
         String durum = sharedPrefDurumAl();
-        Log.i("tago", "durum" + durum);
         if (!durum.equals("defaultdurum")) {
             textviewaciklama.setText(durum);
         }
@@ -406,7 +410,6 @@ public class PageFragment2 extends Fragment {
         });
     }
 
-
     public static Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap = null;
 
@@ -428,7 +431,6 @@ public class PageFragment2 extends Fragment {
         drawable.draw(canvas);
         return bitmap;
     }
-
 
     private void sharedPrefMainDurumKaydet(boolean b) {
         SharedPreferences sP = getActivity().getSharedPreferences("programisleyis", Context.MODE_PRIVATE);
@@ -473,12 +475,16 @@ public class PageFragment2 extends Fragment {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
-                    yenicoverfotourl = object.getJSONObject("cover").getString("source");
-                    ServerCoverPhotoUrlGonder sCPUG = new ServerCoverPhotoUrlGonder(sharedPrefIdAl(), yenicoverfotourl);
-                    sCPUG.execute();
-                    Log.i("tago", "yenicover1" + yenicoverfotourl);
-                    UrldenCoverPhoto uCP = new UrldenCoverPhoto(yenicoverfotourl);
-                    uCP.execute();
+                    if(object!=null){
+                        yenicoverfotourl = object.getJSONObject("cover").getString("source");
+                        ServerCoverPhotoUrlGonder sCPUG = new ServerCoverPhotoUrlGonder(sharedPrefIdAl(), yenicoverfotourl);
+                        sCPUG.execute();
+                        Log.i("tago", "yenicover1" + yenicoverfotourl);
+                        UrldenCoverPhoto uCP = new UrldenCoverPhoto(yenicoverfotourl);
+                        uCP.execute();
+                    }else{
+                        imageviewkapak.setBackgroundResource(R.mipmap.bos_kapak);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -633,7 +639,7 @@ public class PageFragment2 extends Fragment {
             try {
                 Log.i("tago", "durum" + durum);
                 Log.i("tago", "durum encode " + URLEncoder.encode(durum, charset));
-                connection = new URL("http://185.22.184.15/shappy/my_status?id="
+                connection = new URL("http://185.22.187.60/shappy/my_status?id="
                         + params[0] + "&status=" + URLEncoder.encode(durum, charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -673,7 +679,7 @@ public class PageFragment2 extends Fragment {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/delete_user.php?id=" + serverid).openConnection();
+                connection = new URL("http://185.22.187.60/shappy/delete_user.php?id=" + serverid).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -714,7 +720,7 @@ public class PageFragment2 extends Fragment {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.184.15/shappy/add_cover.php?id=" + serverid + "&coverURL=" + coverurl).openConnection();
+                connection = new URL("http://185.22.187.60/shappy/add_cover.php?id=" + serverid + "&coverURL=" + coverurl).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

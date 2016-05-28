@@ -218,7 +218,7 @@ public class GecmisInsanAdapter extends ArrayAdapter<Insan> {
             HttpURLConnection connection = null;
             String durum = "basibos";
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.184.15/shappy/get_stats.php?id=" + params[0]).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/get_stats.php?id=" + params[0]).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
