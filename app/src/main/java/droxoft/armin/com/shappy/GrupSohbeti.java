@@ -157,6 +157,12 @@ public class GrupSohbeti extends Activity {
             String likedurumu = dckq.databasedenozellikecek(kanaladi);
             dckq.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckq.close();
+        }else if(i.getStringExtra("intentname").equals("PageFragment1")){
+            kanaladi = i.getExtras().getString("kanaladi");
+            kanalid = i.getExtras().getString("kanalid");
+            kanalmodu = i.getExtras().getString("kanalmodu");
+            kanalurl = i.getExtras().getString("kanalurl");
+            kanallikedurumu = 0;
         }
         tanimlar();
         List<String> kayitlimesajlar = null;

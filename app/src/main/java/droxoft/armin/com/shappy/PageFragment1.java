@@ -53,6 +53,7 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -64,8 +65,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class PageFragment1 extends Fragment implements AbsListView.OnScrollListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
@@ -83,7 +82,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
     String image = "default";
     boolean kanaleklemebitti;
     String nameofChannel;
-
+    String kurulacakkanaladi;
     //Quick Return
     ViewGroup viewGroup;
     AbsListView absListView;
@@ -372,7 +371,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                 if (etv1.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Kanal adı verin", Toast.LENGTH_SHORT).show();
                 } else {
-                    String kurulacakkanaladi = etv1.getText().toString();
+                    kurulacakkanaladi = etv1.getText().toString();
                     if (kanalresmiimage.getDrawable() == null) {
                         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.shappy_now);
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -382,10 +381,6 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                     }
                     YeniKanalEkle yenikanalekle = new YeniKanalEkle();
                     yenikanalekle.execute(kurulacakkanaladi);
-                    Intent i = new Intent(getActivity(),GrupSohbeti.class);
-                    i.putExtra("kanaladi" , kurulacakkanaladi);
-                    ////////
-                    startActivity(i);
                     dialog.cancel();
                 }
             }
@@ -983,6 +978,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
         String charset;
         String query;
         boolean kanalikur;
+        String yenikanalid, yenikanalurl;
 
         protected String doInBackground(String... params) {
             charset = "utf-8";
@@ -1066,9 +1062,10 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                     OutputStream output = new BufferedOutputStream(sconnection.getOutputStream());
                     output.write(query.getBytes(charset));
                     output.close();
-                    int a = sconnection.getResponseCode();
-                    String b = sconnection.getResponseMessage();
+                    InputStream is = sconnection.getInputStream();
                     uploadFile();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1103,22 +1100,42 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                 writer.flush();
                 writer.close();
                 os.close();
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    String line;
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    while ((line = br.readLine()) != null) {
-                        response += line;
+                try {
+                    BufferedReader in;
+                    if (conn.getResponseCode() == 200) {
+                        in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        String inputline = in.readLine();
+                        Log.i("tago", "kanal for " + inputline);
+                        JSONArray jsonArray = new JSONArray(inputline);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        yenikanalid = jsonObject.optString("id");
+                        yenikanalurl = jsonObject.optString("photo");
+                        Log.i("tago", "kanal for kanalid " + yenikanalid + "kanalurl " + yenikanalurl);
                     }
-                } else {
-                    response = "";
-
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         }
+//                int responseCode = conn.getResponseCode();
+//
+//                if (responseCode == HttpsURLConnection.HTTP_OK) {
+//                    String line;
+//                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//                    while ((line = br.readLine()) != null) {
+//                        response += line;
+//                        Log.i("tago" , "kanal for response" + response);
+//                    }
+//                } else {
+//                    response = "";
+//
+//                }
+//            } catch (Exception e)
+//
+//            {
+//            }
 
         private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
             StringBuilder result = new StringBuilder();
@@ -1139,6 +1156,12 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
 
         protected void onPostExecute(String s) {
             kanaleklemebitti = true;
+            Intent i = new Intent(getActivity(), GrupSohbeti.class);
+            i.putExtra("kanaladi", kurulacakkanaladi);
+            //i.putExtra("kanalid", yenikanalid);
+            //i.putExtra("kanalurl", yenikanalurl);
+            i.putExtra("kanalmodu", "n");
+            i.putExtra("intentname", "PageFragment1");
             Log.i("tago", "PageFragment1 kanaleklemebitti" + String.valueOf(kanaleklemebitti));
         }
     }

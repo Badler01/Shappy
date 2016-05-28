@@ -761,10 +761,9 @@ public class AnaAkim extends AppCompatActivity {
                 BufferedReader in;
                 if (connection.getResponseCode() == 200) {
                     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String inputline = null;
-                    for (int i = 0; i < 3; i++) {
-                        inputline = in.readLine();
-                        Log.i("tago", "" + i + "has focus for inputline= " + inputline);
+                    String inputline=in.readLine();
+                    if(inputline.equals("var")){
+                        //// dance
                     }
                 }
             } catch (UnsupportedEncodingException e) {
