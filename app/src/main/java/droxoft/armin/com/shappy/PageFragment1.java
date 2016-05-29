@@ -1111,6 +1111,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                         yenikanalid = jsonObject.optString("id");
                         yenikanalurl = jsonObject.optString("photo");
                         Log.i("tago", "kanal for kanalid " + yenikanalid + "kanalurl " + yenikanalurl);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
