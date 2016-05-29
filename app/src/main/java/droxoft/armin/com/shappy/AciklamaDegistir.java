@@ -23,9 +23,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class AciklamaDegistir extends Activity {
-
-
-
+    String a = "a";
     private void sharedPrefDurumKaydet(String nick) {
         SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
