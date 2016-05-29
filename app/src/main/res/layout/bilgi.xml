@@ -29,7 +29,6 @@
                 android:inputType="textCapWords"
                 android:hint="Nickname yazın"
                 android:ems="10"
-                android:maxLength="15"
                 android:id="@+id/editText5"
                 android:layout_gravity="left|center_vertical"
                 android:background="@mipmap/nickname_iki"
@@ -39,6 +38,16 @@
                 android:textStyle="bold"
                 android:textColorHint="#c8c8c8"
                 android:textColor="#b5000000" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView27"
+                android:visibility="invisible"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/carpi"
+                android:layout_marginTop="6dp" />
         </FrameLayout>
 
         <FrameLayout

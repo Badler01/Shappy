@@ -59,6 +59,7 @@ public class AnaAkim extends AppCompatActivity {
     ImageButton geridonmebutonu;
     EditText aramaalani;
     ImageButton ikinciaramabutonu;
+    ImageView imageviewnickvarmi;
 
 
     private void sharedPrefNickKaydet(String nick) {
@@ -146,6 +147,7 @@ public class AnaAkim extends AppCompatActivity {
             dialog.setCancelable(false);
             dialog.setCanceledOnTouchOutside(false);
             final String[] yas = new String[1];
+            imageviewnickvarmi = (ImageView) dialog.findViewById(R.id.imageView27);
             final EditText edittextnick = (EditText) dialog.findViewById(R.id.editText5);
             final EditText edittextokul = (EditText) dialog.findViewById(R.id.editText6);
             final EditText edittextdogumyili = (EditText) dialog.findViewById(R.id.editText7);
@@ -763,7 +765,22 @@ public class AnaAkim extends AppCompatActivity {
                     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     String inputline=in.readLine();
                     if(inputline.equals("var")){
-                        //// dance
+                        AnaAkim.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                imageviewnickvarmi.setVisibility(View.VISIBLE);
+                                imageviewnickvarmi.setImageResource(R.mipmap.carpi);
+                            }
+                        });
+                    }else if(inputline.equals("yok")){
+                        AnaAkim.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                if(imageviewnickvarmi.getVisibility()==View.INVISIBLE){
+
+                                }else{
+                                    imageviewnickvarmi.setImageResource(R.mipmap.tik);
+                                }
+                            }
+                        });
                     }
                 }
             } catch (UnsupportedEncodingException e) {

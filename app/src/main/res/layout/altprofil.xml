@@ -188,6 +188,14 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView28"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/tleo" />
         </FrameLayout>
 
         <ImageView
