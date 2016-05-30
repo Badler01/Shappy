@@ -87,9 +87,9 @@ public class KanalAdapter extends BaseAdapter implements Filterable {
         kanaldakikisisayilari();
         lala = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.badooooo)
-                .showImageForEmptyUri(R.mipmap.badooooo)
-                .showImageOnFail(R.mipmap.badooooo)
+                .showImageOnLoading(R.mipmap.kanal_bos)
+                .showImageForEmptyUri(R.mipmap.kanal_bos)
+                .showImageOnFail(R.mipmap.kanal_bos)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)

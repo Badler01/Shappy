@@ -373,7 +373,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                 } else {
                     kurulacakkanaladi = etv1.getText().toString();
                     if (kanalresmiimage.getDrawable() == null) {
-                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.shappy_now);
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.kanal_bos);
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                         byte[] b = baos.toByteArray();

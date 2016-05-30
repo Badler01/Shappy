@@ -21,7 +21,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New TextNew TextNew TextNew TextNew TextNew TextNew TextNew TextString b = &quot;b&quot;;String b = &quot;b&quot;;dgfsagv"
+                android:text="New TextNew TextNew TextNew TextNew TextNew TextNew TextNew"
                 android:scaleType="fitXY"
                 android:textStyle="bold"
                 android:textColor="#000000"
