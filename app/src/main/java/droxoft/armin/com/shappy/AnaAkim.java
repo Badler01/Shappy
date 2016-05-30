@@ -62,6 +62,7 @@ public class AnaAkim extends AppCompatActivity {
     ImageView imageviewnickvarmi;
 
 
+
     private void sharedPrefNickKaydet(String nick) {
         SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
