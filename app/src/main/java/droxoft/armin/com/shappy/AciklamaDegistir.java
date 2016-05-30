@@ -35,6 +35,7 @@ public class AciklamaDegistir extends Activity {
         return sP.getString("serverid" , "defaultserverid");
     }
 
+
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.aciklamadegistir);
