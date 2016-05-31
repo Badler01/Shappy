@@ -13,8 +13,8 @@ android {
         applicationId "droxoft.armin.com.shappy"
         minSdkVersion 18
         targetSdkVersion 23
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
         generatedDensities = []
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
