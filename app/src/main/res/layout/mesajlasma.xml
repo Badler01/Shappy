@@ -32,7 +32,7 @@
                     android:layout_centerVertical="true"
                     android:background="#00000000"
                     android:longClickable="false"
-                    android:src="@mipmap/geribas" />
+                    android:src="@drawable/kgeri_bas" />
 
                 <ImageButton
                     android:id="@+id/imageButton"
@@ -113,17 +113,11 @@
                 android:background="@mipmap/bisiler_yaz_altplan"
                 android:id="@+id/linearLayout">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/bisiler_yaz"
-                    android:layout_marginBottom="5dp">
+
 
                     <EditText
                         android:id="@+id/editText2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:hint="Bir mesaj yaz..."
                         android:imeOptions="actionNone"
@@ -133,9 +127,10 @@
                         android:allowUndo="false"
                         android:inputType="textCapSentences"
                         android:layout_centerVertical="true"
-                        android:background="#00000000"
-                        android:minHeight="25dp" />
-                </RelativeLayout>
+                        android:minHeight="25dp"
+                        android:background="@drawable/bisiler_yaz" />
+
+
 
                 <ImageButton
                     android:id="@+id/button4"
