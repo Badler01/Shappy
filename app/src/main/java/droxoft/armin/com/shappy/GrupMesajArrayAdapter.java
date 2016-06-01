@@ -59,25 +59,25 @@ public class GrupMesajArrayAdapter extends ArrayAdapter<GrupMesaj> {
         tv3.setTextColor(mesajobj.side ? Color.BLACK : Color.WHITE);
         tv3.setText(mesajobj.nick);
         if(mesajobj.renkkatalogu=='a' || mesajobj.renkkatalogu=='b'){
-            tv3.setTextColor(Color.BLUE);
+            tv3.setTextColor(Color.argb(255,86,17,34));
         }else if(mesajobj.renkkatalogu=='c' || mesajobj.renkkatalogu=='d'){
-            tv3.setTextColor(Color.CYAN);
+            tv3.setTextColor(Color.argb(255,214,58,23));
         }else if(mesajobj.renkkatalogu =='e' || mesajobj.renkkatalogu =='f'){
-            tv3.setTextColor(Color.RED);
+            tv3.setTextColor(Color.argb(255,123,42,134));
         }else if(mesajobj.renkkatalogu == 'g' || mesajobj.renkkatalogu == 'h'){
-            tv3.setTextColor(Color.GREEN);
+            tv3.setTextColor(Color.argb(255,68,172,52));
         }else if(mesajobj.renkkatalogu == 'k' || mesajobj.renkkatalogu == 'l'){
-            tv3.setTextColor(Color.YELLOW);
+            tv3.setTextColor(Color.argb(255,43,182,188));
         }else if(mesajobj.renkkatalogu == 'i' || mesajobj.renkkatalogu =='ı'){
-            tv3.setTextColor(Color.GRAY);
+            tv3.setTextColor(Color.argb(255,96,41,22));
         }else if(mesajobj.renkkatalogu == 'm' || mesajobj.renkkatalogu == 'n'){
-            tv3.setTextColor(Color.MAGENTA);
+            tv3.setTextColor(Color.argb(255,228,31,33));
         }else if(mesajobj.renkkatalogu == 'o' || mesajobj.renkkatalogu == 'ö'){
-            tv3.setTextColor(Color.GRAY);
+            tv3.setTextColor(Color.argb(255,42,75,155));
         }else if(mesajobj.renkkatalogu == 'p' || mesajobj.renkkatalogu == 'r'){
-            tv3.setTextColor(Color.YELLOW);
+            tv3.setTextColor(Color.argb(255,15,105,89));
         }else if(mesajobj.renkkatalogu == 's' || mesajobj.renkkatalogu == 'ş'){
-            tv3.setTextColor(Color.RED);
+            tv3.setTextColor(Color.argb(255,24,58,29));
         }else{
             tv3.setTextColor(Color.CYAN);
         }

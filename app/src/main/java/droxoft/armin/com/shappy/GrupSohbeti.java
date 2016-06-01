@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -157,7 +156,7 @@ public class GrupSohbeti extends Activity {
             String likedurumu = dckq.databasedenozellikecek(kanaladi);
             dckq.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckq.close();
-        }else if(i.getStringExtra("intentname").equals("PageFragment1")){
+        } else if (i.getStringExtra("intentname").equals("PageFragment1")) {
             kanaladi = i.getExtras().getString("kanaladi");
             kanalid = i.getExtras().getString("kanalid");
             kanalmodu = i.getExtras().getString("kanalmodu");
@@ -293,7 +292,8 @@ public class GrupSohbeti extends Activity {
                     kanalilikelamaislemi();
                     kanallikedurumu = 1;
                 } else if (kanallikedurumu == 1) {
-                    Toast.makeText(GrupSohbeti.this, "Zaten Like Attın", Toast.LENGTH_SHORT).show();
+                    kanaliantilikeislemi();
+                    kanallikedurumu = 0;
                 }
             }
         });
@@ -335,6 +335,20 @@ public class GrupSohbeti extends Activity {
     private String SharedPrefIdAl() {
         SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         return sP.getString("serverid", "defaultserverid");
+    }
+
+    private void kanaliantilikeislemi() {
+        kanalilikebutonu.setImageResource(R.mipmap.begenganal);
+        if (kanalmodu.equals("o")) {
+            ServerOfficialKanalAntiLike sOKAL = new ServerOfficialKanalAntiLike();
+            //sOKAL.execute(kanalid);
+        } else if (kanalmodu.equals("n")) {
+            ServerNormalKanalAntiLike sNKAL = new ServerNormalKanalAntiLike();
+            //  sNKAL.execute(kanalid);
+        }
+        DatabaseClassKonusulanKanallar swer = new DatabaseClassKonusulanKanallar(this);
+        swer.open();
+        swer.olustur(kanaladi, kanalmodu, "no", kanalurl, "yok", "0");
     }
 
     private void kanalilikelamaislemi() {
@@ -557,6 +571,86 @@ public class GrupSohbeti extends Activity {
         }
     }
 
+    private class ServerOfficialKanalAntiLike extends AsyncTask<String, Void, String> {
+        String charset, query;
+
+        public ServerOfficialKanalAntiLike() {
+            charset = "UTF-8";
+            String param1 = "kanalid";
+            String param2 = "kullaniciid";
+            String param3 = "type";
+            try {
+                query = String.format("param1=%s&param2=%s&param3=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset)
+                        , URLEncoder.encode(param3, charset));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected String doInBackground(String... params) {
+            HttpURLConnection vconnection = null;
+            String kullaniciid = SharedPrefIdAl();
+            Log.i("tago", "kullaniciid= " + kullaniciid);
+            try {
+                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/like_channel.php?id=").openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            vconnection.setDoOutput(true);
+            vconnection.setRequestProperty("Accept-Charset", charset);
+            vconnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+
+            try {
+                OutputStream output = new BufferedOutputStream(vconnection.getOutputStream());
+                output.write(query.getBytes(charset));
+                InputStream response = vconnection.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "alabama";
+        }
+    }
+
+    private class ServerNormalKanalAntiLike extends AsyncTask<String, Void, String> {
+        String charset, query;
+
+        public ServerNormalKanalAntiLike() {
+            charset = "UTF-8";
+            String param1 = "kanalid";
+            String param2 = "kullaniciid";
+            String param3 = "type";
+            try {
+                query = String.format("param1=%s&param2=%s&param3=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset)
+                        , URLEncoder.encode(param3, charset));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected String doInBackground(String... params) {
+            HttpURLConnection vconnection = null;
+            String kullaniciid = SharedPrefIdAl();
+            Log.i("tago", "kullaniciid= " + kullaniciid);
+            try {
+                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/like_channel.php?id=").openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            vconnection.setDoOutput(true);
+            vconnection.setRequestProperty("Accept-Charset", charset);
+            vconnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+
+            try {
+                OutputStream output = new BufferedOutputStream(vconnection.getOutputStream());
+                output.write(query.getBytes(charset));
+                InputStream response = vconnection.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "alabama";
+        }
+    }
+
     private class ServerKanalReport extends AsyncTask<String, Void, String> {
 
         String sikayetnedeni, kanaladi;
@@ -664,4 +758,5 @@ public class GrupSohbeti extends Activity {
             return "alabama";
         }
     }
+
 }
