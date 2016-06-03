@@ -65,7 +65,7 @@ public class PageFragment2 extends Fragment {
 
     public static final String ARG_PAGE = "ARG_PAGE";
     private View view;
-    private ImageView imageviewkapak, imageviewprofil;
+    private ImageView imageviewkapak, imageviewprofil, ivkapak_onu;
     private String isim;
     private boolean kullanicicikti = false;
     EditText editTextaciklama;
@@ -77,6 +77,7 @@ public class PageFragment2 extends Fragment {
     TextView textviewaciklama;
     Bitmap karsiresim;
     Bitmap karsicover;
+    Bitmap bluredcover, halfbluredcover, scaledcover, scaledhalfcover;
 
 
     ProfileTracker protracker;
@@ -245,6 +246,7 @@ public class PageFragment2 extends Fragment {
 //            }
 //        });
         imageviewkapak = (ImageView) view.findViewById(R.id.imageviewkapak);
+        ivkapak_onu = (ImageView) view.findViewById(R.id.imageView42);
         final RelativeLayout laba = (RelativeLayout) view.findViewById(R.id.laba);
         final boolean[] pressed = {false};
         imageviewkapak.setOnTouchListener(new View.OnTouchListener() {
@@ -255,45 +257,30 @@ public class PageFragment2 extends Fragment {
                         laba.bringToFront();
                         laba.invalidate();
                         pressed[0] = true;
-                        Bitmap b = antiblur(karsicover, 2f);
-                        Bitmap bitmape = Bitmap.createScaledBitmap(b, 1080, 660, false);
-                        imageviewkapak.setImageBitmap(bitmape);
-                        imageviewkapak.setImageResource(R.mipmap.fire_tr);
+                        imageviewkapak.setImageBitmap(halfbluredcover);
                         break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        //User is moving around on the screen
-                        break;
-
+//                    case MotionEvent.ACTION_MOVE:
+//                        Log.i("tago", "basiliyo move");
+//                        laba.bringToFront();
+//                        laba.invalidate();
+//                        pressed[0] = true;
+//                        imageviewkapak.setImageBitmap(halfbluredcover);
+//                        pressed[0] = true;
                     case MotionEvent.ACTION_UP:
+                            Log.i("tago", "basiliyo kaldirildi");
+
+                        ivkapak_onu.bringToFront();
+                        ivkapak_onu.invalidate();
+                        imageviewprofil.bringToFront();
+                        imageviewprofil.invalidate();
+                        imageviewkapak.setImageBitmap(bluredcover);
                         pressed[0] = false;
-                        Log.i("tago", "basiliyo kaldirildi");
-                        Bitmap a = blur(karsicover);
-                        Bitmap bitmapee = Bitmap.createScaledBitmap(a, 1080, 660, false);
-                        imageviewkapak.setImageBitmap(bitmapee);
                         break;
                 }
                 return pressed[0];
             }
         });
-//        imageviewkapak.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                if (imageviewkapak.getDrawable() != null) {
-//                    laba.bringToFront();
-//                    laba.invalidate();
-////                    Bitmap b =antiblur(karsicover, 20f);
-////                    Bitmap bitmape = Bitmap.createScaledBitmap(b, 1080, 660, false);
-////                    imageviewkapak.setImageBitmap(bitmape);
-////                    Drawable c = new BitmapDrawable(getResources(),b);
-////                    imageviewkapak.setBackgroundResource(0);
-////                    imageviewkapak.setBackground(c);
-//                    Log.i("tago", "bos atma");
-//                }
-//                if (imageviewkapak.getDrawable() == null) {
-//                }
-//
-//            }
-//        });
+
         imageviewprofil = (ImageView) view.findViewById(R.id.imageviewprofil);
         imageviewprofil.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -475,14 +462,14 @@ public class PageFragment2 extends Fragment {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
-                    if(object!=null){
+                    if (object != null) {
                         yenicoverfotourl = object.getJSONObject("cover").getString("source");
                         ServerCoverPhotoUrlGonder sCPUG = new ServerCoverPhotoUrlGonder(sharedPrefIdAl(), yenicoverfotourl);
                         sCPUG.execute();
                         Log.i("tago", "yenicover1" + yenicoverfotourl);
                         UrldenCoverPhoto uCP = new UrldenCoverPhoto(yenicoverfotourl);
                         uCP.execute();
-                    }else{
+                    } else {
                         imageviewkapak.setBackgroundResource(R.mipmap.bos_kapak);
                     }
                 } catch (JSONException e) {
@@ -605,6 +592,14 @@ public class PageFragment2 extends Fragment {
                 e.printStackTrace();
             }
             karsicover = bitmap;
+            Bitmap karsicover1 = karsicover;
+            Bitmap karsicover2 = karsicover;
+
+            scaledcover = Bitmap.createScaledBitmap(karsicover1, 1080, 660, false);
+            bluredcover = blur(scaledcover);
+            scaledhalfcover = Bitmap.createScaledBitmap(karsicover2, 1080, 660, false);
+            halfbluredcover = antiblur(scaledhalfcover, 2f);
+
             return bitmap;
         }
 
