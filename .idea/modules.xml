@@ -3,10 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Shappy.iml" filepath="$PROJECT_DIR$/Shappy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ShappyD.iml" filepath="$PROJECT_DIR$/ShappyD.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ShappyK.iml" filepath="$PROJECT_DIR$/ShappyK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ShappyQ.iml" filepath="$PROJECT_DIR$/ShappyQ.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
