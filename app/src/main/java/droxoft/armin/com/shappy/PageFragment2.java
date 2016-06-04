@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
@@ -248,38 +249,46 @@ public class PageFragment2 extends Fragment {
         imageviewkapak = (ImageView) view.findViewById(R.id.imageviewkapak);
         ivkapak_onu = (ImageView) view.findViewById(R.id.imageView42);
         final RelativeLayout laba = (RelativeLayout) view.findViewById(R.id.laba);
-        final boolean[] pressed = {false};
         imageviewkapak.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                switch (arg1.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.i("tago", "basiliyo");
+
+                    int action = arg1.getAction();
+                    if (action==MotionEvent.ACTION_DOWN)
+                    {
                         laba.bringToFront();
                         laba.invalidate();
-                        pressed[0] = true;
                         imageviewkapak.setImageBitmap(halfbluredcover);
-                        break;
-//                    case MotionEvent.ACTION_MOVE:
-//                        Log.i("tago", "basiliyo move");
-//                        laba.bringToFront();
-//                        laba.invalidate();
-//                        pressed[0] = true;
-//                        imageviewkapak.setImageBitmap(halfbluredcover);
-//                        pressed[0] = true;
-                    case MotionEvent.ACTION_UP:
-                            Log.i("tago", "basiliyo kaldirildi");
+                        return true;
+                    }
 
+                    if(action==MotionEvent.ACTION_MOVE)
+                    {
+
+                    }
+
+                    if(action==MotionEvent.ACTION_CANCEL)
+                    {
                         ivkapak_onu.bringToFront();
                         ivkapak_onu.invalidate();
                         imageviewprofil.bringToFront();
                         imageviewprofil.invalidate();
                         imageviewkapak.setImageBitmap(bluredcover);
-                        pressed[0] = false;
-                        break;
-                }
-                return pressed[0];
-            }
-        });
+                    }
+
+                    if (action==MotionEvent.ACTION_UP)
+                    {
+                        ivkapak_onu.bringToFront();
+                        ivkapak_onu.invalidate();
+                        imageviewprofil.bringToFront();
+                        imageviewprofil.invalidate();
+                        imageviewkapak.setImageBitmap(bluredcover);
+                        return true;
+                    }
+
+
+                    return false;
+
+        }});
 
         imageviewprofil = (ImageView) view.findViewById(R.id.imageviewprofil);
         imageviewprofil.setOnClickListener(new View.OnClickListener() {
