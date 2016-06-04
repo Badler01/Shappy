@@ -31,8 +31,9 @@ public class NickDegistir extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         final TextView tv1 = (TextView) findViewById(R.id.textView10);
         final EditText et = (EditText) findViewById(R.id.editText4);
-        ImageButton btn = (ImageButton) findViewById(R.id.button3);
-        btn.setOnClickListener(new View.OnClickListener() {
+        ImageButton tamam = (ImageButton) findViewById(R.id.button3);
+        ImageButton iptal = (ImageButton) findViewById(R.id.imageButton6);
+        tamam.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String nick = et.getText().toString();
                 if(nick.length()>2){
@@ -46,6 +47,13 @@ public class NickDegistir extends Activity {
                 }
             }
         });
+        iptal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         et.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {

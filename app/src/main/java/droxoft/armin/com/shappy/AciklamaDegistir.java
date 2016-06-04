@@ -42,8 +42,9 @@ public class AciklamaDegistir extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         final TextView tv1 = (TextView) findViewById(R.id.textView10);
         final EditText et = (EditText) findViewById(R.id.editText4);
-        ImageButton btn = (ImageButton) findViewById(R.id.button3);
-        btn.setOnClickListener(new View.OnClickListener() {
+        ImageButton tamam = (ImageButton) findViewById(R.id.button3);
+        ImageButton iptal = (ImageButton) findViewById(R.id.imageButton6);
+        tamam.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String durum = et.getText().toString();
                 sharedPrefDurumKaydet(durum);
@@ -65,6 +66,12 @@ public class AciklamaDegistir extends Activity {
                     return true;
                 }
                 return false;
+            }
+        });
+        iptal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         et.addTextChangedListener(new TextWatcher() {

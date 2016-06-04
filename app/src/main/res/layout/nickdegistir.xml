@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="Nick ver"
+            android:hint="Nickini gir.."
             android:ems="10"
             android:maxLength="15"
             android:id="@+id/editText4"
