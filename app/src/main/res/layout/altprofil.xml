@@ -3,7 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#188d93">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="wrap_content"
@@ -19,7 +24,8 @@
                 android:id="@+id/imageView10"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:background="@mipmap/bos_kapak"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -108,8 +114,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#767676"
                 android:textSize="18dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp" />
@@ -151,8 +155,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#767676"
                 android:textSize="18dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp" />
@@ -182,8 +184,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#767676"
                 android:textSize="18dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp" />
@@ -221,8 +221,6 @@
                 android:textColor="#767676"
                 android:textSize="14dp"
                 android:maxLength="90"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
                 android:layout_gravity="left|top"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="30dp"
@@ -231,6 +229,6 @@
         </FrameLayout>
 
     </LinearLayout>
-
-
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

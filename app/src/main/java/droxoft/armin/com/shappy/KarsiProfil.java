@@ -1,6 +1,7 @@
 package droxoft.armin.com.shappy;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,9 +20,13 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -33,6 +38,14 @@ import java.net.URL;
 public class KarsiProfil extends Activity {
 
     String karsifaceprofil,isim,durum,okul,cinsiyet,yas,burc,coverfotourl;
+    ImageView ivkapak_onu;
+    ImageView imageprofil;
+    ImageView imageviewkapak;
+    Bitmap scaledcover;
+    Bitmap bluredcover;
+    Bitmap halfbluredcover;
+    Bitmap scaledhalfcover;
+    Bitmap karsiresim;
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -56,7 +69,22 @@ public class KarsiProfil extends Activity {
         TextView textviewcinsiyet = (TextView) findViewById(R.id.textView22);
         TextView textviewustbarisim = (TextView) findViewById(R.id.textView5);
         ImageButton imagebutongeri = (ImageButton) findViewById(R.id.imageButton9);
-        ImageView imageprofil = (ImageView) findViewById(R.id.imageView11);
+        imageprofil = (ImageView) findViewById(R.id.imageView11);
+        new urldenResimm(imageprofil).execute(karsifaceprofil);
+        imageprofil.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(KarsiProfil.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setDimAmount(0.7f);
+                dialog.setContentView(R.layout.profilresmi);
+                ImageView profilimagee = (ImageView) dialog.findViewById(R.id.fataa);
+                if(karsiresim != null){
+                   Log.i("tago", "karsı resim var");
+                }
+                profilimagee.setImageBitmap(karsiresim);
+                dialog.show();
+            }
+        });
         textviewisim.setText(isim + ", " + yas);
         textviewdurum.setText(durum);
         textviewokul.setText(okul);
@@ -73,9 +101,47 @@ public class KarsiProfil extends Activity {
                 finish();
             }
         });
-        new urldenResimm(imageprofil).execute(karsifaceprofil);
-        ImageView imageviewkapak = (ImageView) findViewById(R.id.imageView10);
+        imageviewkapak = (ImageView) findViewById(R.id.imageView10);
         new urldenCover(imageviewkapak).execute(coverfotourl);
+        ivkapak_onu = (ImageView) findViewById(R.id.imageView12);
+        final RelativeLayout CoverFotoLay = (RelativeLayout) findViewById(R.id.relativeLayout4);
+        imageviewkapak.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+
+                int action = arg1.getAction();
+                if (action == MotionEvent.ACTION_DOWN) {
+                    CoverFotoLay.bringToFront();
+                    CoverFotoLay.invalidate();
+                    imageviewkapak.setImageBitmap(halfbluredcover);
+                    return true;
+                }
+
+                if (action == MotionEvent.ACTION_MOVE) {
+
+                }
+
+                if (action == MotionEvent.ACTION_CANCEL) {
+                    ivkapak_onu.bringToFront();
+                    ivkapak_onu.invalidate();
+                    imageprofil.bringToFront();
+                    imageprofil.invalidate();
+                    imageviewkapak.setImageBitmap(bluredcover);
+                }
+
+                if (action == MotionEvent.ACTION_UP) {
+                    ivkapak_onu.bringToFront();
+                    ivkapak_onu.invalidate();
+                    imageprofil.bringToFront();
+                    imageprofil.invalidate();
+                    imageviewkapak.setImageBitmap(bluredcover);
+                    return true;
+                }
+
+
+                return false;
+
+            }});
+
     }
 
     private Bitmap getCircleBitmap(Bitmap b) {
@@ -113,10 +179,11 @@ public class KarsiProfil extends Activity {
                 connection.connect();
                 InputStream input = connection.getInputStream();
                 icon = BitmapFactory.decodeStream(input);
-                return icon;
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            karsiresim = icon;
             return icon;
         }
 
@@ -142,9 +209,15 @@ public class KarsiProfil extends Activity {
                 connection.connect();
                 InputStream input = connection.getInputStream();
                 icon = BitmapFactory.decodeStream(input);
-                return icon;
+
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (icon != null) {
+                scaledcover = Bitmap.createScaledBitmap(icon, 1080, 600, false);
+                scaledhalfcover = Bitmap.createScaledBitmap(icon, 1080, 600, false);
+                bluredcover = blur(scaledcover);
+                halfbluredcover = antiblur(scaledhalfcover, 2f);
             }
             return icon;
         }
@@ -153,6 +226,8 @@ public class KarsiProfil extends Activity {
             Bitmap a = blur(bitmap);
             Drawable d = new BitmapDrawable(getResources(),a);
             imageview.setBackground(d);
+
+
         }
     }
 
@@ -171,4 +246,20 @@ public class KarsiProfil extends Activity {
         tmpOut.copyTo(outputBitmap);
         return outputBitmap;
     }
+    public Bitmap antiblur(Bitmap image, float radius) {
+        final float BLUR_RADIUS = radius;
+        if (null == image) return null;
+        Bitmap outputBitmap = Bitmap.createBitmap(image);
+        final RenderScript renderScript = RenderScript.create(this);
+        Allocation tmpIn = Allocation.createFromBitmap(renderScript, image);
+        Allocation tmpOut = Allocation.createFromBitmap(renderScript, outputBitmap);
+        //Intrinsic Gausian blur filter
+        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
+        theIntrinsic.setRadius(BLUR_RADIUS);
+        theIntrinsic.setInput(tmpIn);
+        theIntrinsic.forEach(tmpOut);
+        tmpOut.copyTo(outputBitmap);
+        return outputBitmap;
+    }
+
 }
