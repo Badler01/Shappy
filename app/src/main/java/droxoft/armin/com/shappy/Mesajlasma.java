@@ -419,7 +419,7 @@ public class Mesajlasma extends AppCompatActivity {
             buttonbomba = (ImageButton) findViewById(R.id.imageButton11);
             buttonbomba.setVisibility(View.GONE);
             crpv = (ColorfulRingProgressView) findViewById(R.id.crpv);
-            crpv.setPercent(YukselmeLeveli * (100 / 21));
+            crpv.setPercent(YukselmeLeveli * (100 / 23));
             crpv.setVisibility(View.VISIBLE);
         }
         yurumesistemi();
@@ -798,7 +798,7 @@ public class Mesajlasma extends AppCompatActivity {
         if (YukselmeLeveli < 23) {
             YukselmeLeveli++;
             if (resmiacikmi.equals("acik")) {
-                crpv.setPercent(YukselmeLeveli * (100 / 21));
+                crpv.setPercent(YukselmeLeveli * (100 / 23));
             }
             j = 2445 - (YukselmeLeveli) * 77.25;
             k = (YukselmeLeveli - 20) * 7.667;
@@ -999,7 +999,7 @@ public class Mesajlasma extends AppCompatActivity {
     }
 
     private boolean takeChatMessage(String mesaj) {
-        MediaPlayer mP = MediaPlayer.create(this, R.raw.mesajgeldi);
+        MediaPlayer mP = MediaPlayer.create(this, R.raw.alleyesonme);
         mP.start();
         Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR);
