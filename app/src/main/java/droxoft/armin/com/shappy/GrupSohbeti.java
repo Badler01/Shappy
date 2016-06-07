@@ -327,6 +327,10 @@ public class GrupSohbeti extends Activity {
             public void onClick(View v) {
                 ServerKanaldanCikis sKC = new ServerKanaldanCikis(kanaladi);
                 sKC.execute(SharedPrefIdAl());
+                DatabaseClassKonusulanKanallar KonusmaSil = new DatabaseClassKonusulanKanallar(GrupSohbeti.this);
+                KonusmaSil.open();
+                KonusmaSil.KanalSil(kanalid);
+                KonusmaSil.close();
                 finish();
             }
         });

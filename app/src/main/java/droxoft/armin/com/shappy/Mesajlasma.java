@@ -803,11 +803,14 @@ public class Mesajlasma extends AppCompatActivity {
             j = 2445 - (YukselmeLeveli) * 77.25;
             k = (YukselmeLeveli - 20) * 7.667;
             if (resmiacikmi.equals("degil")) {
-                Log.i("tago", String.valueOf(YukselmeLeveli));
+                Log.i("tago", "Yukselme leveli" + String.valueOf(YukselmeLeveli));
                 handler.postDelayed(yuru, DELAY);
             }
         }
         if (YukselmeLeveli == 23) {
+            if (resmiacikmi.equals("acik")) {
+                crpv.setPercent(100);
+            }
             View view = getCurrentFocus();
             InputMethodManager iMM = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             iMM.hideSoftInputFromWindow(view.getWindowToken(), 0);

@@ -13,7 +13,7 @@ import org.acra.sender.HttpSender;
         httpMethod = HttpSender.Method.PUT,
         reportType = HttpSender.Type.JSON,
         formUri = "http://185.22.187.60:5984/acra-shappy/_design/acra-storage/_update/report",
-        formUriBasicAuthLogin = "shappy",
+        formUriBasicAuthLogin = "king",
         formUriBasicAuthPassword = "caxobaxo88",
         mode = ReportingInteractionMode.TOAST,
         resToastText = R.string.crash_toast_text// optional, displayed as soon as the crash occurs, before collecting data which can take a few seconds

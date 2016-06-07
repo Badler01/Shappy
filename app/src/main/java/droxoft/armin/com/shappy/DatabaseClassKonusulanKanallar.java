@@ -246,7 +246,9 @@ public class DatabaseClassKonusulanKanallar {
         return kayitliresimurller;
     }
 
-
+    public void KanalSil(String karsikanalid) {
+        sqlitedatabaseobjesi.delete(TABLENAME, ROWID + "=" + karsikanalid, null);
+    }
     private static class DbHelper extends SQLiteOpenHelper {
 
         public DbHelper(Context context) {
