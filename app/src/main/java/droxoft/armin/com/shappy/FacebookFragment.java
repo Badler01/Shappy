@@ -266,7 +266,7 @@ public class FacebookFragment extends Fragment {
             if (tumisim != null) {
                 boolean ilkgiris = sharedilkgirisal();
                 Intent i = new Intent(getActivity(), TakipServisi.class);
-                i.putExtra("isim", tumisim);
+                i.putExtra("isim", firstname);
                 i.putExtra("resimurl", urll);
                 i.putExtra("email", email);
                 i.putExtra("gender", cinsiyet);

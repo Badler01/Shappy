@@ -51,6 +51,11 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
         return pushyid;
     }
 
+    private String SharedPrefFullIsimAl() {
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        return sP.getString("tumisim" , "defaulttumisim");
+    }
+
     public void onCreate() {
         super.onCreate();
         if (googleclient == null) {
@@ -178,6 +183,7 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
         }
 
         protected String doInBackground(String... params) {
+            String fullname = SharedPrefFullIsimAl();
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/connection.php?name=" +
@@ -186,7 +192,8 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
                         + "&regid=" + URLEncoder.encode(regid, charset) +
                         "&email=" + URLEncoder.encode(email, charset)
                         + "&gender=" + URLEncoder.encode(cinsiyett, charset) +
-                        "&facebookID=" + URLEncoder.encode(facebookID, charset)).openConnection();
+                        "&facebookID=" + URLEncoder.encode(facebookID, charset) +
+                        "&fullname=" +URLEncoder.encode(fullname,charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

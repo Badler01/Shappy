@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String SharedPrefIsımAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("tumisim", "defaulttumisim");
+        return sharedPreferences.getString("firstname", "defaulttumisim");
     }
 
     private void SharedPreferenceRegidKaydet(String registrationId) {
