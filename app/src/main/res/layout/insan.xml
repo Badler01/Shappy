@@ -12,13 +12,9 @@
     <RelativeLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="false"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:background="@mipmap/neyse_iki"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_centerHorizontal="true">
+        android:background="@mipmap/neyse_iki">
 
         <ImageView android:id="@+id/imgIcon"
             android:layout_width="70dp"

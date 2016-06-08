@@ -61,7 +61,7 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
     ViewGroup viewGroup;
     AbsListView absListView;
     RelativeLayout quickReturnBar;
-    ImageButton cevrendekilerbutonu, konusmalarımbutonu, shappybutonu;
+    ImageButton cevrendekilerbutonu, shappybutonu, konusmalarimbutonu;
     LinearLayout bottomTextView;
     QuickReturnTargetView topTargetView;
 
@@ -220,8 +220,8 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
         hangibolumdesin = 2;
         swipe.setEnabled(false);
         cevrendekilerbutonu.setImageResource(R.mipmap.cevremdekiler);
-        konusmalarımbutonu.setImageResource(R.mipmap.bomba);
-        shappybutonu.setImageResource(R.mipmap.konusmalarim);
+        shappybutonu.setImageResource(R.mipmap.bomba);
+        konusmalarimbutonu.setImageResource(R.mipmap.konusmalarim);
         gecmisinsanlistesi.clear();
         DatabaseClassKiminleKonustun dB = new DatabaseClassKiminleKonustun(getActivity());
         dB.open();
@@ -297,16 +297,16 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
         absListView = (AbsListView) viewGroup;
         quickReturnBar = (RelativeLayout) view.findViewById(R.id.quickReturnBottomTarget);
         cevrendekilerbutonu = (ImageButton) view.findViewById(R.id.button22);
-        konusmalarımbutonu = (ImageButton) view.findViewById(R.id.button23);
-        shappybutonu = (ImageButton) view.findViewById(R.id.button24);
+        shappybutonu = (ImageButton) view.findViewById(R.id.button23);
+        konusmalarimbutonu = (ImageButton) view.findViewById(R.id.button24);
         cevrendekilerbutonu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 kisiyokkonusmalar.setVisibility(View.INVISIBLE);
                 hangibolumdesin = 1;
                 swipe.setEnabled(true);
                 cevrendekilerbutonu.setImageResource(R.mipmap.cevremdekiler_iki);
-                konusmalarımbutonu.setImageResource(R.mipmap.ana_bomba);
-                shappybutonu.setImageResource(R.mipmap.konusmalarim);
+                shappybutonu.setImageResource(R.mipmap.ana_bomba);
+                konusmalarimbutonu.setImageResource(R.mipmap.konusmalarim);
                 CevrendekiInsanAdapter cevrendekiInsanAdapter = new CevrendekiInsanAdapter(getActivity(), R.layout.insan, cevrendekiinsanListesi,progressBar);
                 if (viewGroup instanceof AbsListView) {
                     int numColumns = (viewGroup instanceof GridView) ? 3 : 1;
@@ -329,14 +329,14 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                 }
             }
         });
-        konusmalarımbutonu.setOnClickListener(new View.OnClickListener() {
+        shappybutonu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hangibolumdesin = 2;
                 swipe.setEnabled(false);
                 kisiyokkonusmalar.setVisibility(View.INVISIBLE);
                 cevrendekilerbutonu.setImageResource(R.mipmap.cevremdekiler);
-                konusmalarımbutonu.setImageResource(R.mipmap.ana_bomba_iki);
-                shappybutonu.setImageResource(R.mipmap.konusmalarim);
+                shappybutonu.setImageResource(R.mipmap.ana_bomba_iki);
+                konusmalarimbutonu.setImageResource(R.mipmap.konusmalarim);
                 gecmisinsanlistesi.clear();
                 DatabaseClassKiminleKonustun dB = new DatabaseClassKiminleKonustun(getActivity());
                 dB.open();
@@ -399,14 +399,14 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                 }
             }
         });
-        shappybutonu.setOnClickListener(new View.OnClickListener() {
+        konusmalarimbutonu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hangibolumdesin = 3;
                 swipe.setEnabled(false);
                 kisiyokkonusmalar.setVisibility(View.INVISIBLE);
                 cevrendekilerbutonu.setImageResource(R.mipmap.cevremdekiler);
-                konusmalarımbutonu.setImageResource(R.mipmap.ana_bomba);
-                shappybutonu.setImageResource(R.mipmap.konusmalarim_iki);
+                shappybutonu.setImageResource(R.mipmap.ana_bomba);
+                konusmalarimbutonu.setImageResource(R.mipmap.konusmalarim_iki);
                 shappyinsanlistesi.clear();
                 DatabaseClassKimleriActirdin dbA = new DatabaseClassKimleriActirdin(getActivity());
                 dbA.open();
@@ -435,12 +435,12 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                     insann.setKacyenimesaj(kacyenimesajlar.get(i));
                     insann.setBandurumu(bandurumu);
                     insann.setCinsiyet(cinsiyetler.get(i));
-                    Log.i("tago" , "cinsiyetr" + cinsiyetler.get(i));
-                    Log.i("tago" , "burclarr" + burclar.get(i));
+                    Log.i("tago", "cinsiyetr" + cinsiyetler.get(i));
+                    Log.i("tago", "burclarr" + burclar.get(i));
                     insann.setBurc(burclar.get(i));
                     shappyinsanlistesi.add(insann);
                 }
-                if(shappyinsanlistesi.size()==0){
+                if (shappyinsanlistesi.size() == 0) {
                     kisiyokkonusmalar.setVisibility(View.VISIBLE);
                 }
                 shappyInsanAdapter = new ShappyInsanAdapter(getActivity(), R.layout.gecmisinsan, shappyinsanlistesi);

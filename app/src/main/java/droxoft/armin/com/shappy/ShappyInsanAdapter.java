@@ -124,10 +124,33 @@ public class ShappyInsanAdapter extends ArrayAdapter<Insan> {
                 intent.putExtra("karsidurum", durum);
                 intent.putExtra("bandurumu", bandurumu);
                 intent.putExtra("karsiresimpath", resimpath);
-                intent.putExtra("cinsiyet" , cinsiyet);
-                intent.putExtra("burc" , burc);
+                intent.putExtra("cinsiyet", cinsiyet);
+                intent.putExtra("burc", burc);
                 intent.putExtra("intentname", "ShappyInsanAdapter");
                 context.startActivity(intent);
+            }
+        });
+        insanholder.insanresmi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String faceprofilurl = objects.get(pozisyon).getFaceprofilur();
+                String isim = objects.get(pozisyon).getName();
+                String cinsiyet = objects.get(pozisyon).getCinsiyet();
+                String okul = objects.get(pozisyon).getOkul();
+                String durum = objects.get(pozisyon).getDurum();
+                String yas = objects.get(pozisyon).getYas();
+                String burc = objects.get(pozisyon).getBurc();
+                String coverfotourl = objects.get(pozisyon).getCoverphotourl();
+                Intent i = new Intent(context, KarsiProfil.class);
+                i.putExtra("karsifaceprofilurl", faceprofilurl);
+                i.putExtra("isim", isim);
+                i.putExtra("cinsiyet", cinsiyet);
+                i.putExtra("okul", okul);
+                i.putExtra("durum", durum);
+                i.putExtra("yas", yas);
+                i.putExtra("burc" , burc);
+                i.putExtra("coverfotourl", coverfotourl);
+                context.startActivity(i);
             }
         });
         return convertView;
