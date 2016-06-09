@@ -170,14 +170,14 @@ public class FacebookFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.facebookfragment, container, false);
-        int[] taniticiresimler = {R.mipmap.aciklama,R.mipmap.dene_uc,R.mipmap.yenigus,R.mipmap.galp};
+        int[] taniticiresimler = {R.mipmap.birbir,R.mipmap.ikiiki,R.mipmap.ucuc,R.mipmap.dort};
         CustomPagerAdapter pagerAdapter = new CustomPagerAdapter(getActivity(),taniticiresimler);
         FadingIndicator indicator = (FadingIndicator)view.findViewById(R.id.circleIndicator);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         indicator.setViewPager(viewPager);
-        indicator.setFillColor(Color.BLUE);
-        indicator.setStrokeColor(Color.BLACK);
+        indicator.setFillColor(Color.argb(255,255,103,0));
+        indicator.setStrokeColor(Color.argb(255,0,0,0));
         indicator.setRadius(15f);
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("user_friends", "public_profile", "email"));
