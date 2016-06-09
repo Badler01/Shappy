@@ -672,7 +672,7 @@ public class PushReceiver extends BroadcastReceiver {
                 if (kanalvarmi.equals("yok")) {
                     DatabaseClassKonusulanKanallar dckf = new DatabaseClassKonusulanKanallar(context);
                     dckf.open();
-                    dckf.olustur(kanaladi, kanalmodu, "no",kanalurl, "var", "1");
+                    dckf.olustur(kanalid,kanaladi, kanalmodu, "no",kanalurl, "var", "1");
                     dckf.close();
                 } else {
                     DatabaseClassKonusulanKanallar dckf = new DatabaseClassKonusulanKanallar(context);
@@ -681,7 +681,7 @@ public class PushReceiver extends BroadcastReceiver {
                     yenimesaj = yenimesaj + 1;
                     String a = String.valueOf(yenimesaj);
                     String likedurumu = dckf.databasedenozellikecek(kanaladi);
-                    dckf.olustur(kanaladi, kanalmodu,likedurumu,kanalurl, "var", a);
+                    dckf.olustur(kanalid,kanaladi, kanalmodu,likedurumu,kanalurl, "var", a);
                     dckf.close();
                 }
                 ////////////////////////

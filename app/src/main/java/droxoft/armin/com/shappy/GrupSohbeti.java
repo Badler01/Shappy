@@ -131,7 +131,7 @@ public class GrupSohbeti extends Activity {
             DatabaseClassKonusulanKanallar dckq = new DatabaseClassKonusulanKanallar(this);
             dckq.open();
             String likedurumu = dckq.databasedenozellikecek(kanaladi);
-            dckq.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
+            dckq.olustur(kanalid,kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckq.close();
         } else if (i.getStringExtra("intentname").equals("PushReceiver")) {
             kanaladi = i.getExtras().getString("kanaladi");
@@ -154,7 +154,7 @@ public class GrupSohbeti extends Activity {
             DatabaseClassKonusulanKanallar dckq = new DatabaseClassKonusulanKanallar(this);
             dckq.open();
             String likedurumu = dckq.databasedenozellikecek(kanaladi);
-            dckq.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
+            dckq.olustur(kanalid,kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckq.close();
         } else if (i.getStringExtra("intentname").equals("PageFragment1")) {
             kanaladi = i.getExtras().getString("kanaladi");
@@ -215,7 +215,7 @@ public class GrupSohbeti extends Activity {
             DatabaseClassKonusulanKanallar dckk = new DatabaseClassKonusulanKanallar(this);
             dckk.open();
             String likedurumu = dckk.databasedenozellikecek(kanaladi);
-            dckk.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
+            dckk.olustur(kanalid,kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
             dckk.close();
         }
     }
@@ -352,7 +352,8 @@ public class GrupSohbeti extends Activity {
         }
         DatabaseClassKonusulanKanallar swer = new DatabaseClassKonusulanKanallar(this);
         swer.open();
-        swer.olustur(kanaladi, kanalmodu, "no", kanalurl, "yok", "0");
+        swer.olustur(kanalid,kanaladi, kanalmodu, "no", kanalurl, "yok", "0");
+        swer.close();
     }
 
     private void kanalilikelamaislemi() {
@@ -366,7 +367,7 @@ public class GrupSohbeti extends Activity {
         }
         DatabaseClassKonusulanKanallar dCKK = new DatabaseClassKonusulanKanallar(this);
         dCKK.open();
-        dCKK.olustur(kanaladi, kanalmodu, "yes", kanalurl, "yok", "0");
+        dCKK.olustur(kanalid,kanaladi, kanalmodu, "yes", kanalurl, "yok", "0");
         dCKK.close();
     }
 
@@ -424,7 +425,7 @@ public class GrupSohbeti extends Activity {
         DatabaseClassKonusulanKanallar dCKK = new DatabaseClassKonusulanKanallar(this);
         dCKK.open();
         String likedurumu = dCKK.databasedenozellikecek(kanaladi);
-        dCKK.olustur(kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
+        dCKK.olustur(kanalid,kanaladi, kanalmodu, likedurumu, kanalurl, "yok", "0");
         dCKK.close();
     }
 
