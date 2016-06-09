@@ -240,6 +240,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                 konusulankanallar.clear();
                 DatabaseClassKonusulanKanallar dCKK = new DatabaseClassKonusulanKanallar(getActivity());
                 dCKK.open();
+                List<String> kanalidler = dCKK.databasedenkanalidcek();
                 List<String> kanallar = dCKK.databasedenkanalcek();
                 List<String> modlar = dCKK.databasedenmodcek();
                 List<String> likedurum = dCKK.databasedenlikecek();
@@ -251,6 +252,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                     if (likedurum.get(i).equals("yes")) {
                         if (modlar.get(i).equals("official")) {
                             Kanal kanal = new Kanal(true);
+                            kanal.setId(kanalidler.get(i));
                             kanal.setKanaladi(kanallar.get(i));
                             kanal.setLikedurumu(1);
                             kanal.setKanalurl(kanalurller.get(i));
@@ -259,6 +261,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                             konusulankanallar.add(kanal);
                         } else {
                             Kanal kanal = new Kanal(false);
+                            kanal.setId(kanalidler.get(i));
                             kanal.setKanaladi(kanallar.get(i));
                             kanal.setLikedurumu(1);
                             kanal.setKanalurl(kanalurller.get(i));
@@ -269,6 +272,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                     } else if (likedurum.get(i).equals("no")) {
                         if (modlar.get(i).equals("official")) {
                             Kanal kanal = new Kanal(true);
+                            kanal.setId(kanalidler.get(i));
                             kanal.setKanaladi(kanallar.get(i));
                             kanal.setLikedurumu(0);
                             kanal.setKanalurl(kanalurller.get(i));
@@ -277,6 +281,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                             konusulankanallar.add(kanal);
                         } else {
                             Kanal kanal = new Kanal(false);
+                            kanal.setId(kanalidler.get(i));
                             kanal.setKanaladi(kanallar.get(i));
                             kanal.setLikedurumu(0);
                             kanal.setKanalurl(kanalurller.get(i));

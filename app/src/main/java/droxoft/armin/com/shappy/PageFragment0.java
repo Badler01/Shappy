@@ -665,30 +665,36 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
         }
 
         protected void onPostExecute(String s) {
-//            List<String> varolankonusulanlar;
-//            List<String> varolanacilanlar;
-//            DatabaseClassKiminleKonustun sss = new DatabaseClassKiminleKonustun(getActivity());
-//            sss.open();
-//            varolankonusulanlar = sss.databasedenidcek();
-//            sss.close();
-//            DatabaseClassKimleriActirdin aaa = new DatabaseClassKimleriActirdin(getActivity());
-//            aaa.open();
-//            varolanacilanlar = aaa.databasedenidcek();
-//            aaa.close();
-//            for(int q=0 ; q<cevrendekiinsanListesi.size(); q++){
-//                for(String a:varolankonusulanlar){
-//                    if(cevrendekiinsanListesi.get(q).getId().equals(a)){
-//                        cevrendekiinsanListesi.remove(q);
-//                    }
-//                }
-//            }
-//            for(int q=0 ; q<cevrendekiinsanListesi.size(); q++){
-//                for(String a:varolanacilanlar){
-//                    if(cevrendekiinsanListesi.get(q).getId().equals(a)){
-//                        cevrendekiinsanListesi.remove(q);
-//                    }
-//                }
-//            }
+            List<String> varolankonusulanlar;
+            List<String> varolanacilanlar;
+            DatabaseClassKiminleKonustun sss = new DatabaseClassKiminleKonustun(getActivity());
+            sss.open();
+            varolankonusulanlar = sss.databasedenidcek();
+            sss.close();
+            DatabaseClassKimleriActirdin aaa = new DatabaseClassKimleriActirdin(getActivity());
+            aaa.open();
+            varolanacilanlar = aaa.databasedenidcek();
+            aaa.close();
+            ArrayList<Integer> silineceklerListesi = new ArrayList<>();
+            for(int q=0 ; q<cevrendekiinsanListesi.size(); q++){
+                for(String a:varolankonusulanlar){
+                    if(cevrendekiinsanListesi.get(q).getId().equals(a)){
+                        silineceklerListesi.add(q);
+                    }
+                }
+            }
+            for(int q=0 ; q<cevrendekiinsanListesi.size(); q++){
+                for(String a:varolanacilanlar){
+                    if(cevrendekiinsanListesi.get(q).getId().equals(a)){
+                        silineceklerListesi.add(q);
+                    }
+                }
+            }
+            for(int i =0 ; i<silineceklerListesi.size();i++){
+                int a = silineceklerListesi.get(i);
+                Log.i("tago" , "siline "+ a);
+                cevrendekiinsanListesi.remove(a);
+            }
             cevrendekiInsanAdapter = new CevrendekiInsanAdapter(getActivity(), R.layout.insan, cevrendekiinsanListesi,progressBar);
             if (viewGroup instanceof AbsListView) {
                 int numColumns = (viewGroup instanceof GridView) ? 3 : 1;

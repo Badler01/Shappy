@@ -15,9 +15,10 @@ import java.util.List;
 public class DatabaseClassKonusulanKanallar {
     private static final String DATABASENAME = "SlxfChan.db";
     private static final String TABLENAME = "KonusulanKanalTablosu";
-    private static final int DATABASEVERSION = 4;
+    private static final int DATABASEVERSION = 5;
 
     private static final String ROWID = "_id";
+    private static final String KANALID = "kanalid";
     private static final String KANALADI = "kanaladi";
     private static final String KANALMODU = "kanalmodu";
     private static final String KANALBEGENME = "kanalbegenme";
@@ -70,7 +71,7 @@ public class DatabaseClassKonusulanKanallar {
         sqlitedatabaseobjesi.close();
     }
 
-    public long olustur(String kanaladi, String kanalmodu, String like, String kanalresimpath, String yenimesajvarmi, String kacyenimesaj) {
+    public long olustur(String kanalid, String kanaladi, String kanalmodu, String like, String kanalresimpath, String yenimesajvarmi, String kacyenimesaj) {
         boolean var = false;
         boolean begenmevar = false;
         if (like.equals("yes")) {
@@ -90,6 +91,7 @@ public class DatabaseClassKonusulanKanallar {
         if (var == true && begenmevar == false) {
             sqlitedatabaseobjesi.delete(TABLENAME, KANALADI + "='" + varolankanal + "'", null);
             ContentValues cV = new ContentValues();
+            cV.put(KANALID,kanalid);
             cV.put(KANALADI, kanaladi);
             cV.put(KANALMODU, kanalmodu);
             cV.put(KANALBEGENME, "no");
@@ -101,6 +103,7 @@ public class DatabaseClassKonusulanKanallar {
         if (var == true && begenmevar == true) {
             sqlitedatabaseobjesi.delete(TABLENAME, KANALADI + "='" + varolankanal + "'", null);
             ContentValues cV = new ContentValues();
+            cV.put(KANALID, kanalid);
             cV.put(KANALADI, kanaladi);
             cV.put(KANALMODU, kanalmodu);
             cV.put(KANALBEGENME, "yes");
@@ -111,6 +114,7 @@ public class DatabaseClassKonusulanKanallar {
         }
         if (var == false && begenmevar == false) {
             ContentValues cV = new ContentValues();
+            cV.put(KANALID,kanalid);
             cV.put(KANALADI, kanaladi);
             cV.put(KANALMODU, kanalmodu);
             cV.put(KANALBEGENME, "no");
@@ -121,6 +125,7 @@ public class DatabaseClassKonusulanKanallar {
         }
         if (var == false && begenmevar == true) {
             ContentValues cV = new ContentValues();
+            cV.put(KANALID,kanalid);
             cV.put(KANALADI, kanaladi);
             cV.put(KANALMODU, kanalmodu);
             cV.put(KANALBEGENME, "yes");
@@ -133,8 +138,20 @@ public class DatabaseClassKonusulanKanallar {
         return b;
     }
 
+    public List<String> databasedenkanalidcek() {
+        String[] kolonlar = new String[]{ROWID,KANALID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
+        List<String> kayitlikanalidler = new ArrayList<>();
+        int kanalidindexi = c.getColumnIndex(KANALID);
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            kayitlikanalidler.add(c.getString(kanalidindexi));
+        }
+        c.close();
+        return kayitlikanalidler;
+    }
+
     public List<String> databasedenkanalcek() {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID,KANALID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
         List<String> kayitlikanallar = new ArrayList<>();
         int kanaladiindexi = c.getColumnIndex(KANALADI);
@@ -146,7 +163,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public List<String> databasedenmodcek() {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID,KANALID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
         List<String> kayitlimodlar = new ArrayList<>();
         int kanalmoduindexi = c.getColumnIndex(KANALMODU);
@@ -158,7 +175,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public List<String> databasedenlikecek() {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID,KANALID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
         List<String> kayitlilikeler = new ArrayList<>();
         int likeindexi = c.getColumnIndex(KANALBEGENME);
@@ -170,7 +187,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public String databasedenozellikecek(String kanaladi) {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID, KANALID,KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, KANALADI + "='" + kanaladi + "'", null, null, null, null);
         String likedurumu = "no";
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
@@ -181,7 +198,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public String databasedenozelkacyenimesajcek(String kanaladi) {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID,KANALID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, KANALADI + "='" + kanaladi + "'", null, null, null, null);
         List<String> kacyenimesajlar = new ArrayList<>();
         int kacyenimesajindexi = c.getColumnIndex(KACYENIMESAJ);
@@ -193,7 +210,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public List<String> databasedenyenimesajvarmicek() {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID, KANALID,KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
         List<String> kayitliyenimesajvarmilar = new ArrayList<>();
         int yenimesajvarmiindexi = c.getColumnIndex(YENIMESAJVARMI);
@@ -205,7 +222,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public List<String> databasedenkacyenimesajcek() {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID, KANALID,KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
         List<String> kayitlikacyenimesajlar = new ArrayList<>();
         int kacyenimesajindexi = c.getColumnIndex(KACYENIMESAJ);
@@ -217,7 +234,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public String kanalvarmicek(String kanaladi) {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID,KANALID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, KANALADI + "='" + kanaladi + "'", null, null, null, null);
         List<String> kanalvarmi = new ArrayList<>();
         int kanalvarmiindexi = c.getColumnIndex(KANALADI);
@@ -235,7 +252,7 @@ public class DatabaseClassKonusulanKanallar {
     }
 
     public List<String> databasedenkanalurlcek() {
-        String[] kolonlar = new String[]{ROWID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
+        String[] kolonlar = new String[]{ROWID,KANALID, KANALADI, KANALMODU, KANALBEGENME, KANALRESIMURL, YENIMESAJVARMI, KACYENIMESAJ};
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
         List<String> kayitliresimurller = new ArrayList<>();
         int resimurlindexi = c.getColumnIndex(KANALRESIMURL);
@@ -249,6 +266,8 @@ public class DatabaseClassKonusulanKanallar {
     public void KanalSil(String karsikanalid) {
         sqlitedatabaseobjesi.delete(TABLENAME, ROWID + "=" + karsikanalid, null);
     }
+
+
     private static class DbHelper extends SQLiteOpenHelper {
 
         public DbHelper(Context context) {
@@ -256,7 +275,7 @@ public class DatabaseClassKonusulanKanallar {
         }
 
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + TABLENAME + "(" + ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            db.execSQL("CREATE TABLE " + TABLENAME + "(" + ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KANALID + " TEXT NOT NULL, "+
                     KANALADI + " TEXT NOT NULL, " + KANALMODU + " TEXT NOT NULL, " + KANALBEGENME + " TEXT NOT NULL, "
                     + KANALRESIMURL + " TEXT NOT NULL, " + YENIMESAJVARMI + " TEXT NOT NULL, " + KACYENIMESAJ + " TEXT NOT NULL);");
         }
