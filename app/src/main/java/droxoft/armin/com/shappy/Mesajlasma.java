@@ -1210,6 +1210,7 @@ public class Mesajlasma extends AppCompatActivity {
                 e.printStackTrace();
             }
             connection.setDoOutput(true);
+            connection.setDoInput(true);
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");

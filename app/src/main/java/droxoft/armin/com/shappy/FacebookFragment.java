@@ -180,7 +180,7 @@ public class FacebookFragment extends Fragment {
         indicator.setStrokeColor(Color.BLACK);
         indicator.setRadius(15f);
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("user_friends", "public_profile", "email"));
+        loginButton.setReadPermissions(Arrays.asList("user_friends", "public_profile", "email" ,"user_birthday"));
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -211,13 +211,15 @@ public class FacebookFragment extends Fragment {
                                     sharedcinsiyetkaydet(cinsiyet);
                                     coverphotourl = object.getJSONObject("cover").getString("source");
                                     sharedcoverphotourlkaydet(coverphotourl);
+                                    String dogumgunu = object.getString("birthday");
+                                    Log.i("tago" , "dogumgunu " + dogumgunu);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "email,gender,cover");
+                parameters.putString("fields", "email,gender,cover,birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
