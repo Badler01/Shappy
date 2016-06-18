@@ -170,7 +170,7 @@ public class FacebookFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.facebookfragment, container, false);
-        int[] taniticiresimler = {R.mipmap.birbir,R.mipmap.ikiiki,R.mipmap.ucuc,R.mipmap.dort};
+        int[] taniticiresimler = {R.mipmap.birbir,R.mipmap.ikiiki,R.mipmap.dort};
         CustomPagerAdapter pagerAdapter = new CustomPagerAdapter(getActivity(),taniticiresimler);
         FadingIndicator indicator = (FadingIndicator)view.findViewById(R.id.circleIndicator);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
