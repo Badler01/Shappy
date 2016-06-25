@@ -1,6 +1,5 @@
 package droxoft.armin.com.shappy;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +20,6 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -147,7 +145,6 @@ public class AnaAkim extends AppCompatActivity {
             dialog.getWindow().setDimAmount(0.7f);
             dialog.setCancelable(false);
             dialog.setCanceledOnTouchOutside(false);
-            final String[] yas = new String[1];
             imageviewnickvarmi = (ImageView) dialog.findViewById(R.id.imageView27);
             final EditText edittextnick = (EditText) dialog.findViewById(R.id.editText5);
             final EditText edittextokul = (EditText) dialog.findViewById(R.id.editText6);
@@ -163,36 +160,27 @@ public class AnaAkim extends AppCompatActivity {
                     }
                 }
             });
-            final String[] day = new String[1];
-            final String[] month = new String[1];
-            final String[] yearr = new String[1];
-            final String[] burc = new String[1];
-            final DatePickerDialog dogumyilialanpicker = new DatePickerDialog(this, android.R.style.Theme_Holo_Dialog_MinWidth,
-                    new DatePickerDialog.OnDateSetListener() {
-
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            edittextdogumyili.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            day[0] = String.valueOf(dayOfMonth);
-                            month[0] = String.valueOf(monthOfYear + 1);
-                            yearr[0] = String.valueOf(year);
-                            yas[0] = String.valueOf(getAge(year, monthOfYear, dayOfMonth));
-                            burc[0] = getBurc((monthOfYear + 1), dayOfMonth);
-                        }
-
-                    }, takvim.get(Calendar.YEAR), takvim.get(Calendar.MONTH), takvim.get(Calendar.DAY_OF_MONTH));
-            edittextdogumyili.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        dogumyilialanpicker.show();
-                    }
-                }
-            });
-            edittextdogumyili.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    dogumyilialanpicker.show();
-                }
-            });
+//            final DatePickerDialog dogumyilialanpicker = new DatePickerDialog(this, android.R.style.Theme_Holo_Dialog_MinWidth,
+//                    new DatePickerDialog.OnDateSetListener() {
+//
+//                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                            edittextdogumyili.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+//                        }
+//
+//                    }, takvim.get(Calendar.YEAR), takvim.get(Calendar.MONTH), takvim.get(Calendar.DAY_OF_MONTH));
+//            edittextdogumyili.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//                    if (hasFocus) {
+//                        dogumyilialanpicker.show();
+//                    }
+//                }
+//            });
+//            edittextdogumyili.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    dogumyilialanpicker.show();
+//                }
+//            });
 
             ImageButton butonhemenbasla = (ImageButton) dialog.findViewById(R.id.imageButton10);
             butonhemenbasla.setOnClickListener(new View.OnClickListener() {
@@ -203,14 +191,10 @@ public class AnaAkim extends AppCompatActivity {
                         } else {
                             sharedPrefNickKaydet(edittextnick.getText().toString());
                             sharedPrefOkulKaydet(edittextokul.getText().toString());
-                            sharedPrefYasKaydet(yas[0]);
-                            sharedPrefBurcKaydet(burc[0]);
                             PageFragment2.SharedPrefNickYerlestir(AnaAkim.this);
                             PageFragment2.SharedPrefOkulYerlestir(AnaAkim.this);
-                            PageFragment2.SharedPrefYasYerlestir(AnaAkim.this);
-                            PageFragment2.SharedPrefBurcYerlestir(AnaAkim.this);
                             ServerButunculBilgileriGonder sBBG = new ServerButunculBilgileriGonder(edittextnick.getText().toString(),
-                                    edittextokul.getText().toString(), day[0], month[0], yearr[0], burc[0]);
+                                    edittextokul.getText().toString());
                             sBBG.execute();
                             dialog.cancel();
                         }
@@ -680,27 +664,20 @@ public class AnaAkim extends AppCompatActivity {
 
     private class ServerButunculBilgileriGonder extends AsyncTask<String, Void, String> {
 
-        String nick, okul, day, month, year, burc;
+        String nick, okul;
         String query, charset;
 
-        public ServerButunculBilgileriGonder(String nick, String okul, String day, String month, String yearr, String burc) {
+        public ServerButunculBilgileriGonder(String nick, String okul) {
             charset = "UTF-8";
             String param1 = "nick";
             String param2 = "okul";
-            String param3 = "yas";
-            String param4 = "burc";
             try {
-                query = String.format("param1=%s&param2=%s&param3=%s&param4=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset),
-                        URLEncoder.encode(param3, charset), URLEncoder.encode(param4, charset));
+                query = String.format("param1=%s&param2=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             this.nick = nick;
             this.okul = okul;
-            this.day = day;
-            this.month = month;
-            this.year = yearr;
-            this.burc = burc;
         }
 
         protected String doInBackground(String... params) {
@@ -708,7 +685,7 @@ public class AnaAkim extends AppCompatActivity {
             URLConnection connection = null;
             try {
                 connection = new URL("http://185.22.187.60/shappy/update_born.php?id=" + serverid +
-                        "&nick=" + nick + "&okul=" + okul + "&yas=" + year + "-" + month + "-" + day + "&burc=" + burc).openConnection();
+                        "&nick=" + nick + "&okul=" + okul).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

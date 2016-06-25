@@ -31,7 +31,7 @@ import java.net.URLEncoder;
 public class TakipServisi extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    String isim, faceprofilurl, cinsiyet, email, facebookID;
+    String isim, faceprofilurl, cinsiyet, email, facebookID, day, month, year, burc, yas, tumisim;
     String cinsiyett;
     GoogleApiClient googleclient;
     String serverid;
@@ -52,8 +52,8 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
     }
 
     private String SharedPrefFullIsimAl() {
-        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
-        return sP.getString("tumisim" , "defaulttumisim");
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        return sP.getString("tumisim", "defaulttumisim");
     }
 
     public void onCreate() {
@@ -84,8 +84,14 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
         cinsiyet = intent.getStringExtra("gender");
         cinsiyett = String.valueOf(cinsiyet.toUpperCase().charAt(0));
         email = intent.getStringExtra("email");
+        day = intent.getStringExtra("day");
+        month = intent.getStringExtra("month");
+        year = intent.getStringExtra("year");
+        burc = intent.getStringExtra("burc");
         facebookID = intent.getStringExtra("facebookID");
-        ilkgiris = intent.getBooleanExtra("ilkgiris" ,true);
+        yas = intent.getStringExtra("yas");
+        tumisim = intent.getStringExtra("tumisim");
+        ilkgiris = intent.getBooleanExtra("ilkgiris", true);
         return Service.START_NOT_STICKY;
     }
 
@@ -106,8 +112,11 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
         locrequest.setFastestInterval(500000);
         locrequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         LocationServices.FusedLocationApi.requestLocationUpdates(googleclient, locrequest, this);
+
         String pushyid = SharedPreferencePushyIdAl();
-        if (firstlocation == null) {
+        if (firstlocation == null)
+
+        {
             Toast.makeText(getApplicationContext(), "Programı kullanmak için yüksek doğruluklu konumu aktifleştiriniz", Toast.LENGTH_SHORT).show();
             Thread a = new Thread() {
                 public void run() {
@@ -120,9 +129,11 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
                 }
             };
             a.start();
-        } else {
+        } else
+
+        {
             ServerIlkGiris sIG = new ServerIlkGiris(pushyid, isim, faceprofilurl, String.valueOf(firstlocation.getLongitude()),
-                    String.valueOf(firstlocation.getLatitude()));
+                    String.valueOf(firstlocation.getLatitude()), day, month, year, burc);
             sIG.execute();
         }
     }
@@ -159,16 +170,21 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
 
     private class ServerIlkGiris extends AsyncTask<String, Void, String> {
 
-        String regid, isim, faceprofilurl, longitude, latitude;
+        String regid, isim, faceprofilurl, longitude, latitude, day, month, year, burc;
         String charset = "UTF-8";
         String query;
 
-        public ServerIlkGiris(String regid, String isim, String faceprofilurl, String longitude, String latitude) {
+        public ServerIlkGiris(String regid, String isim, String faceprofilurl, String longitude, String latitude
+                , String day, String month, String yearr, String burc) {
             String param1 = "isim";
             String param2 = "resimurrl";
             String param3 = "longi";
             String param4 = "lat";
             String param5 = "regid";
+            this.day = day;
+            this.month = month;
+            this.year = yearr;
+            this.burc = burc;
             this.regid = regid;
             this.isim = isim;
             this.faceprofilurl = faceprofilurl;
@@ -193,7 +209,8 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
                         "&email=" + URLEncoder.encode(email, charset)
                         + "&gender=" + URLEncoder.encode(cinsiyett, charset) +
                         "&facebookID=" + URLEncoder.encode(facebookID, charset) +
-                        "&fullname=" +URLEncoder.encode(fullname,charset)).openConnection();
+                        "&fullname=" + URLEncoder.encode(fullname, charset) + "&yas=" + year + "-" + month + "-" + day +
+                        "&burc=" + URLEncoder.encode(burc, charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -236,7 +253,9 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
             i.putExtra("isim", isim);
             i.putExtra("intentname", "TakipServisi");
             i.putExtra("faceprofilurl", faceprofilurl);
-            i.putExtra("ilkgiris" , ilkgiris);
+            i.putExtra("ilkgiris", ilkgiris);
+            i.putExtra("burc" , burc);
+            i.putExtra("yas" , yas);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         }

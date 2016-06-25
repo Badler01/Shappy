@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    private String SharedPrefBurcAl() {
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        return sP.getString("burc" , "defaultburc");
+    }
+
     private boolean sharedPrefMainDurumAl(){
         SharedPreferences sP = getSharedPreferences("programisleyis" , Context.MODE_PRIVATE);
         return sP.getBoolean("mainiyasat", true);
@@ -52,7 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
     private String SharedPrefIsımAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("firstname", "defaulttumisim");
+        return sharedPreferences.getString("firstname", "defaultfirstname");
+    }
+
+    private String SharedPrefYasAl() {
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("yas", "defaultyas");
+    }
+
+    private String SharedPrefTumIsimAl() {
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("fullname", "defaulttumisim");
     }
 
     private void SharedPreferenceRegidKaydet(String registrationId) {
@@ -115,11 +130,14 @@ public class MainActivity extends AppCompatActivity {
                 Animation Animmavi_goz = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash_mavi);
                 mavigoz.startAnimation(Animmavi_goz);
                 siyahgoz.startAnimation(Animsiyah_goz);
+                final String tumisim = SharedPrefTumIsimAl();
+                final String yas = SharedPrefYasAl();
                 final String isim = SharedPrefIsımAl();
                 final String faceprofilurl = SharedPrefFaceProfilUrlAl();
                 final String cinsiyet = SharedPrefCinsiyetAl();
                 final String email = SharedPrefEmailAl();
                 final String facebookID = SharedPrefFacebookIDAl();
+                final String burc = SharedPrefBurcAl();
                 Thread p = new Thread(){
                     public void run(){
                         try {
@@ -130,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
                             i.putExtra("gender", cinsiyet);
                             i.putExtra("email", email);
                             i.putExtra("facebookID", facebookID);
+                            i.putExtra("burc" , burc);
+                            i.putExtra("tumisim" , tumisim);
+                            i.putExtra("yas" , yas);
                             i.putExtra("ilkgiris", false);
                             startService(i);
                         } catch (InterruptedException e) {

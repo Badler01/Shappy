@@ -1,22 +1,25 @@
 package droxoft.armin.com.shappy;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -40,6 +43,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class FacebookFragment extends Fragment {
     String email;
@@ -49,6 +53,8 @@ public class FacebookFragment extends Fragment {
     String lastname;
     String facebookID;
     String coverphotourl;
+    String dogumgunu;
+    String  day , month , year , burc , yass;
 
     CallbackManager callbackManager;
     Profile profile;
@@ -66,6 +72,27 @@ public class FacebookFragment extends Fragment {
         SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
         editor.putString("facebookID" , facebookID);
+        editor.apply();
+    }
+
+    private void sharedPrefYearKaydet() {
+        SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sP.edit();
+        editor.putString("year" , year);
+        editor.apply();
+    }
+
+    private void sharedPrefMonthKaydet() {
+        SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sP.edit();
+        editor.putString("month" , month);
+        editor.apply();
+    }
+
+    private void sharedPrefDayKaydet() {
+        SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sP.edit();
+        editor.putString("day" , day);
         editor.apply();
     }
 
@@ -119,6 +146,20 @@ public class FacebookFragment extends Fragment {
         SharedPreferences.Editor prefEditor = sP.edit();
         prefEditor.putString("tumisim", tumisim);
         prefEditor.apply();
+    }
+
+    private void sharedPrefYasKaydet(String yas) {
+        SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sP.edit();
+        editor.putString("yas", yas);
+        editor.apply();
+    }
+
+    private void sharedPrefBurcKaydet(String burc) {
+        SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sP.edit();
+        editor.putString("burc", burc);
+        editor.apply();
     }
 
     private void sharedresimurlkaydet(String profilfotourl) {
@@ -182,9 +223,23 @@ public class FacebookFragment extends Fragment {
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("user_friends", "public_profile", "email" ,"user_birthday"));
         loginButton.setFragment(this);
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionCheckk = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            Log.i("tago", "permission alinmis");
+        }else{
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},131);
+        }
+        if (permissionCheckk == PackageManager.PERMISSION_GRANTED) {
+            Log.i("tago", "permission alinmiss");
+        }else{
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},132);
+        }
+        Log.i("tago" , "burdan gecti");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.i("tago" , "buraya geldi");
                 profile = Profile.getCurrentProfile();
                 if (profile.getId() != null) {
                     facebookID = profile.getId();
@@ -208,11 +263,22 @@ public class FacebookFragment extends Fragment {
                                     email = object.getString("email");
                                     sharedemailkaydet(email);
                                     cinsiyet = object.getString("gender");
+                                    Log.i("tago" , "cinsiyetxx "+ cinsiyet);
                                     sharedcinsiyetkaydet(cinsiyet);
                                     coverphotourl = object.getJSONObject("cover").getString("source");
                                     sharedcoverphotourlkaydet(coverphotourl);
-                                    String dogumgunu = object.getString("birthday");
-                                    Log.i("tago" , "dogumgunu " + dogumgunu);
+                                    dogumgunu = object.getString("birthday");
+                                    day = dogumgunu.substring(0,2);
+                                    month = dogumgunu.substring(3,5);
+                                    year = dogumgunu.substring(6,10);
+                                    int yas = getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
+                                    yass = String.valueOf(yas);
+                                    burc = getBurc(Integer.valueOf(month),Integer.valueOf(day));
+                                    sharedPrefYasKaydet(String.valueOf(yas));
+                                    sharedPrefBurcKaydet(burc);
+                                    sharedPrefDayKaydet();
+                                    sharedPrefMonthKaydet();
+                                    sharedPrefYearKaydet();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -226,12 +292,12 @@ public class FacebookFragment extends Fragment {
 
             @Override
             public void onCancel() {
-                Toast.makeText(getActivity(), "Facebook Login iptal edildi", Toast.LENGTH_LONG).show();
+                Log.i("tago" , "face login onCancel");
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getActivity(), "Facebook Login hata oluşturdu", Toast.LENGTH_LONG).show();
+                Log.i("tago" , "face login onError");
             }
         });
         return view;
@@ -240,6 +306,137 @@ public class FacebookFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private int getAge(int year, int month, int day) {
+        int age;
+
+        final Calendar calenderToday = Calendar.getInstance();
+        int currentYear = calenderToday.get(Calendar.YEAR);
+        int currentMonth = 1 + calenderToday.get(Calendar.MONTH);
+        int todayDay = calenderToday.get(Calendar.DAY_OF_MONTH);
+
+        age = currentYear - year;
+
+        if (month > currentMonth) {
+            --age;
+        } else if (month == currentMonth) {
+            if (day > todayDay) {
+                --age;
+            }
+        }
+        return age;
+
+    }
+
+    private String getBurc(int month, int day) {
+        if (month == 1) {
+            if (day < 21) {
+                return "oglak";
+            } else {
+                return "kova";
+            }
+        } else if (month == 2) {
+            if (day < 20) {
+                return "kova";
+            } else {
+                return "balik";
+            }
+        } else if (month == 3) {
+            if (day < 22) {
+                return "balik";
+            } else {
+                return "koc";
+            }
+        } else if (month == 4) {
+            if (day < 21) {
+                return "koc";
+            } else {
+                return "boga";
+            }
+        } else if (month == 5) {
+            if (day < 22) {
+                return "boga";
+            } else {
+                return "ikizler";
+            }
+        } else if (month == 6) {
+            if (day < 22) {
+                return "ikizler";
+            } else {
+                return "yengec";
+            }
+        } else if (month == 7) {
+            if (day < 24) {
+                return "yengec";
+            } else {
+                return "aslan";
+            }
+        } else if (month == 8) {
+            if (day < 23) {
+                return "aslan";
+            } else {
+                return "basak";
+            }
+        } else if (month == 9) {
+            if (day < 23) {
+                return "basak";
+            } else {
+                return "terazi";
+            }
+        } else if (month == 10) {
+            if (day < 23) {
+                return "terazi";
+            } else {
+                return "akrep";
+            }
+        } else if (month == 11) {
+            if (day < 23) {
+                return "akrep";
+            } else {
+                return "yay";
+            }
+        } else if (month == 12) {
+            if (day < 22) {
+                return "yay";
+            } else {
+                return "oglak";
+            }
+        }
+
+        return "aslan";
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 131: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Log.i("tago" , "permission alindi");
+                } else {
+                    Log.i("tago" , "permission alinamadi");
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            case 132:{
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i("tago" , "permission alindii");
+                } else {
+                    Log.i("tago" , "permission alinamadii");
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private class KullaniciProfilCek extends AsyncTask<String, Void, Bitmap> {
@@ -273,6 +470,12 @@ public class FacebookFragment extends Fragment {
                 i.putExtra("email", email);
                 i.putExtra("gender", cinsiyet);
                 i.putExtra("facebookID", facebookID);
+                i.putExtra("day" , day );
+                i.putExtra("month" , month);
+                i.putExtra("year" , year);
+                i.putExtra("burc", burc);
+                i.putExtra("tumisim", tumisim);
+                i.putExtra("yas", yass);
                 i.putExtra("ilkgiris" , ilkgiris);
                 getActivity().startService(i);
             }

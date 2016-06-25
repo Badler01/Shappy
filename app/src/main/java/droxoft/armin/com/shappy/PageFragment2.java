@@ -29,7 +29,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
@@ -67,7 +66,7 @@ public class PageFragment2 extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
     private View view;
     private ImageView imageviewkapak, imageviewprofil, ivkapak_onu;
-    private String isim;
+    private String isim,yas,burc;
     private boolean kullanicicikti = false;
     EditText editTextaciklama;
     static TextView textviewisim;
@@ -147,56 +146,6 @@ public class PageFragment2 extends Fragment {
         textviewokul.setText(sP.getString("okul", "defaultokul"));
     }
 
-    public static void SharedPrefYasYerlestir(Context context) {
-        SharedPreferences sP = context.getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        String a = textviewisim.getText().toString();
-        String b = a + ", " + sP.getString("yas", "defaultyas");
-        textviewisim.setText(b);
-    }
-
-    public static void SharedPrefBurcYerlestir(Context context) {
-        SharedPreferences sP = context.getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        String burc = sP.getString("burc", "defaultburc");
-        Log.i("tago", "burc frag" + burc);
-        if (burc.equals("oglak")) {
-            imageviewburc.setImageResource(R.drawable.ktoglak);
-            imageviewburc.setContentDescription("Oğlak");
-        } else if (burc.equals("kova")) {
-            imageviewburc.setImageResource(R.drawable.ktkova);
-            imageviewburc.setContentDescription("Kova");
-        } else if (burc.equals("balik")) {
-            imageviewburc.setImageResource(R.drawable.ktbalik);
-            imageviewburc.setContentDescription("Balık");
-        } else if (burc.equals("koc")) {
-            imageviewburc.setImageResource(R.drawable.ktkoc);
-            imageviewburc.setContentDescription("Koç");
-        } else if (burc.equals("boga")) {
-            imageviewburc.setImageResource(R.drawable.ktboga);
-            imageviewburc.setContentDescription("Boğa");
-        } else if (burc.equals("ikizler")) {
-            imageviewburc.setImageResource(R.drawable.ktikizler);
-            imageviewburc.setContentDescription("İkizler");
-        } else if (burc.equals("yengec")) {
-            imageviewburc.setImageResource(R.drawable.ktyengec);
-            imageviewburc.setContentDescription("Yengeç");
-        } else if (burc.equals("Aslan")) {
-            imageviewburc.setContentDescription("Aslan");
-            imageviewburc.setImageResource(R.drawable.ktaslan);
-        } else if (burc.equals("basak")) {
-            imageviewburc.setImageResource(R.drawable.ktbasak);
-            imageviewburc.setContentDescription("Başak");
-        } else if (burc.equals("terazi")) {
-            imageviewburc.setImageResource(R.drawable.ktterazi);
-            imageviewburc.setContentDescription("Terazi");
-        } else if (burc.equals("akrep")) {
-            imageviewburc.setImageResource(R.drawable.ktakrep);
-            imageviewburc.setContentDescription("Akrep");
-        } else if (burc.equals("yay")) {
-            imageviewburc.setImageResource(R.drawable.ktyay);
-            imageviewburc.setContentDescription("Yay");
-        }
-    }
-
     public static PageFragment2 newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -215,6 +164,8 @@ public class PageFragment2 extends Fragment {
         view = inflater.inflate(R.layout.profil, container, false);
         Bundle b = getActivity().getIntent().getExtras();
         isim = b.getString("isim");
+        yas = b.getString("yas");
+        burc = b.getString("burc");
         String faceprofilurl = b.getString("faceprofilurl");
         UrldenResim uR = new UrldenResim();
         uR.execute(faceprofilurl);
@@ -229,23 +180,6 @@ public class PageFragment2 extends Fragment {
 
     private void tanimlar(View view) {
         imageviewburc = (ImageView) view.findViewById(R.id.burc);
-        SharedPrefBurcYerlestir(getActivity());
-//        imageviewburc.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                LayoutInflater inflater = getActivity().getLayoutInflater();
-//                View layout = inflater.inflate(R.layout.toastburc,
-//                        (ViewGroup) getActivity().findViewById(R.id.toastburc));
-//                TextView text = (TextView) layout.findViewById(R.id.textburc);
-//                text.setText(imageviewburc.getContentDescription());
-//                Toast toast = new Toast(getActivity().getApplicationContext());
-//                toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
-//                toast.setDuration(Toast.LENGTH_SHORT);
-//                toast.setView(layout);
-//                toast.show();
-//                return false;
-//            }
-//        });
         imageviewkapak = (ImageView) view.findViewById(R.id.imageviewkapak);
         ivkapak_onu = (ImageView) view.findViewById(R.id.imageView42);
         final RelativeLayout laba = (RelativeLayout) view.findViewById(R.id.laba);
@@ -304,7 +238,9 @@ public class PageFragment2 extends Fragment {
         });
         textviewokul = (TextView) view.findViewById(R.id.textView18);
         textviewisim = (TextView) view.findViewById(R.id.textView);
-        textviewisim.setText(isim);
+        String isimartiyas= isim + ", " + yas;
+        textviewisim.setText(isimartiyas);
+        burcuyerlestir();
         textviewnick = (TextView) view.findViewById(R.id.textView3);
         textviewnick.setText(sharedPrefNickAl());
         ImageButton nickdegistir = (ImageButton) view.findViewById(R.id.imageButton7);
@@ -404,6 +340,46 @@ public class PageFragment2 extends Fragment {
                         .show();
             }
         });
+    }
+
+    private void burcuyerlestir() {
+        if (burc.equals("oglak")) {
+            imageviewburc.setImageResource(R.drawable.ktoglak);
+            imageviewburc.setContentDescription("Oğlak");
+        } else if (burc.equals("kova")) {
+            imageviewburc.setImageResource(R.drawable.ktkova);
+            imageviewburc.setContentDescription("Kova");
+        } else if (burc.equals("balik")) {
+            imageviewburc.setImageResource(R.drawable.ktbalik);
+            imageviewburc.setContentDescription("Balık");
+        } else if (burc.equals("koc")) {
+            imageviewburc.setImageResource(R.drawable.ktkoc);
+            imageviewburc.setContentDescription("Koç");
+        } else if (burc.equals("boga")) {
+            imageviewburc.setImageResource(R.drawable.ktboga);
+            imageviewburc.setContentDescription("Boğa");
+        } else if (burc.equals("ikizler")) {
+            imageviewburc.setImageResource(R.drawable.ktikizler);
+            imageviewburc.setContentDescription("İkizler");
+        } else if (burc.equals("yengec")) {
+            imageviewburc.setImageResource(R.drawable.ktyengec);
+            imageviewburc.setContentDescription("Yengeç");
+        } else if (burc.equals("Aslan")) {
+            imageviewburc.setContentDescription("Aslan");
+            imageviewburc.setImageResource(R.drawable.ktaslan);
+        } else if (burc.equals("basak")) {
+            imageviewburc.setImageResource(R.drawable.ktbasak);
+            imageviewburc.setContentDescription("Başak");
+        } else if (burc.equals("terazi")) {
+            imageviewburc.setImageResource(R.drawable.ktterazi);
+            imageviewburc.setContentDescription("Terazi");
+        } else if (burc.equals("akrep")) {
+            imageviewburc.setImageResource(R.drawable.ktakrep);
+            imageviewburc.setContentDescription("Akrep");
+        } else if (burc.equals("yay")) {
+            imageviewburc.setImageResource(R.drawable.ktyay);
+            imageviewburc.setContentDescription("Yay");
+        }
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {
