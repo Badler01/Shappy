@@ -305,4 +305,5 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
             return null;
         }
     }
+
 }
