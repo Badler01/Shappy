@@ -563,7 +563,6 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
             param1 = "id";
             try {
                 query = String.format("param1=%s", URLEncoder.encode(param1, charset));
-                Log.i("tago" , "calisti");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -654,7 +653,6 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                     }
                 }
                 in.close();
-                Log.i("tago", "Page Fragment cevredekileri gor inputline yazdim");
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {

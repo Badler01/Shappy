@@ -64,6 +64,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Hata"
             android:screenOrientation="portrait"/>
+        <activity android:name=".GizlilikSozlesmesi"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Credit"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".TakipServisi"

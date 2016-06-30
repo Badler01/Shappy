@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Shappy, Inc. (“Shappy,” “we,” and “us”) respects the privacy of its users (“you”) and has
+
+    developed this Privacy Policy to show its commitment to protecting your privacy. By using our
+
+    application (our “Service”), you are accepting the items described in this Privacy Policy. In case
+
+    you have any questions, please use the contact information at the end of this Privacy Policy.
+
+    What kind of information do we collect?
+
+    In order to be a Shappy user, you will be asked to sign in with your Facebook account. If you do
+
+    so, you authorize us to access certain Facebook account information, such as your public
+
+    Facebook profile (consistent with your privacy settings in Facebook), your email address,
+
+    gender, birthday, profile picture, and cover photo. You will be asked to let Shappy use your
+
+    location information from your device when you download or use Shappy. In addition, we may
+
+    collect and keep any personal information you give while using Shappy. You may also provide
+
+    us photos, a personal description, hobbies, interests, status, etc. When you chat with other
+
+    Shappy users, we collect the content of your chats, and if you contact us, you provide us with the
+
+    content of that communication, as well. You can choose not to provide us with certain
+
+    information, but that may result in you being unable to use our Service.
+
+    How do we collect your information?
+
+    We employ a variety of methods to collect your information for your device and activities
+
+    while using Shappy. We automatically collect information from your device when you visit our
+
+    Service. This information could include your device ID and type, language, the operating system
+
+    used by your device, access times, and your mobile device’s geographic location while our
+
+    application is actively running.
+
+    How do we use the information we collect?
+
+    We may use information that we collect about you to provide and improve our services and
+
+    product, and to keep our business going, to manage your account while giving you customer
+
+    support, to do analysis about your use of our product, services, or content, to communicate with
+
+    you by email, and to enforce any rights in our Terms of Use. We may also use the information to
+
+    perform other activities or services as otherwise described to you at the time of collection.
+
+    With whom do we share your information?
+
+    When you register as a user of Shappy, your Shappy profile can be seen by other users of
+
+    our Service. Other users in your range will be able to view the information you have provided to
+
+    us directly or through Facebook, such as your Facebook photos, any additional photos you
+
+    upload, your first name and surname, your age, approximate number of kilometers away, your
+
+    personal description, etc. When another Shappy user contacts you using our Service, you will
+
+    only see their genders and horoscopes, and not be able to see their profiles, vice versa. If you and
+
+    the other user can keep the conversation and each send at least 23 messages to each other, you
+
+    will be able to see the profile of the person contacting you. We do not share your personal
+
+    information with others except as indicated in this Privacy Policy. We may share personal
+
+    information with services providers for the developmental purposes, law enforcement or other
+
+    government agencies due to a court order or a request for cooperation or establishing/exercising
+
+    our legal rights and the rights of our users.
+
+    How can you access your information?
+
+    If you have a Shappy account, you have the ability to review and update your personal
+
+    information within the Service by opening your account and going to “Program Settings”. You
+
+    also may close your account at any time. If you close your account, we will keep certain
+
+    information associated with your account for analytical and legal purposes.
+
+    How do we protect your information?
+
+    We always take security measures for the well-being of our users, but we know that might
+
+    not be enough. Users should also be careful with how they disclose their information.
+
+    What about children’s privacy?
+
+    We restrict the use of our service to individuals age 13 and above. We do not knowingly
+
+    gather, maintain, or employ personal information from children under the age of 13.
+
+    What about rights of Third Parties?
+
+    This Privacy Policy does not create rights for third parties or require disclosure of any
+
+    personal information relating to users of our Service.
+
+    What about the changes to this Privacy Policy?
+
+    We will occasionally update this Privacy Policy. If we make any changes to this Privacy
+
+    Policy, we will notify you of the changes using notifications through the Service.
+
+    How can you contact us?
+
+    If you have any questions about this Privacy Policy, please contact us by email or postal mail as
+
+    follows:
+
+    Privacy Officer
+
+    İsci Bloklari Quarter
+
+    1507/2
+
+    Cankaya/ANKARA
+
+    abdpolatol@gmail.com"
+            android:id="@+id/textView12"
+            android:layout_gravity="center_horizontal" />
+    </ScrollView>
+
+</LinearLayout>

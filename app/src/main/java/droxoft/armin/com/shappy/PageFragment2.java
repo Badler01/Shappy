@@ -272,15 +272,6 @@ public class PageFragment2 extends Fragment {
                 startActivity(i);
             }
         });
-        /*editTextaciklama.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return yaziyiyerlestir();
-                }
-                return false;
-            }
-        });
-        */
         switch1 = (Switch) view.findViewById(R.id.switch1);
         boolean acikmi = sharedBildirimlerAl();
         if (acikmi) {
@@ -338,6 +329,21 @@ public class PageFragment2 extends Fragment {
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+            }
+        });
+        ImageButton imagebuttongizlilik = (ImageButton) view.findViewById(R.id.imageView106);
+        imagebuttongizlilik.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),GizlilikSozlesmesi.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton imagebuttoncredit = (ImageButton) view.findViewById(R.id.imageView104);
+        imagebuttoncredit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),Credit.class);
+                startActivity(i);
             }
         });
     }
