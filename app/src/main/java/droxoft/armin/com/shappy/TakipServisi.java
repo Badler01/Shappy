@@ -239,28 +239,18 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            BufferedReader in;
-            try{
-            if (connection.getResponseCode() == 200) {
-                in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputline = null;
-
-                for (int i = 0; i < 3; i++) {
-                    inputline = in.readLine();
-                    Log.i("tago", "" + i + " for inputline= " + inputline);
+            String inputline;
+            BufferedReader bufferedReader;
+            try {
+                if (connection.getResponseCode() == 200) {
+                    bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    while ((inputline = bufferedReader.readLine()) != null) {
+                        SharedPreferenceIdKaydet(inputline);
+                        serverid = inputline;
+                    }
+                } else {
                 }
-//            String inputline;
-//            BufferedReader bufferedReader;
-//            try {
-//                if (connection.getResponseCode() == 200) {
-//                    bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                    while ((inputline = bufferedReader.readLine()) != null) {
-//                        SharedPreferenceIdKaydet(inputline);
-//                        serverid = inputline;
-//                    }
-//                } else {
-//                }
-            } }catch (Exception e) {
+             }catch (Exception e) {
                 Log.i("tago" , e.getMessage());
         }
             return "cop";

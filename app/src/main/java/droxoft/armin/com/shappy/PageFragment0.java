@@ -571,6 +571,7 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
 
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
+            Log.i("tago" , "gonderilen serverid " + serverid);
             try {
                 connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/near_users.php?id=" + serverid)
                         .openConnection();
