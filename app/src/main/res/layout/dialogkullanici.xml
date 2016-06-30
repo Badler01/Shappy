@@ -1,34 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#00000000">
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/dialogkullanici"
+    android:minHeight="300dp"
+    android:minWidth="300dp">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView29"
-        android:layout_gravity="center"
-        android:src="@mipmap/dialog_ayril" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button18"
-        android:background="#00000000"
-        android:src="@mipmap/evet_b"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="20dp" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button19"
-        android:background="#00000000"
-        android:src="@mipmap/hayir"
-        android:layout_gravity="left|bottom"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp" />
-
-</FrameLayout>
+</ImageView>
