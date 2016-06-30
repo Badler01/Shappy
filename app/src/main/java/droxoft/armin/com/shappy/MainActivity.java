@@ -92,6 +92,21 @@ public class MainActivity extends AppCompatActivity {
         return sP.getString("facebookID", "defaultfacebookID");
     }
 
+    private String SharedPrefYearAl() {
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        return sP.getString("year" , "defaultyear");
+    }
+
+    private String SharedPrefMonthAl() {
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        return sP.getString("month" , "defaultmonth");
+    }
+
+    private String SharedPrefDayAl() {
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        return sP.getString("day" , "defaultday");
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPrefMainDurumKaydet(true);
@@ -138,10 +153,13 @@ public class MainActivity extends AppCompatActivity {
                 final String email = SharedPrefEmailAl();
                 final String facebookID = SharedPrefFacebookIDAl();
                 final String burc = SharedPrefBurcAl();
+                final String day= SharedPrefDayAl();
+                final String month = SharedPrefMonthAl();
+                final String year = SharedPrefYearAl();
                 Thread p = new Thread(){
                     public void run(){
                         try {
-                            sleep(3000);
+                            sleep(2500);
                             Intent i = new Intent(MainActivity.this, TakipServisi.class);
                             i.putExtra("isim", isim);
                             i.putExtra("resimurl", faceprofilurl);
@@ -152,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
                             i.putExtra("tumisim" , tumisim);
                             i.putExtra("yas" , yas);
                             i.putExtra("ilkgiris", false);
+                            i.putExtra("day",day);
+                            i.putExtra("month" , month);
+                            i.putExtra("year" , year);
                             startService(i);
                         } catch (InterruptedException e) {
                             e.printStackTrace();

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -181,6 +182,12 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
             String param3 = "longi";
             String param4 = "lat";
             String param5 = "regid";
+            String param6 = "email";
+            String param7 = "gender";
+            String param8 = "facebookID";
+            String param9 = "fullname";
+            String param10 = "yas";
+            String param11 = "burc";
             this.day = day;
             this.month = month;
             this.year = yearr;
@@ -191,8 +198,11 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
             this.longitude = longitude;
             this.latitude = latitude;
             try {
-                query = String.format("param1=%s&param2=%s&param3=%s&param4=%s&param5=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset),
-                        URLEncoder.encode(param3, charset), URLEncoder.encode(param4, charset), URLEncoder.encode(param5, charset));
+                query = String.format("param1=%s&param2=%s&param3=%s&param4=%s&param5=%s&param6=%s&param7=%s&param8=%s&param9=%s&" +
+                        "param10=%s&param11=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset),
+                        URLEncoder.encode(param3, charset), URLEncoder.encode(param4, charset), URLEncoder.encode(param5, charset),
+                        URLEncoder.encode(param6,charset) , URLEncoder.encode(param7,charset),URLEncoder.encode(param8,charset),
+                        URLEncoder.encode(param9,charset),URLEncoder.encode(param10,charset),URLEncoder.encode(param11,charset));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -229,21 +239,30 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String inputline;
-            BufferedReader bufferedReader;
-            try {
-                if (connection.getResponseCode() == 200) {
-                    bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    while ((inputline = bufferedReader.readLine()) != null) {
-                        SharedPreferenceIdKaydet(inputline);
-                        serverid = inputline;
-                        bufferedReader.close();
-                    }
-                } else {
+            BufferedReader in;
+            try{
+            if (connection.getResponseCode() == 200) {
+                in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputline = null;
+
+                for (int i = 0; i < 3; i++) {
+                    inputline = in.readLine();
+                    Log.i("tago", "" + i + " for inputline= " + inputline);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            String inputline;
+//            BufferedReader bufferedReader;
+//            try {
+//                if (connection.getResponseCode() == 200) {
+//                    bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//                    while ((inputline = bufferedReader.readLine()) != null) {
+//                        SharedPreferenceIdKaydet(inputline);
+//                        serverid = inputline;
+//                    }
+//                } else {
+//                }
+            } }catch (Exception e) {
+                Log.i("tago" , e.getMessage());
+        }
             return "cop";
         }
 

@@ -184,6 +184,7 @@ public class FacebookFragment extends Fragment {
         return directory.getAbsolutePath();
     }
 
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
@@ -226,20 +227,16 @@ public class FacebookFragment extends Fragment {
         int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionCheckk = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Log.i("tago", "permission alinmis");
         }else{
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},131);
         }
         if (permissionCheckk == PackageManager.PERMISSION_GRANTED) {
-            Log.i("tago", "permission alinmiss");
         }else{
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},132);
         }
-        Log.i("tago" , "burdan gecti");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.i("tago" , "buraya geldi");
                 profile = Profile.getCurrentProfile();
                 if (profile.getId() != null) {
                     facebookID = profile.getId();
@@ -263,13 +260,12 @@ public class FacebookFragment extends Fragment {
                                     email = object.getString("email");
                                     sharedemailkaydet(email);
                                     cinsiyet = object.getString("gender");
-                                    Log.i("tago" , "cinsiyetxx "+ cinsiyet);
                                     sharedcinsiyetkaydet(cinsiyet);
                                     coverphotourl = object.getJSONObject("cover").getString("source");
                                     sharedcoverphotourlkaydet(coverphotourl);
                                     dogumgunu = object.getString("birthday");
-                                    day = dogumgunu.substring(0,2);
-                                    month = dogumgunu.substring(3,5);
+                                    month = dogumgunu.substring(0,2);
+                                    day = dogumgunu.substring(3,5);
                                     year = dogumgunu.substring(6,10);
                                     int yas = getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
                                     yass = String.valueOf(yas);
@@ -416,9 +412,7 @@ public class FacebookFragment extends Fragment {
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    Log.i("tago" , "permission alindi");
                 } else {
-                    Log.i("tago" , "permission alinamadi");
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }

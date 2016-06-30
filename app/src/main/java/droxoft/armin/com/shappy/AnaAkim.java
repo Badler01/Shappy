@@ -43,7 +43,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.Calendar;
 
 public class AnaAkim extends AppCompatActivity {
 
@@ -68,24 +67,10 @@ public class AnaAkim extends AppCompatActivity {
         editor.apply();
     }
 
-    private void sharedPrefBurcKaydet(String burc) {
-        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sP.edit();
-        editor.putString("burc", burc);
-        editor.apply();
-    }
-
     private void sharedPrefOkulKaydet(String okul) {
         SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
         editor.putString("okul", okul);
-        editor.apply();
-    }
-
-    private void sharedPrefYasKaydet(String yas) {
-        SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sP.edit();
-        editor.putString("yas", yas);
         editor.apply();
     }
 
@@ -138,7 +123,6 @@ public class AnaAkim extends AppCompatActivity {
         Intent i = getIntent();
         ilkgiris = i.getBooleanExtra("ilkgiris", true);
         if (ilkgiris) {
-            Calendar takvim = Calendar.getInstance();
             final Dialog dialog = new Dialog(AnaAkim.this, R.style.DialogThemeFull);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.bilgi);
@@ -148,7 +132,6 @@ public class AnaAkim extends AppCompatActivity {
             imageviewnickvarmi = (ImageView) dialog.findViewById(R.id.imageView27);
             final EditText edittextnick = (EditText) dialog.findViewById(R.id.editText5);
             final EditText edittextokul = (EditText) dialog.findViewById(R.id.editText6);
-            final EditText edittextdogumyili = (EditText) dialog.findViewById(R.id.editText7);
             edittextnick.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -160,28 +143,6 @@ public class AnaAkim extends AppCompatActivity {
                     }
                 }
             });
-//            final DatePickerDialog dogumyilialanpicker = new DatePickerDialog(this, android.R.style.Theme_Holo_Dialog_MinWidth,
-//                    new DatePickerDialog.OnDateSetListener() {
-//
-//                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                            edittextdogumyili.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-//                        }
-//
-//                    }, takvim.get(Calendar.YEAR), takvim.get(Calendar.MONTH), takvim.get(Calendar.DAY_OF_MONTH));
-//            edittextdogumyili.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//                @Override
-//                public void onFocusChange(View v, boolean hasFocus) {
-//                    if (hasFocus) {
-//                        dogumyilialanpicker.show();
-//                    }
-//                }
-//            });
-//            edittextdogumyili.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    dogumyilialanpicker.show();
-//                }
-//            });
-
             ImageButton butonhemenbasla = (ImageButton) dialog.findViewById(R.id.imageButton10);
             butonhemenbasla.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -561,105 +522,6 @@ public class AnaAkim extends AppCompatActivity {
         dCN.deleteAll();
         dCN.close();
         super.onDestroy();
-    }
-
-    private int getAge(int year, int month, int day) {
-        int age;
-
-        final Calendar calenderToday = Calendar.getInstance();
-        int currentYear = calenderToday.get(Calendar.YEAR);
-        int currentMonth = 1 + calenderToday.get(Calendar.MONTH);
-        int todayDay = calenderToday.get(Calendar.DAY_OF_MONTH);
-
-        age = currentYear - year;
-
-        if (month > currentMonth) {
-            --age;
-        } else if (month == currentMonth) {
-            if (day > todayDay) {
-                --age;
-            }
-        }
-        return age;
-
-    }
-
-    private String getBurc(int month, int day) {
-        if (month == 1) {
-            if (day < 21) {
-                return "oglak";
-            } else {
-                return "kova";
-            }
-        } else if (month == 2) {
-            if (day < 20) {
-                return "kova";
-            } else {
-                return "balik";
-            }
-        } else if (month == 3) {
-            if (day < 22) {
-                return "balik";
-            } else {
-                return "koc";
-            }
-        } else if (month == 4) {
-            if (day < 21) {
-                return "koc";
-            } else {
-                return "boga";
-            }
-        } else if (month == 5) {
-            if (day < 22) {
-                return "boga";
-            } else {
-                return "ikizler";
-            }
-        } else if (month == 6) {
-            if (day < 22) {
-                return "ikizler";
-            } else {
-                return "yengec";
-            }
-        } else if (month == 7) {
-            if (day < 24) {
-                return "yengec";
-            } else {
-                return "aslan";
-            }
-        } else if (month == 8) {
-            if (day < 23) {
-                return "aslan";
-            } else {
-                return "basak";
-            }
-        } else if (month == 9) {
-            if (day < 23) {
-                return "basak";
-            } else {
-                return "terazi";
-            }
-        } else if (month == 10) {
-            if (day < 23) {
-                return "terazi";
-            } else {
-                return "akrep";
-            }
-        } else if (month == 11) {
-            if (day < 23) {
-                return "akrep";
-            } else {
-                return "yay";
-            }
-        } else if (month == 12) {
-            if (day < 22) {
-                return "yay";
-            } else {
-                return "oglak";
-            }
-        }
-
-        return "aslan";
     }
 
     private class ServerButunculBilgileriGonder extends AsyncTask<String, Void, String> {
