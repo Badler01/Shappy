@@ -661,19 +661,22 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                 if (sconnection.getResponseCode() == 200) {
                     in = new BufferedReader(new InputStreamReader(sconnection.getInputStream()));
                     String inputline = in.readLine();
-                    JSONArray jsono = new JSONArray(inputline);
-                    for (int i = 0; i < jsono.length(); i++) {
-                        JSONObject object = jsono.getJSONObject(i);
-                        Kanal kanal = new Kanal(true);
-                        kanal.setKanaladi(object.optString("name"));
-                        kanal.setDate("date");
-                        kanal.setId(object.optString("id"));
-                        kanal.setDistance(object.optString("distance"));
-                        kanal.setLikesayisi(object.optInt("like_count"));
-                        kanal.setLikedurumu(object.optInt("like_status"));
-                        channelbaba.add(kanal);
+                    if(!inputline.equals("null")){
+                        JSONArray jsono = new JSONArray(inputline);
+                        for (int i = 0; i < jsono.length(); i++) {
+                            JSONObject object = jsono.getJSONObject(i);
+                            Kanal kanal = new Kanal(true);
+                            kanal.setKanaladi(object.optString("name"));
+                            kanal.setDate("date");
+                            kanal.setId(object.optString("id"));
+                            kanal.setDistance(object.optString("distance"));
+                            kanal.setLikesayisi(object.optInt("like_count"));
+                            kanal.setLikedurumu(object.optInt("like_status"));
+                            channelbaba.add(kanal);
+                        }
                     }
-                } else {
+                }
+                   else {
                     in = new BufferedReader(new InputStreamReader(sconnection.getErrorStream()));
                     Log.i("tago", "Error Stream");
                     String inputline = in.readLine();
@@ -699,7 +702,7 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                 e.printStackTrace();
                 Log.i("tago", "json Exception");
             }
-
+//*****************************************************
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/get_channels.php?id=" + id).openConnection();
@@ -730,20 +733,23 @@ public class PageFragment1 extends Fragment implements AbsListView.OnScrollListe
                     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     Log.i("tago", "InputStream");
                     String inputline = in.readLine();
-                    JSONArray jsono = new JSONArray(inputline);
-                    for (int i = 0; i < jsono.length(); i++) {
-                        JSONObject object = jsono.getJSONObject(i);
-                        Kanal kanal = new Kanal(false);
-                        kanal.setKanaladi(object.optString("name"));
-                        kanal.setKanalurl(object.optString("photo"));
-                        kanal.setDate("date");
-                        kanal.setDistance(object.optString("distance"));
-                        kanal.setLikesayisi(object.optInt("like_count"));
-                        kanal.setId(object.optString("id"));
-                        kanal.setLikedurumu(object.optInt("like_status"));
-                        channelbaba.add(kanal);
+                    if (inputline != null) {
+                        JSONArray jsono = new JSONArray(inputline);
+                        for (int i = 0; i < jsono.length(); i++) {
+                            JSONObject object = jsono.getJSONObject(i);
+                            Kanal kanal = new Kanal(false);
+                            kanal.setKanaladi(object.optString("name"));
+                            kanal.setKanalurl(object.optString("photo"));
+                            kanal.setDate("date");
+                            kanal.setDistance(object.optString("distance"));
+                            kanal.setLikesayisi(object.optInt("like_count"));
+                            kanal.setId(object.optString("id"));
+                            kanal.setLikedurumu(object.optInt("like_status"));
+                            Log.i("tago", "like status " + object.optInt("like_status"));
+                            channelbaba.add(kanal);
+                        }
                     }
-                } else {
+                }else {
                     in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                     Log.i("tago", "Error Stream");
                     String inputline = in.readLine();

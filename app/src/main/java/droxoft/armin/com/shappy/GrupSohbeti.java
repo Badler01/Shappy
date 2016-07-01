@@ -119,10 +119,8 @@ public class GrupSohbeti extends Activity {
             dwww.close();
             if (likee.equals("yes")) {
                 kanallikedurumu = 1;
-                Log.i("tago", "likedurumuyes");
             } else {
                 kanallikedurumu = 0;
-                Log.i("tago", "likedurumuno");
             }
             DatabaseClassNotificationGrup dcng = new DatabaseClassNotificationGrup(this);
             dcng.open();
@@ -343,12 +341,13 @@ public class GrupSohbeti extends Activity {
 
     private void kanaliantilikeislemi() {
         kanalilikebutonu.setImageResource(R.mipmap.begenganal);
+        String kullaniciid = SharedPrefIdAl();
         if (kanalmodu.equals("o")) {
-            ServerOfficialKanalAntiLike sOKAL = new ServerOfficialKanalAntiLike();
-            //sOKAL.execute(kanalid);
+            ServerOfficialKanalAntiLike sOKAL = new ServerOfficialKanalAntiLike(kanalid,kullaniciid,"o");
+            sOKAL.execute(kanalid);
         } else if (kanalmodu.equals("n")) {
-            ServerNormalKanalAntiLike sNKAL = new ServerNormalKanalAntiLike();
-            //  sNKAL.execute(kanalid);
+            ServerNormalKanalAntiLike sNKAL = new ServerNormalKanalAntiLike(kanalid,kullaniciid,"n");
+            sNKAL.execute(kanalid);
         }
         DatabaseClassKonusulanKanallar swer = new DatabaseClassKonusulanKanallar(this);
         swer.open();
@@ -577,13 +576,16 @@ public class GrupSohbeti extends Activity {
     }
 
     private class ServerOfficialKanalAntiLike extends AsyncTask<String, Void, String> {
-        String charset, query;
+        String charset, query,kanalid,kullaniciid,type;
 
-        public ServerOfficialKanalAntiLike() {
+        public ServerOfficialKanalAntiLike(String kanalid,String kullaniciid,String type) {
             charset = "UTF-8";
             String param1 = "kanalid";
             String param2 = "kullaniciid";
             String param3 = "type";
+            this.kanalid = kanalid;
+            this.kullaniciid = kullaniciid;
+            this.type = type;
             try {
                 query = String.format("param1=%s&param2=%s&param3=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset)
                         , URLEncoder.encode(param3, charset));
@@ -597,7 +599,8 @@ public class GrupSohbeti extends Activity {
             String kullaniciid = SharedPrefIdAl();
             Log.i("tago", "kullaniciid= " + kullaniciid);
             try {
-                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/like_channel.php?id=").openConnection();
+                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/dislike_channel.php?id="+kanalid+
+                "&userid="+kullaniciid+"&type="+type).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -617,13 +620,16 @@ public class GrupSohbeti extends Activity {
     }
 
     private class ServerNormalKanalAntiLike extends AsyncTask<String, Void, String> {
-        String charset, query;
+        String charset, query,kanalid,kullaniciid,type;
 
-        public ServerNormalKanalAntiLike() {
+        public ServerNormalKanalAntiLike(String kanalid, String kullaniciid, String type) {
             charset = "UTF-8";
             String param1 = "kanalid";
             String param2 = "kullaniciid";
             String param3 = "type";
+            this.kanalid = kanalid;
+            this.kullaniciid = kullaniciid;
+            this.type = type;
             try {
                 query = String.format("param1=%s&param2=%s&param3=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset)
                         , URLEncoder.encode(param3, charset));
@@ -637,7 +643,8 @@ public class GrupSohbeti extends Activity {
             String kullaniciid = SharedPrefIdAl();
             Log.i("tago", "kullaniciid= " + kullaniciid);
             try {
-                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/like_channel.php?id=").openConnection();
+                vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/dislike_channel.php?id="+kanalid+
+                        "&userid="+kullaniciid+"&type="+type).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

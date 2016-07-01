@@ -258,11 +258,11 @@ public class FacebookFragment extends Fragment {
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 try {
                                     email = object.getString("email");
+                                    Log.i("tago" , "yas " + email);
                                     sharedemailkaydet(email);
                                     cinsiyet = object.getString("gender");
+                                    Log.i("tago" , "yas " + email);
                                     sharedcinsiyetkaydet(cinsiyet);
-                                    coverphotourl = object.getJSONObject("cover").getString("source");
-                                    sharedcoverphotourlkaydet(coverphotourl);
                                     dogumgunu = object.getString("birthday");
                                     month = dogumgunu.substring(0,2);
                                     day = dogumgunu.substring(3,5);
@@ -275,6 +275,11 @@ public class FacebookFragment extends Fragment {
                                     sharedPrefDayKaydet();
                                     sharedPrefMonthKaydet();
                                     sharedPrefYearKaydet();
+                                    if(object.getJSONObject("cover")!=null) {
+                                        coverphotourl = object.getJSONObject("cover").getString("source");
+                                        Log.i("tago", "yas " + email);
+                                        sharedcoverphotourlkaydet(coverphotourl);
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

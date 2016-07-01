@@ -310,8 +310,8 @@ public class KanalAdapter extends BaseAdapter implements Filterable {
             HttpURLConnection connection = null;
             try {
                 Log.i("tago", "kanaladapter " + params[0]);
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/population.php?placename=" + params[0])
-                        .openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/population.php?placename=" +
+                        URLEncoder.encode(params[0],charset)).openConnection();
                 Log.i("tago", "KanalAdapter kisi sayisini cek bagı kuruldu");
             } catch (IOException e) {
                 e.printStackTrace();

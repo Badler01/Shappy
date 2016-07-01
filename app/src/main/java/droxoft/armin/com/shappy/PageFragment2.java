@@ -454,13 +454,15 @@ public class PageFragment2 extends Fragment {
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     if (object != null) {
-                        yenicoverfotourl = object.getJSONObject("cover").getString("source");
-                        ServerCoverPhotoUrlGonder sCPUG = new ServerCoverPhotoUrlGonder(sharedPrefIdAl(), yenicoverfotourl);
-                        sCPUG.execute();
-                        Log.i("tago", "yenicover1" + yenicoverfotourl);
-                        UrldenCoverPhoto uCP = new UrldenCoverPhoto(yenicoverfotourl);
-                        uCP.execute();
-                    } else {
+                        if (object.getJSONObject("cover") != null) {
+                            yenicoverfotourl = object.getJSONObject("cover").getString("source");
+                            ServerCoverPhotoUrlGonder sCPUG = new ServerCoverPhotoUrlGonder(sharedPrefIdAl(), yenicoverfotourl);
+                            sCPUG.execute();
+                            Log.i("tago", "yenicover1" + yenicoverfotourl);
+                            UrldenCoverPhoto uCP = new UrldenCoverPhoto(yenicoverfotourl);
+                            uCP.execute();
+                        }
+                    }else {
                         imageviewkapak.setBackgroundResource(R.mipmap.bos_kapak);
                     }
                 } catch (JSONException e) {

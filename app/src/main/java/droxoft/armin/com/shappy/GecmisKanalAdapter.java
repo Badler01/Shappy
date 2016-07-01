@@ -325,10 +325,8 @@ public class GecmisKanalAdapter extends BaseAdapter implements Filterable {
             }
             HttpURLConnection connection = null;
             try {
-                Log.i("tago", "kanaladapter " + params[0]);
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/population.php?placename=" + params[0])
-                        .openConnection();
-                Log.i("tago", "KanalAdapter kisi sayisini cek bagı kuruldu");
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/population.php?placename=" +
+                        URLEncoder.encode(params[0],charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -342,19 +340,10 @@ public class GecmisKanalAdapter extends BaseAdapter implements Filterable {
                 OutputStream output = new BufferedOutputStream(connection.getOutputStream());
                 output.write(query.getBytes(charset));
                 output.close();
-                try {
-                    int a = connection.getResponseCode();
-                    String b = connection.getResponseMessage();
-                    Log.i("tago", "rerere kanaladapter" + a + " " + b);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 BufferedReader in;
                 if (connection.getResponseCode() == 200) {
                     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    Log.i("tago", "InputStream kanaladapter");
-                    String inputline = null;
-                    inputline = in.readLine();
+                    String inputline= in.readLine();
                     JSONArray jsono = new JSONArray(inputline);
                     JSONObject jsonObject = jsono.getJSONObject(0);
                     JSONObject obje = jsono.getJSONObject(1);
