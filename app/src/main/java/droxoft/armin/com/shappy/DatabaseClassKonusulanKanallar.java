@@ -191,7 +191,7 @@ public class DatabaseClassKonusulanKanallar {
         Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, KANALADI + "='" + kanaladi + "'", null, null, null, null);
         String likedurumu = "no";
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            likedurumu = c.getString(3);
+            likedurumu = c.getString(4);
         }
         c.close();
         return likedurumu;

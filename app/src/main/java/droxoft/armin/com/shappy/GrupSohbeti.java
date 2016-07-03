@@ -103,6 +103,7 @@ public class GrupSohbeti extends Activity {
             bbb.open();
             String likee = bbb.databasedenozellikecek(kanaladi);
             bbb.close();
+            Log.i("tago" , "like durumu " + likee);
             if (likee.equals("no")) {
                 kanallikedurumu = 0;
             } else {
@@ -343,10 +344,10 @@ public class GrupSohbeti extends Activity {
         kanalilikebutonu.setImageResource(R.mipmap.begenganal);
         String kullaniciid = SharedPrefIdAl();
         if (kanalmodu.equals("o")) {
-            ServerOfficialKanalAntiLike sOKAL = new ServerOfficialKanalAntiLike(kanalid,kullaniciid,"o");
+            ServerOfficialKanalAntiLike sOKAL = new ServerOfficialKanalAntiLike(kanalid,kullaniciid);
             sOKAL.execute(kanalid);
         } else if (kanalmodu.equals("n")) {
-            ServerNormalKanalAntiLike sNKAL = new ServerNormalKanalAntiLike(kanalid,kullaniciid,"n");
+            ServerNormalKanalAntiLike sNKAL = new ServerNormalKanalAntiLike(kanalid,kullaniciid);
             sNKAL.execute(kanalid);
         }
         DatabaseClassKonusulanKanallar swer = new DatabaseClassKonusulanKanallar(this);
@@ -576,16 +577,15 @@ public class GrupSohbeti extends Activity {
     }
 
     private class ServerOfficialKanalAntiLike extends AsyncTask<String, Void, String> {
-        String charset, query,kanalid,kullaniciid,type;
+        String charset, query,kanalid,kullaniciid;
 
-        public ServerOfficialKanalAntiLike(String kanalid,String kullaniciid,String type) {
+        public ServerOfficialKanalAntiLike(String kanalid,String kullaniciid) {
             charset = "UTF-8";
             String param1 = "kanalid";
             String param2 = "kullaniciid";
             String param3 = "type";
             this.kanalid = kanalid;
             this.kullaniciid = kullaniciid;
-            this.type = type;
             try {
                 query = String.format("param1=%s&param2=%s&param3=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset)
                         , URLEncoder.encode(param3, charset));
@@ -600,7 +600,7 @@ public class GrupSohbeti extends Activity {
             Log.i("tago", "kullaniciid= " + kullaniciid);
             try {
                 vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/dislike_channel.php?id="+kanalid+
-                "&userid="+kullaniciid+"&type="+type).openConnection();
+                "&userid="+kullaniciid+"&type=2").openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -620,16 +620,15 @@ public class GrupSohbeti extends Activity {
     }
 
     private class ServerNormalKanalAntiLike extends AsyncTask<String, Void, String> {
-        String charset, query,kanalid,kullaniciid,type;
+        String charset, query,kanalid,kullaniciid;
 
-        public ServerNormalKanalAntiLike(String kanalid, String kullaniciid, String type) {
+        public ServerNormalKanalAntiLike(String kanalid, String kullaniciid) {
             charset = "UTF-8";
             String param1 = "kanalid";
             String param2 = "kullaniciid";
             String param3 = "type";
             this.kanalid = kanalid;
             this.kullaniciid = kullaniciid;
-            this.type = type;
             try {
                 query = String.format("param1=%s&param2=%s&param3=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset)
                         , URLEncoder.encode(param3, charset));
@@ -644,7 +643,7 @@ public class GrupSohbeti extends Activity {
             Log.i("tago", "kullaniciid= " + kullaniciid);
             try {
                 vconnection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/dislike_channel.php?id="+kanalid+
-                        "&userid="+kullaniciid+"&type="+type).openConnection();
+                        "&userid="+kullaniciid+"&type=1").openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -29,6 +29,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.ugurtekbas.fadingindicatorlibrary.FadingIndicator;
@@ -58,7 +59,7 @@ public class FacebookFragment extends Fragment {
 
     CallbackManager callbackManager;
     Profile profile;
-
+    ProfileTracker mProfileTracker;
 
 
     private void sharedcoverphotourlkaydet(String coverphotourl) {
@@ -192,8 +193,17 @@ public class FacebookFragment extends Fragment {
     }
 
     public void onResume() {
-        Log.i("tago" , "onResume");
         super.onResume();
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionCheckk = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+        }else{
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},131);
+        }
+        if (permissionCheckk == PackageManager.PERMISSION_GRANTED) {
+        }else{
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},132);
+        }
         Profile profile = Profile.getCurrentProfile();
         if (profile != null) {
             tumisim = profile.getName();
@@ -207,7 +217,6 @@ public class FacebookFragment extends Fragment {
 
     public void onStop() {
         super.onStop();
-        getActivity().finish();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -237,26 +246,62 @@ public class FacebookFragment extends Fragment {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.i("tago" , "frag0");
                 profile = Profile.getCurrentProfile();
-                if (profile.getId() != null) {
-                    facebookID = profile.getId();
-                    String a = sharedFacebookIDAl();
-                    if (a.equals("defaultfacebookID")) {
-                        sharedilkgiriskaydet(true);
-                    }else if(!a.equals(facebookID)){
-                        sharedilkgiriskaydet(true);
-                    }else{
-                        sharedilkgiriskaydet(false);
+                if(profile==null){
+                    mProfileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                            Log.i("tago" , "frag1");
+                            facebookID = profile2.getId();
+                            String a = sharedFacebookIDAl();
+                            if (a.equals("defaultfacebookID")) {
+                                sharedilkgiriskaydet(true);
+                            } else if (!a.equals(facebookID)) {
+                                sharedilkgiriskaydet(true);
+                            } else {
+                                sharedilkgiriskaydet(false);
+                            }
+                            sharedfacebookIDkaydet(facebookID);
+                            tumisim = profile2.getName();
+                            firstname = profile2.getFirstName();
+                            lastname = profile2.getLastName();
+                            sharedtumisimkaydet(tumisim);
+                            sharedfirstnamekaydet(firstname);
+                            sharedlastnamekaydet(lastname);
+                            Log.i("tago" , "frag2");
+                            KullaniciProfilCek kPC = new KullaniciProfilCek();
+                            kPC.execute(facebookID);
+                            mProfileTracker.stopTracking();
+                            Log.i("tago" , "frag3");
+                        }
+                    };
+                }
+                if(profile!=null) {
+                    if (profile.getId() != null) {
+                        Log.i("tago" , "frag4");
+                        facebookID = profile.getId();
+                        String a = sharedFacebookIDAl();
+                        if (a.equals("defaultfacebookID")) {
+                            sharedilkgiriskaydet(true);
+                        } else if (!a.equals(facebookID)) {
+                            sharedilkgiriskaydet(true);
+                        } else {
+                            sharedilkgiriskaydet(false);
+                        }
+                        Log.i("tago" , "frag5");
+                        sharedfacebookIDkaydet(facebookID);
+                        KullaniciProfilCek kPC = new KullaniciProfilCek();
+                        kPC.execute(facebookID);
+                        Log.i("tago" , "frag6");
                     }
-                    sharedfacebookIDkaydet(facebookID);
-                    KullaniciProfilCek kPC = new KullaniciProfilCek();
-                    kPC.execute(profile.getId());
                 }
                 GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 try {
+                                    Log.i("tago" , "frag7");
                                     email = object.getString("email");
                                     Log.i("tago" , "yas " + email);
                                     sharedemailkaydet(email);
@@ -267,6 +312,7 @@ public class FacebookFragment extends Fragment {
                                     month = dogumgunu.substring(0,2);
                                     day = dogumgunu.substring(3,5);
                                     year = dogumgunu.substring(6,10);
+                                    Log.i("tago" , "frag8");
                                     int yas = getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
                                     yass = String.valueOf(yas);
                                     burc = getBurc(Integer.valueOf(month),Integer.valueOf(day));
@@ -275,6 +321,7 @@ public class FacebookFragment extends Fragment {
                                     sharedPrefDayKaydet();
                                     sharedPrefMonthKaydet();
                                     sharedPrefYearKaydet();
+                                    Log.i("tago" , "frag9");
                                     if(object.getJSONObject("cover")!=null) {
                                         coverphotourl = object.getJSONObject("cover").getString("source");
                                         Log.i("tago", "yas " + email);
@@ -286,9 +333,11 @@ public class FacebookFragment extends Fragment {
                             }
                         });
                 Bundle parameters = new Bundle();
+                Log.i("tago" , "frag10");
                 parameters.putString("fields", "email,gender,cover,birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
+                Log.i("tago" , "frag11");
             }
 
             @Override
@@ -445,6 +494,7 @@ public class FacebookFragment extends Fragment {
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
             try {
+                Log.i("tago" , "frag12");
                 URL url = new URL("https://graph.facebook.com/" + params[0] + "/picture?type=large&redirect=true&width=900&height=900");
                 urll = "https://graph.facebook.com/" + params[0] + "/picture?type=large&redirect=true&width=900&height=900";
                 sharedresimurlkaydet(urll);
@@ -454,6 +504,7 @@ public class FacebookFragment extends Fragment {
                 InputStream input = connection.getInputStream();
                 bitmap = BitmapFactory.decodeStream(input);
                 bitmapiinternalkaydet(bitmap);
+                Log.i("tago" , "frag13");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -462,6 +513,7 @@ public class FacebookFragment extends Fragment {
 
         protected void onPostExecute(Bitmap bitmap) {
             if (tumisim != null) {
+                Log.i("tago" , "frag14");
                 boolean ilkgiris = sharedilkgirisal();
                 Intent i = new Intent(getActivity(), TakipServisi.class);
                 i.putExtra("isim", firstname);
@@ -476,6 +528,7 @@ public class FacebookFragment extends Fragment {
                 i.putExtra("tumisim", tumisim);
                 i.putExtra("yas", yass);
                 i.putExtra("ilkgiris" , ilkgiris);
+                Log.i("tago" , "profilden geciyor");
                 getActivity().startService(i);
             }
         }

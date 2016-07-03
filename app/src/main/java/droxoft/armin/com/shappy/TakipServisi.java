@@ -59,6 +59,7 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
 
     public void onCreate() {
         super.onCreate();
+        Log.i("tago" , "takip baslatiliyor");
         if (googleclient == null) {
             googleclient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)

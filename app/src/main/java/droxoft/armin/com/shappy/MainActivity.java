@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         return sP.getString("day" , "defaultday");
     }
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPrefMainDurumKaydet(true);
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 Thread p = new Thread(){
                     public void run(){
                         try {
-                            sleep(2500);
+                            sleep(2800);
                             Intent i = new Intent(MainActivity.this, TakipServisi.class);
                             i.putExtra("isim", isim);
                             i.putExtra("resimurl", faceprofilurl);
@@ -223,7 +224,6 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        FacebookSdk.sdkInitialize(getApplicationContext());
     }
 
     private class registerForPushNotificationsAsync extends AsyncTask<Void, Void, Exception> {

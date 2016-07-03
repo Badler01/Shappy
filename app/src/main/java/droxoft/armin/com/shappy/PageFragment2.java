@@ -15,8 +15,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.renderscript.Allocation;
@@ -30,7 +28,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -388,28 +385,6 @@ public class PageFragment2 extends Fragment {
         }
     }
 
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap = null;
-
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
-
     private void sharedPrefMainDurumKaydet(boolean b) {
         SharedPreferences sP = getActivity().getSharedPreferences("programisleyis", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sP.edit();
@@ -434,18 +409,6 @@ public class PageFragment2 extends Fragment {
     private boolean sharedBildirimlerAl() {
         SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         return sP.getBoolean("bildirimler", true);
-    }
-
-    private boolean yaziyiyerlestir() {
-        editTextaciklama.setText(editTextaciklama.getText());
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        editTextaciklama.clearFocus();
-        sharedPrefDurumKaydet(editTextaciklama.getText().toString());
-        ServerKullaniciDurum sKD = new ServerKullaniciDurum(editTextaciklama.getText().toString());
-        String veritabaniid = sharedPrefIdAl();
-        sKD.execute(veritabaniid);
-        return true;
     }
 
     private void coverphotocek() {
@@ -603,48 +566,6 @@ public class PageFragment2 extends Fragment {
                 Bitmap blurbitmap = blur(bitmape);
                 imageviewkapak.setImageBitmap(blurbitmap);
             }
-        }
-    }
-
-    public class ServerKullaniciDurum extends AsyncTask<String, Void, String> {
-        String durum;
-        String query, charset;
-
-        public ServerKullaniciDurum(String durum) {
-            this.durum = durum;
-            charset = "UTF-8";
-            String param1 = "id";
-            String param2 = "status";
-            try {
-                query = String.format("param1=%s&param2=%s", URLEncoder.encode(param1, charset), URLEncoder.encode(param2, charset));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        protected String doInBackground(String... params) {
-            URLConnection connection = null;
-            try {
-                Log.i("tago", "durum" + durum);
-                Log.i("tago", "durum encode " + URLEncoder.encode(durum, charset));
-                connection = new URL("http://185.22.187.60/shappy/my_status?id="
-                        + params[0] + "&status=" + URLEncoder.encode(durum, charset)).openConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Accept-Charset", charset);
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-
-            OutputStream output;
-            try {
-                output = new BufferedOutputStream(connection.getOutputStream());
-                output.write(query.getBytes(charset));
-                InputStream inputstream = connection.getInputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return "calaba";
         }
     }
 
