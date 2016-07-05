@@ -159,6 +159,8 @@ public class AnaAkim extends AppCompatActivity {
                             sBBG.execute();
                             dialog.cancel();
                         }
+                    }else{
+                        Toast.makeText(AnaAkim.this,"Gerekli alanları doldurun",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -547,7 +549,7 @@ public class AnaAkim extends AppCompatActivity {
             URLConnection connection = null;
             try {
                 connection = new URL("http://185.22.187.60/shappy/update_born.php?id=" + serverid +
-                        "&nick=" + nick + "&okul=" + okul).openConnection();
+                        "&nick=" + URLEncoder.encode(nick,charset) + "&okul=" + URLEncoder.encode(okul,charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -586,7 +588,7 @@ public class AnaAkim extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/nickserbest.php?nick=" + nickname).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/nickserbest.php?nick=" + URLEncoder.encode(nickname,charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

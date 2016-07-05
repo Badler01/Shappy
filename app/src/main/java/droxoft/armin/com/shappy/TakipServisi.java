@@ -17,6 +17,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import org.acra.ACRA;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -59,7 +61,6 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
 
     public void onCreate() {
         super.onCreate();
-        Log.i("tago" , "takip baslatiliyor");
         if (googleclient == null) {
             googleclient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -141,11 +142,13 @@ public class TakipServisi extends Service implements GoogleApiClient.ConnectionC
     }
 
     public void onConnectionSuspended(int i) {
-        Toast.makeText(this, "Google Location onConnectionSuspended", Toast.LENGTH_LONG).show();
+        Throwable a = new Throwable("Location onConnectionSuspended " + String.valueOf(i));
+        ACRA.getErrorReporter().handleSilentException(a);
     }
 
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(this, "Google Location onConnectionFailed", Toast.LENGTH_LONG).show();
+        Throwable a = new Throwable("Location onConnectionFailed connection result: " + connectionResult);
+        ACRA.getErrorReporter().handleSilentException(a);
     }
 
     public void onLocationChanged(final Location location) {
