@@ -77,7 +77,7 @@ public class ShappyInsanAdapter extends ArrayAdapter<Insan> {
         lala = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final InsanHolder insanholder;
         final int pozisyon = position;
         if (convertView == null) {
@@ -117,6 +117,9 @@ public class ShappyInsanAdapter extends ArrayAdapter<Insan> {
                 String faceprofilurl = objects.get(pozisyon).getFaceprofilur();
                 String cinsiyet = objects.get(pozisyon).getCinsiyet();
                 String burc = objects.get(pozisyon).getBurc();
+                String okul = objects.get(pozisyon).getOkul();
+                String yas = objects.get(pozisyon).getYas();
+                String coverfotourl = objects.get(pozisyon).getCoverphotourl();
                 Intent intent = new Intent(context, Mesajlasma.class);
                 intent.putExtra("faceprofilurl", faceprofilurl);
                 intent.putExtra("karsiserverid", id);
@@ -126,6 +129,9 @@ public class ShappyInsanAdapter extends ArrayAdapter<Insan> {
                 intent.putExtra("karsiresimpath", resimpath);
                 intent.putExtra("cinsiyet", cinsiyet);
                 intent.putExtra("burc", burc);
+                intent.putExtra("okul", okul);
+                intent.putExtra("yas" , yas);
+                intent.putExtra("coverfotourl" , coverfotourl);
                 intent.putExtra("intentname", "ShappyInsanAdapter");
                 context.startActivity(intent);
             }
@@ -134,6 +140,7 @@ public class ShappyInsanAdapter extends ArrayAdapter<Insan> {
             @Override
             public void onClick(View v) {
                 String faceprofilurl = objects.get(pozisyon).getFaceprofilur();
+                String karsiserverid = objects.get(pozisyon).getId();
                 String isim = objects.get(pozisyon).getName();
                 String cinsiyet = objects.get(pozisyon).getCinsiyet();
                 String okul = objects.get(pozisyon).getOkul();
@@ -141,14 +148,20 @@ public class ShappyInsanAdapter extends ArrayAdapter<Insan> {
                 String yas = objects.get(pozisyon).getYas();
                 String burc = objects.get(pozisyon).getBurc();
                 String coverfotourl = objects.get(pozisyon).getCoverphotourl();
+                String resimpath = objects.get(pozisyon).getResimpath();
+                String bandurumu = objects.get(pozisyon).getBandurumu();
                 Intent i = new Intent(context, KarsiProfil.class);
+                i.putExtra("intentname" , "ShappyInsanAdapter");
                 i.putExtra("karsifaceprofilurl", faceprofilurl);
+                i.putExtra("karsiresimpath" , resimpath);
                 i.putExtra("isim", isim);
+                i.putExtra("karsiserverid" , karsiserverid);
                 i.putExtra("cinsiyet", cinsiyet);
                 i.putExtra("okul", okul);
                 i.putExtra("durum", durum);
                 i.putExtra("yas", yas);
                 i.putExtra("burc" , burc);
+                i.putExtra("bandurumu" , bandurumu);
                 i.putExtra("coverfotourl", coverfotourl);
                 context.startActivity(i);
             }

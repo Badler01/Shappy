@@ -27,6 +27,7 @@ import com.felipecsl.quickreturn.library.widget.AbsListViewScrollTarget;
 import com.felipecsl.quickreturn.library.widget.QuickReturnAdapter;
 import com.felipecsl.quickreturn.library.widget.QuickReturnTargetView;
 
+import org.acra.ACRA;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,8 +71,7 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
 
     private String SharedPrefIdAl() {
         SharedPreferences sP = getActivity().getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        String serverid = sP.getString("serverid", "defaultid");
-        return serverid;
+        return sP.getString("serverid", "defaultid");
     }
 
     public static PageFragment0 newInstance(int page) {
@@ -80,10 +80,6 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
         PageFragment0 fragment = new PageFragment0();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public static void spinnerkapat(){
-        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void onStart() {
@@ -166,6 +162,9 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
             List<String> kacyenimesajlar = dbA.databasedenkacyenimesajcek();
             List<String> cinsiyetler = dbA.databasedencinsiyetcek();
             List<String> burclar = dbA.databasedenburccek();
+            List<String> yaslar = dbA.databasedenyascek();
+            List<String> okullar = dbA.databasedenokulcek();
+            List<String> coverfotourrler = dbA.databasedencoverfotourlcek();
             dbA.close();
             for (int i = idler.size() - 1; i > -1; i--) {
                 Insan insann = new Insan();
@@ -183,6 +182,9 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                 insann.setBandurumu(bandurumu);
                 insann.setCinsiyet(cinsiyetler.get(i));
                 insann.setBurc(burclar.get(i));
+                insann.setYas(yaslar.get(i));
+                insann.setOkul(okullar.get(i));
+                insann.setCoverphotourl(coverfotourrler.get(i));
                 shappyinsanlistesi.add(insann);
             }
             shappyInsanAdapter = new ShappyInsanAdapter(getActivity(), R.layout.gecmisinsan, shappyinsanlistesi);
@@ -232,6 +234,11 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
         List<String> faceprofilurller = dB.databasedenfaceprofilurlcek();
         List<String> yenimesajvarmilar = dB.databasedenyenimesajvarmilarcek();
         List<String> kacyenimesajlar = dB.databasedenkacyenimesajcek();
+        List<String> cinsiyetler = dB.databasedencinsiyetcek();
+        List<String> burclar = dB.databasedenburccek();
+        List<String> yaslar = dB.databasedenyascek();
+        List<String> okullar = dB.databasedenokulcek();
+        List<String> coverfotourller = dB.databasedencoverfotourlcek();
         dB.close();
         for (int i = idler.size() - 1; i > -1; i--) {
             Insan insann = new Insan();
@@ -249,6 +256,11 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
             insann.setFaceprofilur(faceprofilurller.get(i));
             insann.setYenimesajvarmi(yenimesajvarmilar.get(i));
             insann.setKacyenimesaj(kacyenimesajlar.get(i));
+            insann.setCinsiyet(cinsiyetler.get(i));
+            insann.setBurc(burclar.get(i));
+            insann.setYas(yaslar.get(i));
+            insann.setOkul(okullar.get(i));
+            insann.setCoverphotourl(coverfotourller.get(i));
             gecmisinsanlistesi.add(insann);
         }
 
@@ -281,7 +293,6 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bambam) {
         view = inflater.inflate(R.layout.cevrendekiler, container, false);
         kisiyokkonusmalar = (ImageView) view.findViewById(R.id.kisiyokkonusmalar);
-        progressBar = (ProgressBar) view.findViewById(R.id.pbLoading);
         swipe = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             public void onRefresh() {
@@ -419,6 +430,9 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                 List<String> kacyenimesajlar = dbA.databasedenkacyenimesajcek();
                 List<String> cinsiyetler = dbA.databasedencinsiyetcek();
                 List<String> burclar = dbA.databasedenburccek();
+                List<String> yaslar = dbA.databasedenyascek();
+                List<String> okullar = dbA.databasedenokulcek();
+                List<String> coverfotourller = dbA.databasedencoverfotourlcek();
                 dbA.close();
                 for (int i = idler.size() - 1; i > -1; i--) {
                     Insan insann = new Insan();
@@ -435,9 +449,10 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                     insann.setKacyenimesaj(kacyenimesajlar.get(i));
                     insann.setBandurumu(bandurumu);
                     insann.setCinsiyet(cinsiyetler.get(i));
-                    Log.i("tago", "cinsiyetr" + cinsiyetler.get(i));
-                    Log.i("tago", "burclarr" + burclar.get(i));
                     insann.setBurc(burclar.get(i));
+                    insann.setYas(yaslar.get(i));
+                    insann.setOkul(okullar.get(i));
+                    insann.setCoverphotourl(coverfotourller.get(i));
                     shappyinsanlistesi.add(insann);
                 }
                 if (shappyinsanlistesi.size() == 0) {
@@ -479,7 +494,7 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                             ServerCevredekileriCek sCC = new ServerCevredekileriCek(serverid);
                             sCC.execute();
                         } else {
-                            Toast.makeText(getActivity(), "Connection Error With Server", Toast.LENGTH_LONG);
+                            Toast.makeText(getActivity(), "Connection Error With Server", Toast.LENGTH_LONG).show();
                             getActivity().finish();
                         }
                     } catch (InterruptedException e) {
@@ -519,7 +534,6 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
     }
 
     public void aramaYap(String arananyazi) {
-        Log.i("tago" , "arananyazi " + arananyazi);
         if(hangibolumdesin==1){
             cevrendekiInsanAdapter.getFilter().filter(arananyazi);
         }
@@ -571,9 +585,8 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
 
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
-            Log.i("tago" , "gonderilen serverid " + serverid);
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/near_users.php?id=" + serverid)
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/shappy/near_users.php?id=" + URLEncoder.encode(serverid,charset))
                         .openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -623,7 +636,8 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                     }
                 } else {
                     in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-                    Log.i("tago", "Error Stream");
+                    Throwable a = new Throwable("Cevrendeki insanlar connection getErrorStream");
+                    ACRA.getErrorReporter().handleSilentException(a);
                     String inputline = null;
                     for (int i = 0; i < 3; i++) {
                         inputline = in.readLine();
@@ -656,9 +670,12 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
                 in.close();
             } catch (IOException e) {
                 e.printStackTrace();
+                Throwable a = new Throwable("Cevrendeki insanlar IOException");
+                ACRA.getErrorReporter().handleSilentException(a);
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.i("tago", "json Exception");
+                Throwable a = new Throwable("Cevrendeki insanlar JSONException");
+                ACRA.getErrorReporter().handleSilentException(a);
             }
             return "inputline";
         }
@@ -691,7 +708,6 @@ public class PageFragment0 extends Fragment implements AbsListView.OnScrollListe
             }
             for(int i =0 ; i<silineceklerListesi.size();i++){
                 int a = silineceklerListesi.get(i);
-                Log.i("tago" , "siline "+ a);
                 cevrendekiinsanListesi.remove(a);
             }
             cevrendekiInsanAdapter = new CevrendekiInsanAdapter(getActivity(), R.layout.insan, cevrendekiinsanListesi,progressBar);

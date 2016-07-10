@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ public class DatabaseClassKiminleKonustun {
     Context context;
     private static File kayityeri;
     private static SQLiteDatabase sqlitedatabaseobjesi;
-    int hangisatir = 0;
     boolean oncedenvar = false;
     String varolanid = null;
 
@@ -74,13 +72,10 @@ public class DatabaseClassKiminleKonustun {
             if (karsiid.equals(a.get(i))) {
                 oncedenvar = true;
                 varolanid = a.get(i);
-                Log.i("tago", "hangi onceden var" + String.valueOf(oncedenvar));
             }
         }
         if (oncedenvar) {
             int c = sqlitedatabaseobjesi.delete(TABLENAME, KARSIID + "=" + varolanid, null);
-            Log.i("tago", "hangi satir " + hangisatir);
-            Log.i("tago", "hangi dondu" + c);
         }
         if (!oncedenvar) {
             ContentValues cV = new ContentValues();
@@ -129,7 +124,6 @@ public class DatabaseClassKiminleKonustun {
         int karsiidindexi = c.getColumnIndex(KARSIID);
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
             kayitliidler.add(c.getString(karsiidindexi));
-            Log.i("tago", "hangi id" + c.getString(karsiidindexi));
         }
         c.close();
         return kayitliidler;
@@ -185,19 +179,6 @@ public class DatabaseClassKiminleKonustun {
         }
         c.close();
         return kayitlifaceprofilurller;
-    }
-
-    public List<String> databasedenbandurumucek() {
-        String[] kolonlar = new String[]{ROWID, KARSIID, KARSIISIM, KARSIRESIMPATH, KARSIDURUM, RESIMMODU, BANDURUMU, KARSIFACEPROFILURL,
-                CINSIYET,BURC,YAS,OKUL,COVERFOTOURL,YENIMESAJVARMI, KACYENIMESAJ};
-        Cursor c = sqlitedatabaseobjesi.query(TABLENAME, kolonlar, null, null, null, null, null);
-        List<String> kayitlibandurumlari = new ArrayList<>();
-        int bandurumuindexi = c.getColumnIndex(BANDURUMU);
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            kayitlibandurumlari.add(c.getString(bandurumuindexi));
-        }
-        c.close();
-        return kayitlibandurumlari;
     }
 
     public String databasedenresmiacikmicek(String karsiid) {

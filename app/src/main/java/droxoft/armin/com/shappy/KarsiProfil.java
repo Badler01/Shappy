@@ -141,7 +141,44 @@ public class KarsiProfil extends Activity {
                 return false;
 
             }});
-
+        ImageView imageviewburc = (ImageView) findViewById(R.id.imageView28);
+        if (burc.equals("oglak")) {
+            imageviewburc.setImageResource(R.drawable.ktoglak);
+            imageviewburc.setContentDescription("Oğlak");
+        } else if (burc.equals("kova")) {
+            imageviewburc.setImageResource(R.drawable.ktkova);
+            imageviewburc.setContentDescription("Kova");
+        } else if (burc.equals("balik")) {
+            imageviewburc.setImageResource(R.drawable.ktbalik);
+            imageviewburc.setContentDescription("Balık");
+        } else if (burc.equals("koc")) {
+            imageviewburc.setImageResource(R.drawable.ktkoc);
+            imageviewburc.setContentDescription("Koç");
+        } else if (burc.equals("boga")) {
+            imageviewburc.setImageResource(R.drawable.ktboga);
+            imageviewburc.setContentDescription("Boğa");
+        } else if (burc.equals("ikizler")) {
+            imageviewburc.setImageResource(R.drawable.ktikizler);
+            imageviewburc.setContentDescription("İkizler");
+        } else if (burc.equals("yengec")) {
+            imageviewburc.setImageResource(R.drawable.ktyengec);
+            imageviewburc.setContentDescription("Yengeç");
+        } else if (burc.equals("Aslan")) {
+            imageviewburc.setContentDescription("Aslan");
+            imageviewburc.setImageResource(R.drawable.ktaslan);
+        } else if (burc.equals("basak")) {
+            imageviewburc.setImageResource(R.drawable.ktbasak);
+            imageviewburc.setContentDescription("Başak");
+        } else if (burc.equals("terazi")) {
+            imageviewburc.setImageResource(R.drawable.ktterazi);
+            imageviewburc.setContentDescription("Terazi");
+        } else if (burc.equals("akrep")) {
+            imageviewburc.setImageResource(R.drawable.ktakrep);
+            imageviewburc.setContentDescription("Akrep");
+        } else if (burc.equals("yay")) {
+            imageviewburc.setImageResource(R.drawable.ktyay);
+            imageviewburc.setContentDescription("Yay");
+        }
     }
 
     private Bitmap getCircleBitmap(Bitmap b) {
@@ -246,6 +283,7 @@ public class KarsiProfil extends Activity {
         tmpOut.copyTo(outputBitmap);
         return outputBitmap;
     }
+
     public Bitmap antiblur(Bitmap image, float radius) {
         final float BLUR_RADIUS = radius;
         if (null == image) return null;

@@ -216,7 +216,8 @@ public class PushReceiver extends BroadcastReceiver {
                     File a = new File(konusulanresimler, banlayanid + "pic.jpeg");
                     DatabaseClassKimleriActirdin dCKA = new DatabaseClassKimleriActirdin(context);
                     dCKA.open();
-                    dCKA.olustur(banlayanid, banlayanisim, a.getAbsolutePath(), banlayandurum, "evet", banlayanfaceprofilurl,cinsiyet,burc,"yok" , "0");
+                    dCKA.olustur(banlayanid, banlayanisim, a.getAbsolutePath(), banlayandurum, "evet", banlayanfaceprofilurl,cinsiyet,burc,yas,
+                            okul,coverfotourl,"yok" , "0");
                     dCKA.close();
                 }
                 if(bildirimleracikmi) {
@@ -253,9 +254,14 @@ public class PushReceiver extends BroadcastReceiver {
             String borndate = bundle.getString("borndate");
             String okul = bundle.getString("school");
             String coverfotourl = bundle.getString("cover_photo");
-            Log.i("tago" , "pushor" + borndate);
-            Log.i("tago" , "pushor" + okul);
-            Log.i("tago" , "pushor" + coverfotourl);
+            if(coverfotourl==null){
+                coverfotourl = "aaa";
+            }
+            if(coverfotourl!=null){
+                if(coverfotourl.equals("NULL")){
+                    coverfotourl = "aaa";
+                }
+            }
             String year = borndate.substring(0, 4);
             String month = borndate.substring(5, 7);
             String day = borndate.substring(8, 10);
@@ -326,7 +332,8 @@ public class PushReceiver extends BroadcastReceiver {
                     int q = Integer.valueOf(yenimesajsayisi) + 1;
                     String yepismesajsayisi = String.valueOf(q);
                     String bandurumu = lll.databasedenbanlanmadurumucek(karsiid);
-                    lll.olustur(karsiid,karsiname,a.getAbsolutePath(),karsidurum,bandurumu,karsifaceprofilurl,cinsiyet,burc,"var",yepismesajsayisi);
+                    lll.olustur(karsiid,karsiname,a.getAbsolutePath(),karsidurum,bandurumu,karsifaceprofilurl,cinsiyet,burc,yas,okul,
+                            coverfotourl,"var",yepismesajsayisi);
                     lll.close();
                     adamacikmi = "acik";
                 } else if (adamvarmi.equals("var") && adamacikmi.equals("degil")) {
@@ -402,6 +409,9 @@ public class PushReceiver extends BroadcastReceiver {
                             i.putExtra("karsibandurumu", bandurumu);
                             i.putExtra("cinsiyet" , cinsiyet);
                             i.putExtra("burc" , burc);
+                            i.putExtra("yas" , yas);
+                            i.putExtra("okul" , okul);
+                            i.putExtra("coverfotourl" , coverfotourl);
                             i.putExtra("intentname", "PushReceiverShappy");
                             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1000, i, PendingIntent.FLAG_UPDATE_CURRENT);
                             notification.setContentIntent(pendingIntent);

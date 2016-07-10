@@ -130,11 +130,10 @@ public class GecmisInsanAdapter extends ArrayAdapter<Insan> {
             insanholder.banlananinsanicon.setVisibility(View.VISIBLE);
         }
         if(objects.get(position).getResmiacik().equals("degil")){
-            Log.i("tago" , "resmiacikdegil");
             String bilinmeyenpath = sharedPrefBilinmeyenPathAl();
             Bitmap b = BitmapFactory.decodeFile(bilinmeyenpath);
             if(b==null){
-                Log.i("tago" , "resmiaciknull");
+
             }else{
                 insanholder.insanresmi.setImageBitmap(b);
             }
@@ -219,7 +218,6 @@ public class GecmisInsanAdapter extends ArrayAdapter<Insan> {
 
     public Filter getFilter() {
         if (insanfilter==null){
-            Log.i("tago" , "gecmis insanfilter bos");
         }
         return insanfilter;
     }

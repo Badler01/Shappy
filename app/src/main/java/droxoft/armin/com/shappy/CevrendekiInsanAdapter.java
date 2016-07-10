@@ -21,7 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
-public class CevrendekiInsanAdapter extends ArrayAdapter implements Filterable {
+public class CevrendekiInsanAdapter extends ArrayAdapter<Insan> implements Filterable {
 
     LayoutInflater layoutInflater;
     Context context;
@@ -159,7 +159,6 @@ public class CevrendekiInsanAdapter extends ArrayAdapter implements Filterable {
 
     public Filter getFilter() {
         if (insanfilter == null) {
-
         }
         return insanfilter;
     }
@@ -182,4 +181,5 @@ public class CevrendekiInsanAdapter extends ArrayAdapter implements Filterable {
         public TextView insanadi, insandurumu, insanuzakligi;
         public LinearLayout esasbolge;
     }
+
 }

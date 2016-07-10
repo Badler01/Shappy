@@ -133,7 +133,7 @@ public class Mesajlasma extends AppCompatActivity {
             List<String> varolanlar = dCKA.databasedenidcek();
             for (String f : varolanlar) {
                 if (f.equals(karsiserverid)) {
-                    dCKA.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
+                    dCKA.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl, "yok", "0");
                     dCKK.kisiyisil(karsiserverid);
                 }
             }
@@ -214,15 +214,15 @@ public class Mesajlasma extends AppCompatActivity {
             resmiacikmi = "acik";
             DatabaseClassKimleriActirdin poo = new DatabaseClassKimleriActirdin(this);
             poo.open();
-            poo.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, karsibandurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
+            poo.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, karsibandurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,
+                    coverfotourl,"yok", "0");
             poo.close();
         }
     }
 
     private String SharedPrefIdAl() {
         SharedPreferences sP = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        String kendiserverid = sP.getString("serverid", "defaultid");
-        return kendiserverid;
+        return sP.getString("serverid", "defaultid");
     }
 
     private void SharedPrefNotificationKaydet(boolean notificationbas) {
@@ -296,8 +296,6 @@ public class Mesajlasma extends AppCompatActivity {
             yas = i.getStringExtra("yas");
             okul = i.getStringExtra("okul");
             coverfotourl = i.getStringExtra("coverfotourl");
-            Log.i("tago", " burc" + burc);
-            Log.i("tago", " cinsiyet" + cinsiyet);
             try {
                 karsiresim = new urldenResimm().execute(karsifaceprofilurl).get();
             } catch (InterruptedException e) {
@@ -327,17 +325,18 @@ public class Mesajlasma extends AppCompatActivity {
             karsifaceprofilurl = i.getStringExtra("faceprofilurl");
             cinsiyet = i.getStringExtra("cinsiyet");
             burc = i.getStringExtra("burc");
-            Log.i("tago", "cinsiyet ShappyInsanAdapter" + cinsiyet);
-            Log.i("tago", " burc ShappyInsanAdapter" + burc);
+            yas = i.getStringExtra("yas");
+            okul = i.getStringExtra("okul");
+            coverfotourl = i.getStringExtra("coverfotourl");
             String karsiresimpath = i.getStringExtra("karsiresimpath");
             karsiresim = BitmapFactory.decodeFile(karsiresimpath);
             resmiacikmi = "acik";
             DatabaseClassKimleriActirdin uuu = new DatabaseClassKimleriActirdin(this);
             uuu.open();
-            uuu.olustur(karsiserverid, karsiisim, karsiresimpath, karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
+            uuu.olustur(karsiserverid, karsiisim, karsiresimpath, karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul
+                    ,coverfotourl,"yok", "0");
             uuu.close();
         } else if (i.getStringExtra("intentname").equals("PushReceiverShappy")) {
-            Log.i("tago", "notiden gelindi");
             DatabaseClassNotification dCN = new DatabaseClassNotification(this);
             dCN.open();
             dCN.deleteAll();
@@ -348,8 +347,10 @@ public class Mesajlasma extends AppCompatActivity {
             karsifaceprofilurl = i.getStringExtra("karsifaceprofilurl");
             cinsiyet = i.getStringExtra("cinsiyet");
             burc = i.getStringExtra("burc");
-            Log.i("tago", "cinsiyet PushReceiverShappy" + cinsiyet);
-            Log.i("tago", " burc PushReceiverShappy" + burc);
+            yas = i.getStringExtra("yas");
+            okul = i.getStringExtra("okul");
+            coverfotourl = i.getStringExtra("coverfotourl");
+            banlanmadurumu = i.getStringExtra("karsibandurumu");
             String karsiresmpath = i.getStringExtra("karsiresimpath");
             String karsibandurumu = i.getStringExtra("karsibandurumu");
             try {
@@ -362,7 +363,8 @@ public class Mesajlasma extends AppCompatActivity {
             resmiacikmi = "acik";
             DatabaseClassKimleriActirdin ooo = new DatabaseClassKimleriActirdin(this);
             ooo.open();
-            ooo.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, karsibandurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
+            ooo.olustur(karsiserverid, karsiisim, karsiresmpath, karsidurum, karsibandurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,
+                    coverfotourl,"yok", "0");
             ooo.close();
         } else if (i.getStringExtra("intentname").equals("PushReceiverGecmis")) {
             DatabaseClassNotification dCN = new DatabaseClassNotification(this);
@@ -673,11 +675,17 @@ public class Mesajlasma extends AppCompatActivity {
                         (ViewGroup) findViewById(R.id.toastburc));
                 TextView text = (TextView) layout.findViewById(R.id.textburc);
                 text.setText(imageviewburc.getContentDescription());
-                Toast toast = new Toast(getApplicationContext());
+                final Toast toast = new Toast(getApplicationContext());
                 toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
                 toast.setDuration(Toast.LENGTH_SHORT);
                 toast.setView(layout);
                 toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 500);
                 return false;
             }
         });
@@ -860,7 +868,8 @@ public class Mesajlasma extends AppCompatActivity {
             List<String> acilanidler = www.databasedenidcek();
             for (String i : acilanidler) {
                 if (i.equals(karsiserverid)) {
-                    www.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
+                    www.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,
+                            coverfotourl,"yok", "0");
                     DatabaseClassKiminleKonustun eee = new DatabaseClassKiminleKonustun(Mesajlasma.this);
                     eee.open();
                     eee.kisiyisil(karsiserverid);
@@ -979,7 +988,8 @@ public class Mesajlasma extends AppCompatActivity {
         swsw.close();
         DatabaseClassKimleriActirdin dbA = new DatabaseClassKimleriActirdin(this);
         dbA.open();
-        dbA.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
+        dbA.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,
+                coverfotourl,"yok", "0");
         dbA.close();
     }
 
@@ -1091,14 +1101,13 @@ public class Mesajlasma extends AppCompatActivity {
         List<String> varolanlar = dCKA.databasedenidcek();
         for (String f : varolanlar) {
             if (f.equals(karsiserverid)) {
-                dCKA.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc, "yok", "0");
+                dCKA.olustur(karsiserverid, karsiisim, a.getAbsolutePath(), karsidurum, banlanmadurumu, karsifaceprofilurl, cinsiyet, burc,yas,okul,coverfotourl,
+                        "yok", "0");
                 dCKK.kisiyisil(karsiserverid);
             }
         }
         dCKK.close();
         dCKA.close();
-        Animation barisikanimation = AnimationUtils.loadAnimation(this, R.anim.barisik);
-        //ilerleyenimagetutucu.startAnimation(barisikanimation);
         edittextyazmaalani.setHint("Banladığınız insana yazamazsınız");
         edittextyazmaalani.setEnabled(false);
         banlanmaperdesi.setVisibility(View.VISIBLE);
