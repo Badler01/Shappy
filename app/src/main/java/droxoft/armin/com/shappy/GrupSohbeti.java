@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -312,6 +314,7 @@ public class GrupSohbeti extends Activity {
     private void kanaldancikmaislemi() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialogkanaldancik);
         dialog.getWindow().setDimAmount(0.7f);
         dialog.show();
@@ -375,11 +378,13 @@ public class GrupSohbeti extends Activity {
         final String knaladi = kanaladi;
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialognormalkanalireportet);
         dialog.getWindow().setDimAmount(0.7f);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         ImageButton buton1 = (ImageButton) dialog.findViewById(R.id.button25);
+        ImageButton buton2 = (ImageButton) dialog.findViewById(R.id.ibKanalReportHayir);
         //final EditText etv1 = (EditText) dialog.findViewById(R.id.editText11);
         buton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -388,6 +393,12 @@ public class GrupSohbeti extends Activity {
                 ServerKanalReport sKR = new ServerKanalReport(sikayetnedeni, knaladi);
                 String veritabani_id = SharedPrefIdAl();
                 sKR.execute(veritabani_id);
+                dialog.dismiss();
+            }
+        });
+        buton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });

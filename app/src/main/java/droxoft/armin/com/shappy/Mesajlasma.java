@@ -18,6 +18,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -1072,6 +1073,7 @@ public class Mesajlasma extends AppCompatActivity {
     private void kullaniciyibanlamadialog() {
         final Dialog banlamadialog = new Dialog(this);
         banlamadialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        banlamadialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         banlamadialog.getWindow().setDimAmount(0.7f);
         banlamadialog.setContentView(R.layout.dialogbanlama);
         banlamadialog.show();
@@ -1118,6 +1120,7 @@ public class Mesajlasma extends AppCompatActivity {
     private void sohbettencikmadialog() {
         final Dialog sohbettenayrilmadialog = new Dialog(this);
         sohbettenayrilmadialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        sohbettenayrilmadialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         sohbettenayrilmadialog.getWindow().setDimAmount(0.7f);
         sohbettenayrilmadialog.setContentView(R.layout.dialogsohbettenayrilma);
         sohbettenayrilmadialog.show();
