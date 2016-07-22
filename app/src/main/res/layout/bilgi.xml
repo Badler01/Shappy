@@ -73,28 +73,6 @@
                 android:textColor="#b5000000" />
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Doğum tarihinizi girin"
-                android:ems="10"
-                android:id="@+id/editText7"
-                android:background="@mipmap/tarih"
-                android:layout_gravity="left|center_vertical"
-                android:textSize="14dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:textStyle="bold"
-                android:textColorHint="#c8c8c8"
-                android:textColor="#b5000000" />
-
-        </FrameLayout>
     </LinearLayout>
 
     <ImageButton

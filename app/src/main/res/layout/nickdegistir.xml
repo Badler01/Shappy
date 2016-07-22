@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageButton6"
             android:background="#00000000"
-            android:src="@mipmap/iptal" />
+            android:src="@mipmap/iptall" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             android:text="New Button"
             android:id="@+id/button3"
             android:background="#00000000"
-            android:src="@mipmap/tamam_kucuk"
+            android:src="@mipmap/tamamm"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/imageButton6" />
     </RelativeLayout>
