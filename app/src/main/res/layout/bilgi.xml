@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView15"
-        android:src="@mipmap/nick_isteme_iki"
+        android:src="@mipmap/nick_isteme_uc"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp" />
 
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="280dp">
+        android:layout_marginTop="230dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -71,6 +71,29 @@
                 android:textStyle="bold"
                 android:textColorHint="#c8c8c8"
                 android:textColor="#b5000000" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Kendinizi anlatan bir yazı yazın ..."
+                android:ems="10"
+                android:id="@+id/editText"
+                android:background="@mipmap/acik"
+                android:textSize="14dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textStyle="bold"
+                android:textColorHint="#c8c8c8"
+                android:textColor="#b5000000"
+                android:inputType="textCapWords"
+                android:paddingBottom="65dp"
+                android:paddingRight="10dp" />
         </FrameLayout>
 
     </LinearLayout>
